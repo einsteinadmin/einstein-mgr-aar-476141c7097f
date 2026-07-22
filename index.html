@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein QGR Prep — Manager Hub</title>
-<!-- v1.1-web 2026-07-22 -->
+<!-- v1.2-web 2026-07-22 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -124,7 +124,19 @@ details.defs[open] summary:before{content:"▾ "}
 .q-block textarea.depth{min-height:64px}
 .q-block textarea.note-missing{border-color:var(--orange-500);background:var(--orange-50)}
 .depth-hint{font-size:11px;color:var(--orange-900);background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-sm);padding:5px 10px;margin-top:10px;display:inline-block}
-.bullets-note{font-size:12px;color:var(--navy-500);background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px;line-height:1.6}
+.bullets-mini{font-size:11.5px;color:var(--navy-500);background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-sm);padding:8px 12px;margin-top:12px;line-height:1.55}
+.bullets-mini details{margin-top:4px;color:var(--grey-500)}
+.bullets-mini summary{cursor:pointer;font-weight:700;color:var(--orange-900);font-size:11px}
+.interview-callout{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--radius-md);padding:14px 18px;margin-bottom:16px;font-size:12.5px;color:var(--blue-900);line-height:1.55}
+.ic-actions{display:flex;gap:8px;margin-top:10px}
+.ic-btn{background:var(--blue-500);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 16px;font-size:12px;font-weight:700}
+.ic-btn:hover{background:var(--blue-700)}
+.ic-btn.secondary{background:#fff;color:var(--blue-700);border:1px solid var(--blue-100)}
+#pasteWrap{margin-top:10px}
+#pasteBox{width:100%;min-height:110px;border:1px solid var(--blue-100);border-radius:var(--radius-sm);padding:10px;font:inherit;font-size:12px;margin-bottom:8px;resize:vertical}
+.take-chip{font-size:12px;color:var(--navy-500);background:var(--navy-50);border:1px solid var(--navy-100);border-radius:var(--radius-sm);padding:8px 12px;margin-top:10px;line-height:1.5}
+.take-use{background:#fff;border:1px solid var(--navy-200);border-radius:var(--radius-sm);padding:4px 10px;font-size:11px;font-weight:700;color:var(--navy-500);margin-left:6px}
+.take-use:hover{border-color:var(--navy-400)}
 .roadmap-card{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:20px 24px;margin-top:26px}
 .roadmap-card h3{font-size:15px;margin-bottom:4px}
 .roadmap-card .rm-sub{font-size:12px;color:var(--grey-400);margin-bottom:12px}
@@ -190,7 +202,7 @@ footer{background:var(--navy-700);color:var(--navy-100);text-align:center;paddin
 </head>
 <body>
 <header id="appHeader">
-  <div class="brand"><span class="bebas">EINSTEIN QGR PREP</span><span class="tag">Manager AAR &amp; Self-Eval · Q2 2026 · v1.1</span></div>
+  <div class="brand"><span class="bebas">EINSTEIN QGR PREP</span><span class="tag">Manager AAR &amp; Self-Eval · Q2 2026 · v1.2</span></div>
   <div class="savebox" id="saveBox">Local only — nothing leaves this computer<br><b id="saveStamp">—</b></div>
 </header>
 <main>
@@ -202,6 +214,7 @@ footer{background:var(--navy-700);color:var(--navy-100);text-align:center;paddin
 <div class="toast" id="toast"></div>
 
 <script src="preload-data.js"></script>
+<script src="aar-takes.js"></script><!-- optional: "our take" pre-population from the QGR manifest; 404 is harmless -->
 <script>
 /* ============ Constants ============ */
 const LS_KEY = "einstein-aar-mgr-v1";
@@ -466,7 +479,9 @@ function sectionGoals(person, rec){
   const goals = person.goals||[];
   let html = '<div class="section" id="sec-goals"><div class="shead"><h3>1 · Goal AAR — the four questions</h3>'+(goalsDone(person,rec)?'<span class="done-chip">✓ all goals colored</span>':'')+'</div>'+
     '<div class="shelp">One block per Q2 goal. Color it against the <b>written</b> Green / Super Green definition from quarter start (expand it under each goal) — not the vibe. If the quarter is still running, grade where it lands by 7/31 and check <b>PROJ</b>. On your Critical # goals, questions 2 and 4 get short paragraphs, not sentences.</div>'+
-    '<div class="bullets-note"><b>🎯 Bullets before cannons</b> — an old business idea, in plain words: before a ship fires its big cannon, it fires cheap bullets to find the range. A <b>bullet</b> is a small, low-cost experiment — a new phone script, a schedule tweak, a different way to run trial days. A <b>cannon</b> is going big on something <i>after</i> a bullet proved it works. Question 4 is asking about your bullets: what did you actually <b>try</b> this quarter beyond the standard work of your seat? Doing the routine well isn\'t a bullet — that\'s question 2. And which bullet deserves a cannon next quarter?</div>';
+    '<div class="interview-callout"><div><b>🎙 Recommended: let Claude interview you instead of typing cold.</b> Copy the prompt, paste it into your Claude account, and talk through your quarter — Claude pushes back on your colors and vague answers, then hands you a block you paste straight back in here and every field fills itself.</div>'+
+    '<div class="ic-actions"><button class="ic-btn" data-copyinterview>Copy interview prompt</button><button class="ic-btn secondary" data-pasteback>Paste Claude\'s results</button></div>'+
+    '<div id="pasteWrap" style="display:none"><textarea id="pasteBox" placeholder="Paste Claude\'s whole final answer here — I\'ll find the answers block and fill in your goals."></textarea><button class="ic-btn" id="applyPaste">Fill my form from this</button></div></div>';
   if(!goals.length){
     html += '<div class="nodata">No goal block found for you in the Q2 Cascading Goals sheet. Flag this to your regional — we\'ll load them and your page will fill in.</div></div>';
     return html;
@@ -486,10 +501,18 @@ function sectionGoals(person, rec){
       '</div></details>'+
       '<div style="display:flex;align-items:center">'+chipRowHtml("goal:"+g.num, SGR_OPTIONS, gr.color)+
       '<label class="proj-toggle"><input type="checkbox" data-proj="'+g.num+'"'+(gr.proj?' checked':'')+'> PROJ (quarter still running)</label></div>';
+    const take = (typeof TAKES!=="undefined" && TAKES[person.id] && TAKES[person.id][g.num]) || null;
+    if(take && !(gr.results||"").trim()){
+      html += '<div class="take-chip">📊 <b>Our take, from the Q2 data:</b> '+esc(take)+' <button class="take-use" data-usetake="'+g.num+'">Start my Results from this</button></div>';
+    }
     AAR_QUESTIONS.forEach(q=>{
       const deep = g.critical && (q.k==="how"||q.k==="diff");
       const val = gr[q.k]||"";
       const missing = gr.color && q.k==="results" && !val.trim();
+      if(q.k==="diff"){
+        html += '<div class="bullets-mini">🎯 <b>Bullets before cannons</b> — a <b>bullet</b> is a small cheap experiment beyond your seat\'s standard routine; a <b>cannon</b> is going big once a bullet proves out. This question wants your bullets — the routine done well belongs in question 2.'+
+          '<details><summary>the full metaphor, in plain words</summary>Before a ship fires its big cannon, it fires cheap bullets to find the range. A bullet costs little if it misses — a new phone script, a schedule tweak, a different way to run trial days. Once a bullet hits, you fire the cannon: commit real time and money to it. Tell us what you tried, what it taught you, and which bullet deserves a cannon next quarter.</details></div>';
+      }
       html += '<div class="q-block"><label>'+q.label+' <span class="qhint">— '+esc(q.hint)+'</span></label>'+
         '<textarea class="'+(deep?'depth ':'')+(missing?'note-missing':'')+'" data-goalq="'+g.num+':'+q.k+'" placeholder="'+(deep?'Critical # — go deeper here.':'')+'">'+esc(val)+'</textarea></div>';
     });
@@ -584,6 +607,53 @@ function wirePerson(person, rec){
       if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
     });
   });
+  const copyInterview = ()=>{
+    const prompt = buildInterviewPrompt(person, rec);
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(prompt).then(()=>toast("Interview prompt copied — paste it into Claude and let it push back"), ()=>{
+        const pv = document.getElementById("mdPreview"); if(pv){ pv.value = prompt; pv.classList.add("show"); } toast("Copy blocked — grab it from the preview in section 6");
+      });
+    } else {
+      const pv = document.getElementById("mdPreview"); if(pv){ pv.value = prompt; pv.classList.add("show"); } toast("Copy not available — grab it from the preview in section 6");
+    }
+  };
+  wrap.querySelectorAll("[data-copyinterview]").forEach(b=>b.addEventListener("click", copyInterview));
+  const pw = document.getElementById("pasteWrap");
+  wrap.querySelectorAll("[data-pasteback]").forEach(b=>b.addEventListener("click", ()=>{
+    pw.style.display = pw.style.display==="none" ? "block" : "none";
+    if(pw.style.display==="block") document.getElementById("pasteBox").focus();
+  }));
+  const applyBtn = document.getElementById("applyPaste");
+  if(applyBtn) applyBtn.addEventListener("click", ()=>{
+    const parsed = parseClaudeResults(document.getElementById("pasteBox").value);
+    if(!parsed || !parsed.goals || !parsed.goals.length){ toast("Couldn't find the answers block — make sure you pasted Claude's WHOLE final message (it ends with a code block)."); return; }
+    let filled = 0, skipped = 0;
+    parsed.goals.forEach(g=>{
+      const known = (person.goals||[]).find(pg=>String(pg.num)===String(g.num));
+      if(!known){ skipped++; return; }
+      const tgt = rec.goals[g.num] = rec.goals[g.num]||{};
+      if(g.color && ["SG","G","R"].includes(g.color)) tgt.color = g.color;
+      tgt.proj = !!g.proj;
+      ["results","how","well","differently"].forEach(k=>{
+        const dst = k==="differently" ? "diff" : k;
+        if(typeof g[k]==="string" && g[k].trim()) tgt[dst] = g[k].trim();
+      });
+      filled++;
+    });
+    queueSave(); renderPerson();
+    toast("Filled "+filled+" goal"+(filled===1?"":"s")+(skipped?" ("+skipped+" skipped — unknown goal number)":"")+" — read them over, they're yours now.");
+  });
+  wrap.querySelectorAll("[data-usetake]").forEach(b=>b.addEventListener("click", ()=>{
+    const n = b.dataset.usetake;
+    const tgt = rec.goals[n] = rec.goals[n]||{};
+    if(!(tgt.results||"").trim()){
+      tgt.results = (TAKES[person.id][n]||"") + " — ";
+      queueSave(); renderPerson();
+      const ta = document.querySelector('[data-goalq="'+n+':results"]');
+      if(ta){ ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }
+    }
+  }));
+
   wrap.querySelectorAll("[data-gtoggle]").forEach(h=>{
     h.addEventListener("click", (e)=>{
       if(e.target.closest("button,input,textarea,details")) return; // don't toggle on inner controls
@@ -756,6 +826,22 @@ function buildJsonRecord(person, rec){
     startedAt: rec.startedAt||null
   };
 }
+function parseClaudeResults(text){
+  if(!text || !text.trim()) return null;
+  // prefer a fenced json block; fall back to the last {...} that parses with a goals array
+  const fences = [...text.matchAll(/```(?:json)?\s*([\s\S]*?)```/g)].map(m=>m[1]);
+  const candidates = fences.length ? fences : [text];
+  for(let i=candidates.length-1; i>=0; i--){
+    const c = candidates[i];
+    const start = c.indexOf("{"), end = c.lastIndexOf("}");
+    if(start===-1 || end<=start) continue;
+    try{
+      const j = JSON.parse(c.slice(start, end+1));
+      if(j && Array.isArray(j.goals)) return j;
+    }catch(e){ /* keep looking */ }
+  }
+  return null;
+}
 function buildInterviewPrompt(person, rec){
   const goals = (person.goals||[]).map(g=>{
     const gr = rec.goals[g.num]||{};
@@ -770,9 +856,12 @@ function buildInterviewPrompt(person, rec){
     "2. How we got here — push past vague answers; ask for the brutal parts.\n"+
     "3. What went well — what should become a playbook.\n"+
     "4. What did I try, and what would I do differently — 'bullets before cannons': a bullet is a small cheap experiment beyond my seat's standard routine; a cannon is going big once a bullet proves out. If I describe routine work as a bullet, call it out. On my CRITICAL # goals, make me go deeper on questions 2 and 4.\n\n"+
-    "Be direct but fair — the goal is a truer self-assessment, not a softer one. When we finish all goals, output my final AAR in EXACTLY this format, one block per goal, no extra prose:\n\n"+
+    "Be direct but fair — the goal is a truer self-assessment, not a softer one. When we finish all goals, output TWO things:\n\n"+
+    "1. My final AAR, one readable block per goal:\n"+
     "## [Goal name] — CRIT: yes/no\n- Color: [SG/G/R] (PROJ if the quarter is still running)\n- Results: ...\n- How we got here: ...\n- Went well: ...\n- Tried / differently / next-quarter lesson: ...\n\n"+
-    "I'll paste that final output back into my AAR tool and send it to my regional.\n\n---\n\n## MY GOALS AND DRAFTS\n\n"+goals;
+    "2. Then a fenced ```json code block in EXACTLY this shape so my AAR tool can auto-fill my form (num must match the goal numbers above; nothing after the block):\n"+
+    '{"goals":[{"num":1,"color":"SG|G|R","proj":true,"results":"...","how":"...","well":"...","differently":"..."}]}\n\n'+
+    "I'll paste your whole final answer back into my AAR tool.\n\n---\n\n## MY GOALS AND DRAFTS\n\n"+goals;
 }
 function downloadFile(filename, text, mime){
   const blob = new Blob([text], {type: mime||"text/plain"});

@@ -5,7 +5,7 @@ const PRELOAD = {
     "extractedAt": "2026-07-21",
     "extractedBy": "sonnet-agent",
     "notes": [
-      "Sanitized deploy copy 2026-07-22: branch financial context + internal data-lineage notes stripped. Canonical (full) copy lives in the EMC workspace."
+      "Sanitized deploy copy: branch financial context + internal data-lineage notes stripped. Canonical (full) copy lives in the EMC workspace."
     ]
   },
   "positions": {
