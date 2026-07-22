@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein QGR Prep — Manager Hub</title>
-<!-- v1.2-web 2026-07-22 -->
+<!-- v1.3-web 2026-07-22 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -625,7 +625,7 @@ function wirePerson(person, rec){
   }));
   const applyBtn = document.getElementById("applyPaste");
   if(applyBtn) applyBtn.addEventListener("click", ()=>{
-    const parsed = parseClaudeResults(document.getElementById("pasteBox").value);
+    const parsed = parseClaudeResults(document.getElementById("pasteBox").value, person);
     if(!parsed || !parsed.goals || !parsed.goals.length){ toast("Couldn't find the answers block — make sure you pasted Claude's WHOLE final message (it ends with a code block)."); return; }
     let filled = 0, skipped = 0;
     parsed.goals.forEach(g=>{
@@ -826,21 +826,80 @@ function buildJsonRecord(person, rec){
     startedAt: rec.startedAt||null
   };
 }
-function parseClaudeResults(text){
+function parseClaudeResults(text, person){
   if(!text || !text.trim()) return null;
-  // prefer a fenced json block; fall back to the last {...} that parses with a goals array
+  // Path 1: a fenced json block (or any {...} with a goals array)
   const fences = [...text.matchAll(/```(?:json)?\s*([\s\S]*?)```/g)].map(m=>m[1]);
-  const candidates = fences.length ? fences : [text];
+  const candidates = fences.length ? fences.concat([text]) : [text];
   for(let i=candidates.length-1; i>=0; i--){
     const c = candidates[i];
     const start = c.indexOf("{"), end = c.lastIndexOf("}");
     if(start===-1 || end<=start) continue;
     try{
       const j = JSON.parse(c.slice(start, end+1));
-      if(j && Array.isArray(j.goals)) return j;
+      if(j && Array.isArray(j.goals) && j.goals.length) return j;
     }catch(e){ /* keep looking */ }
   }
-  return null;
+  // Path 2: fallback — parse the readable "## Goal — CRIT" blocks (different Claudes drift; this format survives)
+  return person ? parseMarkdownResults(text, person) : null;
+}
+function matchGoalByName(name, person){
+  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+  const n = norm(name);
+  if(!n) return null;
+  let best = null;
+  (person.goals||[]).forEach(g=>{
+    const a = norm(g.rock);
+    if(a===n || a.indexOf(n)===0 || n.indexOf(a)===0 || a.includes(n) || n.includes(a)){
+      if(!best || Math.abs(a.length-n.length) < Math.abs(norm(best.rock).length-n.length)) best = g;
+    }
+  });
+  if(!best){
+    // last resort: leading "Goal 2:" / "2 ·" style numbers
+    const m = name.match(/(?:goal\s*)?#?\s*(\d+)\s*[:·.—-]/i);
+    if(m) best = (person.goals||[]).find(g=>String(g.num)===m[1]) || null;
+  }
+  return best;
+}
+function parseMarkdownResults(text, person){
+  const FIELDS = [
+    [/^[-*•]\s*\**color\**\s*:/i, "color"],
+    [/^[-*•]\s*\**results\**\s*:/i, "results"],
+    [/^[-*•]\s*\**how we got (?:here|there)\**\s*:/i, "how"],
+    [/^[-*•]\s*\**(?:what )?went well\**\s*:/i, "well"],
+    [/^[-*•]\s*\**(?:tried|differently|what (?:i(?:'d| would)? |you(?:'d| would)? )?(?:do |try )?differently)[^:]*:/i, "differently"]
+  ];
+  const goals = []; let cur = null, curField = null;
+  const push = ()=>{ if(cur && (cur.color || cur.results || cur.how || cur.well || cur.differently)) goals.push(cur); };
+  for(const raw of text.split(/\r?\n/)){
+    const line = raw.trim();
+    const h = line.match(/^#{2,4}\s+(.+)$/);
+    if(h){
+      push();
+      const name = h[1].replace(/\*/g,"").split(/—|--|\bCRIT\b/i)[0].trim();
+      const pg = matchGoalByName(name, person);
+      cur = pg ? {num: pg.num} : null; curField = null; continue;
+    }
+    if(!cur) continue;
+    let matched = false;
+    for(const [re, f] of FIELDS){
+      if(re.test(line)){
+        const val = line.replace(re,"").replace(/^\**/,"").trim();
+        if(f==="color"){
+          cur.proj = /proj/i.test(val);
+          const v = " "+val.toLowerCase()+" ";
+          cur.color = /super\s*green|[^a-z]sg[^a-z]/.test(v) ? "SG" : /red|[^a-z]r[^a-z]/.test(v) ? "R" : /green|[^a-z]g[^a-z]/.test(v) ? "G" : null;
+          curField = null;
+        } else { cur[f] = val; curField = f; }
+        matched = true; break;
+      }
+    }
+    if(!matched && curField && line && !/^```/.test(line) && !/^[-*•]\s/.test(line)){
+      cur[curField] += "\n"+line;
+    } else if(!matched && /^[-*•]\s/.test(line)){ curField = null; }
+  }
+  push();
+  return goals.length ? {goals} : null;
 }
 function buildInterviewPrompt(person, rec){
   const goals = (person.goals||[]).map(g=>{
