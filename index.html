@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Einstein QGR Prep — Manager Hub</title>
+<!-- v1.1-web 2026-07-22 -->
+<style>
+:root{
+  --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
+  --navy-50:#EEF1F4; --navy-100:#CDD5DA; --navy-200:#9AADB7; --navy-400:#507080; --navy-500:#27343D; --navy-700:#1A2329; --navy-900:#0B1014;
+  --blue-50:#EBF4FB; --blue-100:#C3DFEF; --blue-500:#0979C3; --blue-700:#065E9A; --blue-900:#023B63;
+  --grey-50:#F4F5F5; --grey-100:#E2E3E4; --grey-200:#C0C2C4; --grey-400:#787C7F; --grey-500:#53575A; --grey-700:#363839; --grey-900:#191A1B;
+  --success:#69995D; --error:#CC0100;
+  --text-faint:#5F6468;
+  --radius-sm:6px; --radius-md:12px; --radius-lg:20px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(39,52,61,.08); --shadow-md:0 4px 12px rgba(39,52,61,.10); --shadow-lg:0 12px 32px rgba(39,52,61,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:var(--grey-700);background:var(--grey-50);font-size:14px;line-height:1.5;min-width:980px}
+h1,h2,h3,h4{color:var(--navy-500);font-weight:700}
+a{color:var(--blue-500)}
+button{font:inherit;cursor:pointer}
+::selection{background:var(--blue-100)}
+
+#appHeader{background:var(--navy-500);color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:50;box-shadow:var(--shadow-md)}
+#appHeader .brand{display:flex;align-items:baseline;gap:10px}
+#appHeader .brand .bebas{font-family:'Bebas Neue','Roboto',sans-serif;font-size:26px;letter-spacing:.03em;color:#fff}
+#appHeader .brand .tag{font-size:12px;color:var(--navy-100)}
+#appHeader .savebox{font-size:11px;color:var(--navy-100);text-align:right}
+#appHeader .savebox b{color:#fff}
+main{max-width:1240px;margin:0 auto;padding:28px 28px 90px}
+.view{display:none}
+.view.active{display:block}
+.muted{color:var(--text-faint)}
+.small{font-size:12px}
+.tiny{font-size:11px}
+.badge{display:inline-block;padding:2px 9px;border-radius:var(--radius-pill);font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+.badge.crit{background:var(--orange-100);color:var(--orange-900)}
+.badge.pos{background:var(--navy-50);color:var(--navy-500)}
+.badge.vacant{background:var(--grey-100);color:var(--grey-500)}
+
+/* ---- Landing / find your page ---- */
+.landing-intro{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:24px;margin-bottom:24px}
+.landing-intro h2{font-size:20px;margin-bottom:6px}
+.landing-intro p{font-size:13px;color:var(--grey-500);max-width:760px}
+.region-head{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--grey-400);margin:26px 0 12px;font-weight:700}
+.branch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.b-card{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:18px 20px;box-shadow:var(--shadow-sm)}
+.b-card h3{font-size:15px;margin-bottom:10px}
+.b-card .person-line{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-top:1px solid var(--grey-50);gap:8px}
+.b-card .person-line:first-of-type{border-top:none}
+.b-card .pname{font-size:13px;font-weight:700;color:var(--navy-500)}
+.b-card .pname .role{font-weight:400;color:var(--grey-400);font-size:11.5px;margin-left:6px}
+.b-card .open-btn{background:var(--navy-500);color:#fff;border:none;border-radius:var(--radius-sm);padding:6px 14px;font-size:11.5px;font-weight:700}
+.b-card .open-btn:hover{background:var(--navy-700)}
+.b-card .started{font-size:10px;color:var(--success);font-weight:700}
+
+/* ---- Leadership-went-first band ---- */
+.first-band{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--radius-md);padding:14px 20px;font-size:12.5px;color:var(--blue-900);margin-bottom:20px;display:flex;gap:10px;align-items:flex-start}
+.first-band .fb-ico{font-size:16px;line-height:1.3}
+
+/* ---- Person hub ---- */
+.hub-head{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:18px 24px;margin-bottom:20px;gap:16px}
+.hub-head h2{font-size:21px;margin:0}
+.hub-head .sub{font-size:12px;color:var(--grey-400);margin-top:2px}
+.hub-head .progress-wrap{display:flex;align-items:center;gap:10px}
+.progress-track{width:180px;height:8px;background:var(--grey-100);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--orange-500);transition:width .3s}
+.backlink{background:none;border:none;color:var(--blue-500);font-size:12.5px;font-weight:700;padding:0;margin-bottom:14px;display:inline-block}
+.hub-grid{display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
+.hub-rail .pane{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:16px 18px;margin-bottom:14px}
+.hub-rail .pane h4{font-size:13px;display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.hub-rail .pane p{font-size:11.5px;color:var(--grey-400);line-height:1.5}
+.hub-rail .pane.placeholder{border-style:dashed;background:var(--grey-50)}
+.hub-rail .pane .soon{font-size:9.5px;font-weight:700;background:var(--grey-100);color:var(--grey-500);border-radius:var(--radius-pill);padding:1px 8px;text-transform:uppercase;letter-spacing:.04em}
+.hub-rail .pane.live{border-color:var(--orange-200)}
+.hub-rail .pane .now{font-size:9.5px;font-weight:700;background:var(--orange-100);color:var(--orange-900);border-radius:var(--radius-pill);padding:1px 8px;text-transform:uppercase;letter-spacing:.04em}
+/* track record mock */
+.tr-mock{margin-top:10px;border-top:1px dashed var(--grey-200);padding-top:10px}
+.tr-mock .mockbars{display:flex;align-items:flex-end;gap:5px;height:52px;margin:8px 0 4px}
+.tr-mock .mb{flex:1;border-radius:3px 3px 0 0;background:var(--navy-200);position:relative}
+.tr-mock .mb.you{background:var(--orange-500)}
+.tr-mock .mb span{position:absolute;top:-15px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--grey-400);font-weight:700}
+.tr-mock .legend{font-size:9.5px;color:var(--grey-400)}
+.tr-mock .legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:3px;vertical-align:middle}
+.mock-tag{font-size:9px;font-weight:700;color:var(--grey-400);border:1px dashed var(--grey-200);border-radius:var(--radius-pill);padding:1px 7px;text-transform:uppercase;letter-spacing:.04em}
+
+/* ---- Sections ---- */
+.section{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:24px;margin-bottom:16px}
+.section > .shead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.section h3{font-size:15px;display:flex;align-items:center;gap:8px}
+.section .shelp{font-size:12px;color:var(--grey-400);margin-bottom:14px;line-height:1.5}
+.section .done-chip{font-size:10.5px;color:var(--success);font-weight:700}
+
+/* goal cards */
+.goal-card{border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:18px 20px;margin-bottom:14px}
+.goal-card.is-crit{border-color:var(--orange-200)}
+.goal-card .ghead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.goal-card .gtitle{font-size:14px;font-weight:700;color:var(--navy-500)}
+details.defs{font-size:11.5px;color:var(--grey-500);margin:6px 0 10px}
+details.defs summary{cursor:pointer;font-weight:700;color:var(--grey-400);user-select:none;list-style:none}
+details.defs summary::-webkit-details-marker{display:none}
+details.defs summary:before{content:"▸ "}
+details.defs[open] summary:before{content:"▾ "}
+.def-grid{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin-top:8px;padding:10px 12px;background:var(--grey-50);border-radius:8px}
+.def-grid b.sg{color:var(--success)}
+.def-grid b.g{color:#3E6636}
+.def-grid b.r{color:var(--error)}
+.chiprow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.chip{border:1.5px solid var(--grey-200);background:#fff;border-radius:var(--radius-sm);padding:6px 13px;font-size:12.5px;font-weight:700;color:var(--grey-500);min-width:38px;text-align:center}
+.chip:hover{border-color:var(--navy-400)}
+.chip.sel{background:var(--navy-500);border-color:var(--navy-500);color:#fff}
+.chip.sel.good{background:var(--success);border-color:var(--success)}
+.chip.sel.mid{background:var(--orange-700);border-color:var(--orange-700)}
+.chip.sel.bad{background:var(--error);border-color:var(--error)}
+.proj-toggle{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--grey-500);margin-left:10px}
+.q-block{margin-top:12px}
+.q-block label{display:block;font-size:12px;font-weight:700;color:var(--navy-500);margin-bottom:3px}
+.q-block label .qhint{font-weight:400;color:var(--grey-400)}
+.q-block textarea{width:100%;border:1px solid var(--grey-200);border-radius:var(--radius-sm);padding:8px 10px;font:inherit;font-size:12.5px;resize:vertical;min-height:40px}
+.q-block textarea.depth{min-height:64px}
+.q-block textarea.note-missing{border-color:var(--orange-500);background:var(--orange-50)}
+.depth-hint{font-size:11px;color:var(--orange-900);background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-sm);padding:5px 10px;margin-top:10px;display:inline-block}
+.bullets-note{font-size:12px;color:var(--navy-500);background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px;line-height:1.6}
+.roadmap-card{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:20px 24px;margin-top:26px}
+.roadmap-card h3{font-size:15px;margin-bottom:4px}
+.roadmap-card .rm-sub{font-size:12px;color:var(--grey-400);margin-bottom:12px}
+.roadmap-card ul{list-style:none}
+.roadmap-card li{padding:7px 0;border-top:1px solid var(--grey-50);font-size:12.5px;display:flex;gap:10px;align-items:flex-start}
+.roadmap-card li:first-child{border-top:none}
+.rm-chip{flex-shrink:0;font-size:9.5px;font-weight:700;border-radius:var(--radius-pill);padding:2px 9px;text-transform:uppercase;letter-spacing:.03em;margin-top:2px}
+.rm-chip.now{background:#E3EEDF;color:#3E6636}
+.rm-chip.next{background:var(--orange-100);color:var(--orange-900)}
+.rm-chip.later{background:var(--grey-100);color:var(--grey-500)}
+
+/* collapsed goal cards + section nav + chip sublabels + storage warning */
+.goal-card .ghead{cursor:pointer;user-select:none}
+.goal-card .ghead:hover .gtitle{color:var(--blue-700)}
+.gsum-color{font-size:11px;font-weight:700;border-radius:var(--radius-pill);padding:2px 10px;white-space:nowrap}
+.gsum-color.cSG,.gsum-color.cG{background:#E3EEDF;color:#3E6636}
+.gsum-color.cR{background:#F8DCDC;color:#8E0000}
+.gsum-color.cnone{background:var(--grey-100);color:var(--grey-500)}
+.goal-card .caret{font-size:11px;color:var(--grey-400);margin-left:6px}
+.goal-card.collapsed .gbody{display:none}
+#secNav{display:flex;gap:2px;background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:5px 8px;margin-bottom:16px;position:sticky;top:63px;z-index:45;box-shadow:var(--shadow-sm);flex-wrap:wrap}
+#secNav button{background:none;border:none;padding:7px 10px;font-size:12px;font-weight:700;color:var(--grey-500);border-radius:var(--radius-sm)}
+#secNav button:hover{background:var(--grey-50);color:var(--navy-500)}
+#secNav button .ok{color:var(--success)}
+.chip .csub{display:block;font-size:8.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--grey-400);margin-top:1px;line-height:1.1}
+.chip.sel .csub{color:rgba(255,255,255,.85)}
+#storageWarn{display:none;background:#F8DCDC;color:#8E0000;border:1px solid #E6B2B2;border-radius:var(--radius-md);padding:12px 16px;font-size:12.5px;font-weight:700;margin-bottom:16px}
+#storageWarn.show{display:block}
+
+/* CHOICES rows */
+.row{border-top:1px solid var(--grey-50);padding:14px 0}
+.row:first-child{border-top:none;padding-top:0}
+.row .rowhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.row .rtitle{font-size:13px;font-weight:700;color:var(--navy-500)}
+.rownote{width:100%;margin-top:8px;border:1px solid var(--grey-200);border-radius:var(--radius-sm);padding:7px 10px;font:inherit;font-size:12.5px;resize:vertical;min-height:38px}
+.rownote.note-missing{border-color:var(--orange-500);background:var(--orange-50)}
+
+/* KPI table */
+table.kpi-table{width:100%;border-collapse:collapse;font-size:12.5px}
+table.kpi-table th{background:var(--navy-50);color:var(--navy-500);padding:8px 10px;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.02em}
+table.kpi-table td{padding:8px 10px;border-bottom:1px solid var(--grey-50);vertical-align:top}
+table.kpi-table input[type=text]{border:1px solid var(--grey-200);border-radius:var(--radius-sm);padding:6px 9px;font:inherit;font-size:12.5px;width:130px}
+.blank-note{font-size:11px;color:var(--text-faint);font-style:italic}
+
+textarea.narrative{width:100%;min-height:90px;border:1px solid var(--grey-200);border-radius:var(--radius-sm);padding:12px;font:inherit;font-size:13px;resize:vertical}
+.check-line{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:12px}
+.check-line input{width:16px;height:16px}
+
+/* export */
+.export-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.export-actions button{background:var(--navy-500);color:#fff;border:none;border-radius:var(--radius-sm);padding:11px 20px;font-size:12.5px;font-weight:700}
+.export-actions button:hover{background:var(--navy-700)}
+.export-actions button.secondary{background:#fff;color:var(--navy-500);border:1px solid var(--grey-200)}
+.export-actions button.secondary:hover{border-color:var(--navy-400)}
+textarea.mdpreview{width:100%;min-height:140px;margin-top:12px;border:1px solid var(--grey-200);border-radius:var(--radius-sm);padding:10px;font-family:monospace;font-size:11px;resize:vertical;display:none}
+textarea.mdpreview.show{display:block}
+
+footer{background:var(--navy-700);color:var(--navy-100);text-align:center;padding:14px;font-size:11px;position:fixed;bottom:0;left:0;right:0;z-index:40}
+.toast{position:fixed;bottom:52px;right:24px;background:var(--navy-500);color:#fff;padding:10px 18px;border-radius:var(--radius-sm);font-size:12.5px;box-shadow:var(--shadow-lg);opacity:0;transform:translateY(6px);transition:.25s;z-index:300;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+.nodata{background:var(--orange-50);border:1px solid var(--orange-200);border-radius:var(--radius-md);padding:24px;font-size:13px;color:var(--orange-900)}
+</style>
+</head>
+<body>
+<header id="appHeader">
+  <div class="brand"><span class="bebas">EINSTEIN QGR PREP</span><span class="tag">Manager AAR &amp; Self-Eval · Q2 2026 · v1.1</span></div>
+  <div class="savebox" id="saveBox">Local only — nothing leaves this computer<br><b id="saveStamp">—</b></div>
+</header>
+<main>
+  <div id="storageWarn"></div>
+  <section class="view active" id="view-landing"></section>
+  <section class="view" id="view-person"></section>
+</main>
+<footer>Internal tool · evaluations stay on this computer until YOU export and share them · Einstein Moving Company</footer>
+<div class="toast" id="toast"></div>
+
+<script src="preload-data.js"></script>
+<script>
+/* ============ Constants ============ */
+const LS_KEY = "einstein-aar-mgr-v1";
+const QUARTER = "Q2 2026";
+const CORE_VALUES = [
+  "Communicate clearly and with kindness",
+  "Hustle but don't rush",
+  "Ownership over results",
+  "Improve with Enthusiasm",
+  "Conscientious attention to detail",
+  "Elevate attitudes",
+  "Support Generously"
+];
+const CV_ANCHORS = {1:"active problem",2:"below the bar",3:"meets the bar",4:"strong, with named opportunities",5:"the standard others get pointed to"};
+const CV_SUBS = {1:"problem",2:"below bar",3:"meets bar",4:"strong",5:"the standard"};
+const CV_OPTIONS = [1,2,3,4,5].map(n=>({v:String(n),label:String(n),sub:CV_SUBS[n],cls:n>=4?"good":n===3?"mid":"bad",title:CV_ANCHORS[n]}));
+const SGR_OPTIONS = [
+  {v:"SG",label:"Super Green",cls:"good",title:"Exceeded the written Super Green definition"},
+  {v:"G",label:"Green",cls:"good",title:"Hit the written Green definition"},
+  {v:"R",label:"Red",cls:"bad",title:"Missed Green"}
+];
+const AAR_QUESTIONS = [
+  {k:"results", label:"1 · Results", hint:"final numbers + why this color — graded against the written Green definition, not the vibe. Still running? project to quarter-end and check PROJ."},
+  {k:"how",     label:"2 · How we got here", hint:"the honest story behind the color, brutal parts included."},
+  {k:"well",    label:"3 · What went well", hint:"what should we keep doing or turn into a playbook?"},
+  {k:"diff",    label:"4 · What did you try — and what would you do differently", hint:"the bullets you fired (see the note above): what you did beyond the seat's standard routine to move this number, what it taught you, and what you'd change next quarter."}
+];
+
+/* ============ State ============ */
+let STATE = { records:{}, lastSaved:null };
+let currentPersonId = null;
+let saveTimer = null;
+let EXPANDED = new Set(); // which goal cards are open (session-only, not saved)
+
+function loadState(){
+  try{ const raw = localStorage.getItem(LS_KEY); if(raw) STATE = Object.assign(STATE, JSON.parse(raw)); }catch(e){ console.warn("state load failed", e); }
+}
+function queueSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{
+    STATE.lastSaved = new Date().toISOString();
+    try{
+      localStorage.setItem(LS_KEY, JSON.stringify(STATE));
+      renderSaveStamp();
+    }catch(e){
+      const w = document.getElementById("storageWarn");
+      w.textContent = "⚠ NOT SAVING — this browser is blocking local storage. Don't close this tab. Go to section 6 and Copy your write-up somewhere safe now.";
+      w.classList.add("show");
+      document.getElementById("saveStamp").textContent = "NOT SAVING";
+    }
+  }, 250);
+}
+function renderSaveStamp(){
+  const el = document.getElementById("saveStamp");
+  el.textContent = STATE.lastSaved ? "Saved " + new Date(STATE.lastSaved).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}) : "—";
+}
+function emptyRecord(person){
+  return {
+    quarter: QUARTER,
+    goals: {},        // num -> {color, proj, results, how, well, diff}
+    choices: { items:{}, itemNotes:{} },
+    kpis: {},         // kpi name -> {est, actual, note}
+    constraint: "",
+    opportunity: "",
+    packet: { reviewed:false, questions:"" },
+    startedAt: null,
+    person: { id: person.id, name: person.name, position: person.position, branch: person.branch, region: person.region }
+  };
+}
+function getRecord(person){
+  if(!STATE.records[person.id]) STATE.records[person.id] = emptyRecord(person);
+  const rec = STATE.records[person.id];
+  // backfill fields added later so old saves never crash
+  if(!rec.choices) rec.choices = {items:{},itemNotes:{}};
+  if(!rec.choices.itemNotes) rec.choices.itemNotes = {};
+  if(!rec.kpis) rec.kpis = {};
+  if(!rec.packet) rec.packet = {reviewed:false,questions:""};
+  return rec;
+}
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 2200);
+}
+
+/* ============ Data access ============ */
+function havePreload(){ return typeof PRELOAD !== "undefined" && PRELOAD && Array.isArray(PRELOAD.people); }
+function activePeople(){
+  return PRELOAD.people.filter(p=>p.name); // skip vacant seats on landing person lines (shown separately)
+}
+function personById(id){ return PRELOAD.people.find(p=>p.id===id); }
+function kpisFor(position){
+  const k = (PRELOAD.kpis && PRELOAD.kpis[position]) || [];
+  return Array.isArray(k) ? k : [];
+}
+
+/* ============ Progress ============ */
+function recProgress(person, rec){
+  // honest progress: criticals owe questions 2+4, a rating owes its note
+  let done = 0, total = 0;
+  (person.goals||[]).forEach(g=>{
+    total += 2; // a color + at least the results answer
+    const gr = rec.goals[g.num]||{};
+    if(gr.color) done++;
+    if((gr.results||"").trim()) done++;
+    if(g.critical){
+      total += 2;
+      if((gr.how||"").trim()) done++;
+      if((gr.diff||"").trim()) done++;
+    }
+  });
+  CORE_VALUES.forEach(cv=>{ total++; if(rec.choices.items[cv] && (rec.choices.itemNotes[cv]||"").trim()) done++; });
+  total++; if((rec.constraint||"").trim() || (rec.opportunity||"").trim()) done++;
+  return total ? Math.round(done/total*100) : 0;
+}
+
+/* ============ Landing ============ */
+const BRANCH_ORDER_CTXH = ["North Austin","South Austin","Leander","San Antonio","Houston"];
+const BRANCH_ORDER_DFWT = ["Dallas","Fort Worth","Garland","McKinney","Tampa"];
+const POS_LABEL = {BM:"Branch Manager", OPs:"Operations Manager", FM:"Field Manager", Flex:"Flex Manager"};
+
+function renderLanding(){
+  const wrap = document.getElementById("view-landing");
+  if(!havePreload()){
+    wrap.innerHTML = '<div class="nodata"><b>Preload data not found.</b> This tool expects <code>preload-data.js</code> alongside this file (goals extracted from the Q2 Cascading Goals sheet). Ask Albert to regenerate it.</div>';
+    return;
+  }
+  let html = '<div class="landing-intro"><h2>Your Q2 after-action review starts here</h2>'+
+    '<p>Find your name, open your page, and walk through the same exercise the Roundtable just ran on themselves: an honest AAR on each of your Q2 goals, a CHOICES self-eval, and the one constraint you want the room to help you with at the QGR. Plan on 30&ndash;45 focused minutes. Everything saves automatically on this computer &mdash; nothing is shared until you export it yourself.</p></div>';
+  html += leadershipBandHtml();
+  [["CTXH — Central Texas / Houston (Brian)", BRANCH_ORDER_CTXH],["DFWT — DFW / Tampa (Mike)", BRANCH_ORDER_DFWT]].forEach(([label, branches])=>{
+    html += '<div class="region-head">'+esc(label)+'</div><div class="branch-grid">';
+    branches.forEach(br=>{
+      const folks = PRELOAD.people.filter(p=>p.branch===br);
+      if(!folks.length) return;
+      html += '<div class="b-card"><h3>'+esc(br)+'</h3>';
+      folks.forEach(p=>{
+        if(!p.name){
+          html += '<div class="person-line"><span class="pname muted">'+esc(POS_LABEL[p.position]||p.position)+'</span><span class="badge vacant">seat vacant</span></div>';
+          return;
+        }
+        const rec = STATE.records[p.id];
+        const started = rec && recProgress(p, rec) > 0;
+        html += '<div class="person-line"><span class="pname">'+esc(p.name)+'<span class="role">'+esc(POS_LABEL[p.position]||p.position)+'</span>'+(started?' <span class="started">'+recProgress(p,rec)+'%</span>':'')+'</span>'+
+          '<button class="open-btn" data-open="'+esc(p.id)+'">'+(started?"Continue":"Open my page")+'</button></div>';
+      });
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+  html += roadmapHtml();
+  wrap.innerHTML = html;
+  wrap.querySelectorAll("[data-open]").forEach(btn=>btn.addEventListener("click", ()=>openPerson(btn.dataset.open)));
+}
+
+function roadmapHtml(){
+  return '<div class="roadmap-card"><h3>Where this tool is headed</h3><div class="rm-sub">The roadmap lives here so nothing gets lost. Updated 7/22 from Roundtable feedback.</div><ul>'+
+    '<li><span class="rm-chip now">Now</span><span>Your page: preloaded Q2 goals, the four AAR questions (with the bullets-before-cannons reframe), CHOICES self-eval, exports — including a <b>Claude interview prompt</b> that challenges your draft answers before you submit.</span></li>'+
+    '<li><span class="rm-chip now">Now</span><span>Exports carry clean per-goal SG/G/R grades — this quarter starts the company\'s goal success-rate baseline (there is no historical one; yours is the first data point).</span></li>'+
+    '<li><span class="rm-chip next">Next</span><span>QGR live-results view — your submitted AAR displayed in the room at the QGR, so presenting takes minutes, not an hour.</span></li>'+
+    '<li><span class="rm-chip next">Next</span><span>Your branch QGR packet lands on your page for pre-read + questions.</span></li>'+
+    '<li><span class="rm-chip later">Later</span><span>Built-in AI interviewer that pushes back using your actual branch data (the leadership approach from last quarter) — the copy-paste prompt is the bridge until then.</span></li>'+
+    '<li><span class="rm-chip later">Later</span><span>Clean PDF export for permanent record-keeping (Anne).</span></li>'+
+    '<li><span class="rm-chip later">Later</span><span>Rippling storage: Rippling can\'t hold loose documents, but its custom objects can hold structured data — likely path is data → custom object, PDF as the human-readable copy. Open integration question (Matisen).</span></li>'+
+    '<li><span class="rm-chip later">Later</span><span>Track record: your goal history vs. company + position average (needs 2+ quarters of records).</span></li>'+
+    '<li><span class="rm-chip later">Later</span><span>In-quarter coaching signals — a low self-score raises a hand early so it gets coached before your review, never sprung at it.</span></li>'+
+    '</ul></div>';
+}
+
+function leadershipBandHtml(){
+  return '<div class="first-band"><span class="fb-ico">🪞</span><div><b>Leadership went first.</b> Cameron, Paul, and every Roundtable leader ran this exact exercise on their own Q2 goals this cycle &mdash; same four AAR questions, same 1&ndash;5 CHOICES scale, same brutal-facts standard. Your answers become the agenda for <i>your</i> quarterly one-on-one: your meeting, your mirror. Honest beats impressive.</div></div>';
+}
+
+/* ============ Person hub ============ */
+function openPerson(id){
+  currentPersonId = id;
+  const person = personById(id);
+  const rec = getRecord(person);
+  if(!rec.startedAt){ rec.startedAt = new Date().toISOString(); queueSave(); }
+  // one goal open at a time: default to the first goal without a color yet
+  const firstOpen = (person.goals||[]).find(g=>!(rec.goals[g.num]||{}).color);
+  EXPANDED = new Set(firstOpen ? [String(firstOpen.num)] : []);
+  document.getElementById("view-landing").classList.remove("active");
+  document.getElementById("view-person").classList.add("active");
+  renderPerson();
+  window.scrollTo(0,0);
+}
+function backToLanding(){
+  currentPersonId = null;
+  document.getElementById("view-person").classList.remove("active");
+  document.getElementById("view-landing").classList.add("active");
+  renderLanding();
+  window.scrollTo(0,0);
+}
+
+function renderPerson(){
+  const person = personById(currentPersonId);
+  const rec = getRecord(person);
+  const wrap = document.getElementById("view-person");
+  const pct = recProgress(person, rec);
+  const keepY = window.scrollY; // full re-render must not move the page under the user
+
+  let html = '<button class="backlink" id="backBtn">&larr; All managers</button>';
+  html += '<div class="hub-head"><div><h2>'+esc(person.name)+'</h2><div class="sub">'+esc(POS_LABEL[person.position]||person.position)+' · '+esc(person.branch)+' · '+esc(person.region)+'</div></div>'+
+    '<div class="progress-wrap"><span class="tiny muted">'+pct+'% complete</span><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div></div></div>';
+  html += secNavHtml(person, rec);
+  html += leadershipBandHtml();
+  html += '<div class="hub-grid"><div class="hub-main">';
+  html += sectionGoals(person, rec);
+  html += sectionChoices(person, rec);
+  html += sectionKpis(person, rec);
+  html += sectionConstraint(person, rec);
+  html += sectionPacket(person, rec);
+  html += sectionExport(person, rec);
+  html += '</div>';
+  html += railHtml(person);
+  html += '</div>';
+  wrap.innerHTML = html;
+  wirePerson(person, rec);
+  window.scrollTo(0, keepY); // re-render must not move the page under the user
+}
+
+/* ---- rail: hub shell placeholders ---- */
+function railHtml(person){
+  return '<div class="hub-rail">'+
+    '<div class="pane live"><h4>AAR + Self-Eval <span class="now">You are here</span></h4><p>The Q2 exercise — goals AAR, CHOICES, KPIs, and your constraint for the room.</p></div>'+
+    '<div class="pane placeholder"><h4>Your QGR Packet <span class="soon">Coming</span></h4><p>Your branch scorecard and the quarter packet will land here — review before the QGR and bring questions.</p></div>'+
+    '<div class="pane placeholder"><h4>Track Record <span class="mock-tag">Mockup</span></h4><p>Your goal history vs. company + position average — real once we have 2+ quarters of records.</p>'+
+      '<div class="tr-mock"><div class="mockbars">'+
+        '<div class="mb" style="height:55%"><span>Co</span></div>'+
+        '<div class="mb" style="height:64%"><span>Pos</span></div>'+
+        '<div class="mb you" style="height:78%"><span>You</span></div>'+
+      '</div><div class="legend"><i style="background:var(--navy-200)"></i>Company / position avg &nbsp; <i style="background:var(--orange-500)"></i>Your goal hit-rate <span class="muted">(example data)</span></div></div></div>'+
+    '<div class="pane placeholder"><h4>Coaching Signals <span class="soon">Coming</span></h4><p>A low self-score will raise a hand in-quarter so it gets coached before your review — never sprung at it.</p></div>'+
+    '<div class="pane placeholder"><h4>Talk It Instead <span class="soon">Coming</span></h4><p>A built-in AI interviewer is on the roadmap — but you don\'t have to wait: section 6 has a <b>Claude interview prompt</b> that challenges your answers today.</p></div>'+
+    '</div>';
+}
+
+/* ---- Section nav (sticky) ---- */
+function secNavHtml(person, rec){
+  const items = [
+    ["sec-goals","1 · Goals", goalsDone(person,rec)],
+    ["sec-choices","2 · CHOICES", CORE_VALUES.every(cv=>rec.choices.items[cv])],
+    ["sec-kpis","3 · KPIs", null],
+    ["sec-constraint","4 · Constraint", !!((rec.constraint||"").trim()||(rec.opportunity||"").trim())],
+    ["sec-packet","5 · Packet", !!rec.packet.reviewed],
+    ["sec-export","6 · Submit", null]
+  ];
+  return '<div id="secNav">'+items.map(([id,label,done])=>
+    '<button data-jump="'+id+'">'+esc(label)+(done?' <span class="ok">✓</span>':'')+'</button>'
+  ).join("")+'</div>';
+}
+
+/* ---- Section 1: Goals AAR ---- */
+function chipRowHtml(dimKey, opts, val, extraCls){
+  return '<div class="chiprow">'+opts.map(o=>
+    '<button class="chip'+(val===o.v?' sel '+o.cls:'')+(extraCls?' '+extraCls:'')+'" data-dim="'+esc(dimKey)+'" data-val="'+esc(o.v)+'" title="'+esc(o.title||"")+'">'+esc(o.label)+(o.sub?'<span class="csub">'+esc(o.sub)+'</span>':'')+'</button>'
+  ).join("")+'</div>';
+}
+function sectionGoals(person, rec){
+  const goals = person.goals||[];
+  let html = '<div class="section" id="sec-goals"><div class="shead"><h3>1 · Goal AAR — the four questions</h3>'+(goalsDone(person,rec)?'<span class="done-chip">✓ all goals colored</span>':'')+'</div>'+
+    '<div class="shelp">One block per Q2 goal. Color it against the <b>written</b> Green / Super Green definition from quarter start (expand it under each goal) — not the vibe. If the quarter is still running, grade where it lands by 7/31 and check <b>PROJ</b>. On your Critical # goals, questions 2 and 4 get short paragraphs, not sentences.</div>'+
+    '<div class="bullets-note"><b>🎯 Bullets before cannons</b> — an old business idea, in plain words: before a ship fires its big cannon, it fires cheap bullets to find the range. A <b>bullet</b> is a small, low-cost experiment — a new phone script, a schedule tweak, a different way to run trial days. A <b>cannon</b> is going big on something <i>after</i> a bullet proved it works. Question 4 is asking about your bullets: what did you actually <b>try</b> this quarter beyond the standard work of your seat? Doing the routine well isn\'t a bullet — that\'s question 2. And which bullet deserves a cannon next quarter?</div>';
+  if(!goals.length){
+    html += '<div class="nodata">No goal block found for you in the Q2 Cascading Goals sheet. Flag this to your regional — we\'ll load them and your page will fill in.</div></div>';
+    return html;
+  }
+  goals.forEach(g=>{
+    const gr = rec.goals[g.num]||{};
+    const open = EXPANDED.has(String(g.num));
+    const colorLabel = gr.color ? (SGR_OPTIONS.find(o=>o.v===gr.color)||{}).label : "not colored yet";
+    html += '<div class="goal-card'+(g.critical?' is-crit':'')+(open?'':' collapsed')+'">'+
+      '<div class="ghead" data-gtoggle="'+g.num+'"><div><span class="gtitle">'+g.num+' · '+esc(g.rock)+'</span>'+(g.critical?' <span class="badge crit">Critical #</span>':'')+'</div>'+
+      '<div><span class="gsum-color c'+(gr.color||"none")+'">'+esc(colorLabel)+(gr.proj?' · PROJ':'')+'</span><span class="caret">'+(open?'▾ close':'▸ open')+'</span></div></div>'+
+      '<div class="gbody">'+
+      '<details class="defs"><summary>What Green means (written at quarter start)</summary><div class="def-grid">'+
+        '<b class="sg">Super Green</b><span>'+esc(g.superGreen||"—")+'</span>'+
+        '<b class="g">Green</b><span>'+esc(g.green||"—")+'</span>'+
+        '<b class="r">Red</b><span>'+esc(g.red||"—")+'</span>'+
+      '</div></details>'+
+      '<div style="display:flex;align-items:center">'+chipRowHtml("goal:"+g.num, SGR_OPTIONS, gr.color)+
+      '<label class="proj-toggle"><input type="checkbox" data-proj="'+g.num+'"'+(gr.proj?' checked':'')+'> PROJ (quarter still running)</label></div>';
+    AAR_QUESTIONS.forEach(q=>{
+      const deep = g.critical && (q.k==="how"||q.k==="diff");
+      const val = gr[q.k]||"";
+      const missing = gr.color && q.k==="results" && !val.trim();
+      html += '<div class="q-block"><label>'+q.label+' <span class="qhint">— '+esc(q.hint)+'</span></label>'+
+        '<textarea class="'+(deep?'depth ':'')+(missing?'note-missing':'')+'" data-goalq="'+g.num+':'+q.k+'" placeholder="'+(deep?'Critical # — go deeper here.':'')+'">'+esc(val)+'</textarea></div>';
+    });
+    if(g.critical) html += '<div class="depth-hint">Critical # — make questions 2 and 4 the deep ones.</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+function goalsDone(person, rec){
+  const goals = person.goals||[];
+  return goals.length>0 && goals.every(g=>(rec.goals[g.num]||{}).color);
+}
+
+/* ---- Section 2: CHOICES ---- */
+function sectionChoices(person, rec){
+  let html = '<div class="section" id="sec-choices"><div class="shead"><h3>2 · CHOICES self-eval</h3>'+
+    (CORE_VALUES.every(cv=>rec.choices.items[cv])?'<span class="done-chip">✓ complete</span>':'')+'</div>'+
+    '<div class="shelp">Score yourself 1&ndash;5 on each value — same scale leadership uses on itself. <b>1</b> active problem · <b>2</b> below the bar · <b>3</b> meets the bar · <b>4</b> strong, with named opportunities · <b>5</b> the standard others get pointed to. A 4 without a note naming the opportunity is an incomplete grade — the note box appears once you rate.</div>';
+  CORE_VALUES.forEach(cv=>{
+    const val = rec.choices.items[cv];
+    const note = rec.choices.itemNotes[cv]||"";
+    const noteVisible = !!val || !!note.trim();
+    const missing = !!val && !note.trim();
+    html += '<div class="row"><div class="rowhead"><div class="rtitle">'+esc(cv)+'</div></div>'+
+      chipRowHtml("cv:"+cv, CV_OPTIONS, val)+
+      (noteVisible?'<textarea class="rownote'+(missing?' note-missing':'')+'" data-cvnote="'+esc(cv)+'" placeholder="Why this score? Name the evidence — and for a 4, the opportunity.">'+esc(note)+'</textarea>':'')+
+      '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+/* ---- Section 3: Position KPIs ---- */
+function sectionKpis(person, rec){
+  const kpis = kpisFor(person.position);
+  let html = '<div class="section" id="sec-kpis"><div class="shead"><h3>3 · Position KPIs</h3></div>'+
+    '<div class="shelp">Where you think you landed vs. where you actually landed. Some KPIs aren\'t consistently tracked yet — those cells stay honestly blank rather than made up. Estimate first, then fill actuals from your dashboards if you have them.</div>';
+  if(!kpis.length){
+    html += '<div class="blank-note">No position KPIs loaded for '+esc(POS_LABEL[person.position]||person.position)+' yet — this section fills in as KPI tracking standardizes. If you track numbers for your seat, add them under Constraint &amp; Opportunity below.</div></div>';
+    return html;
+  }
+  html += '<table class="kpi-table"><thead><tr><th style="width:38%">KPI</th><th>Target</th><th>Your estimate</th><th>Actual</th></tr></thead><tbody>';
+  kpis.forEach((k,i)=>{
+    const kr = rec.kpis[k.name]||{};
+    html += '<tr><td><b>'+esc(k.name)+'</b>'+(k.notes?'<div class="tiny muted">'+esc(k.notes)+'</div>':'')+'</td>'+
+      '<td>'+(k.target?esc(k.target):'<span class="blank-note">not consistently tracked</span>')+'</td>'+
+      '<td><input type="text" data-kpi="'+esc(k.name)+':est" value="'+esc(kr.est||"")+'" placeholder="where you think you are"></td>'+
+      '<td><input type="text" data-kpi="'+esc(k.name)+':actual" value="'+esc(kr.actual||"")+'" placeholder="leave blank if unknown"></td></tr>';
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+/* ---- Section 4: Constraint & opportunity ---- */
+function sectionConstraint(person, rec){
+  return '<div class="section" id="sec-constraint"><div class="shead"><h3>4 · Your constraint &amp; opportunity</h3>'+
+    (((rec.constraint||"").trim()||(rec.opportunity||"").trim())?'<span class="done-chip">✓ captured</span>':'')+'</div>'+
+    '<div class="shelp">This is what you bring to the QGR roundtable. What is the <b>#1 thing holding your branch back</b> right now — and the <b>#1 opportunity</b> you\'d chase if you had the room\'s help? Specific beats polished.</div>'+
+    '<div class="q-block"><label>Biggest constraint</label><textarea class="narrative" data-field="constraint" placeholder="What\'s in the way? Be concrete — a person gap, a process, a number that won\'t move…">'+esc(rec.constraint||"")+'</textarea></div>'+
+    '<div class="q-block"><label>Biggest opportunity</label><textarea class="narrative" data-field="opportunity" placeholder="What would you swing at next quarter if the room backed you?">'+esc(rec.opportunity||"")+'</textarea></div></div>';
+}
+
+/* ---- Section 5: Packet review ---- */
+function sectionPacket(person, rec){
+  return '<div class="section" id="sec-packet"><div class="shead"><h3>5 · QGR packet review</h3></div>'+
+    '<div class="shelp">Once your branch packet lands (see the rail — coming), review it and write down what surprised you or what you\'d challenge. Come to the QGR with questions, not just answers.</div>'+
+    '<label class="check-line"><input type="checkbox" data-field="packetReviewed"'+(rec.packet.reviewed?' checked':'')+'> I reviewed my QGR packet</label>'+
+    '<div class="q-block"><label>Questions / challenges for the room</label><textarea class="narrative" data-field="packetQuestions" placeholder="What in the packet doesn\'t match how the quarter felt from your seat?">'+esc(rec.packet.questions||"")+'</textarea></div></div>';
+}
+
+/* ---- Section 6: Export ---- */
+function sectionExport(person, rec){
+  return '<div class="section" id="sec-export"><div class="shead"><h3>6 · Submit</h3></div>'+
+    '<div class="shelp">When you\'re done: export and send to your regional (or bring it to your one-on-one). Markdown = the readable write-up. JSON = the data record. <b>Want a second set of eyes first?</b> "Copy Claude interview prompt" grabs your goals + draft answers wrapped in instructions — paste it into your Claude account and it will interview you, challenge your colors against the written definitions, and hand back a sharpened final version.</div>'+
+    '<div class="export-actions">'+
+      '<button id="btnMd">Copy markdown write-up</button>'+
+      '<button id="btnMdPreview" class="secondary">Preview</button>'+
+      '<button id="btnJson" class="secondary">Download JSON record</button>'+
+      '<button id="btnInterview" class="secondary">🎙 Copy Claude interview prompt</button>'+
+    '</div><textarea class="mdpreview" id="mdPreview" readonly></textarea></div>';
+}
+
+/* ============ Wiring ============ */
+function wirePerson(person, rec){
+  const wrap = document.getElementById("view-person");
+  document.getElementById("backBtn").addEventListener("click", backToLanding);
+
+  wrap.querySelectorAll("[data-jump]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const el = document.getElementById(btn.dataset.jump);
+      if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+  wrap.querySelectorAll("[data-gtoggle]").forEach(h=>{
+    h.addEventListener("click", (e)=>{
+      if(e.target.closest("button,input,textarea,details")) return; // don't toggle on inner controls
+      const n = h.dataset.gtoggle;
+      if(EXPANDED.has(n)) EXPANDED.delete(n); else EXPANDED.add(n);
+      renderPerson();
+    });
+  });
+
+  wrap.querySelectorAll("[data-dim]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const dim = btn.dataset.dim, val = btn.dataset.val;
+      if(dim.startsWith("goal:")){
+        const num = dim.slice(5);
+        if(!rec.goals[num]) rec.goals[num] = {};
+        rec.goals[num].color = rec.goals[num].color===val ? null : val;
+      } else if(dim.startsWith("cv:")){
+        const cv = dim.slice(3);
+        rec.choices.items[cv] = rec.choices.items[cv]===val ? undefined : val;
+        if(rec.choices.items[cv]===undefined) delete rec.choices.items[cv];
+      }
+      queueSave(); renderPerson();
+    });
+  });
+  wrap.querySelectorAll("[data-proj]").forEach(cb=>{
+    cb.addEventListener("change", ()=>{
+      const num = cb.dataset.proj;
+      if(!rec.goals[num]) rec.goals[num] = {};
+      rec.goals[num].proj = cb.checked;
+      queueSave();
+    });
+  });
+  wrap.querySelectorAll("[data-goalq]").forEach(ta=>{
+    ta.addEventListener("input", ()=>{
+      const [num,k] = ta.dataset.goalq.split(":");
+      if(!rec.goals[num]) rec.goals[num] = {};
+      rec.goals[num][k] = ta.value;
+      queueSave();
+    });
+  });
+  wrap.querySelectorAll("[data-cvnote]").forEach(ta=>{
+    ta.addEventListener("input", ()=>{
+      rec.choices.itemNotes[ta.dataset.cvnote] = ta.value;
+      queueSave();
+    });
+  });
+  wrap.querySelectorAll("[data-kpi]").forEach(inp=>{
+    inp.addEventListener("input", ()=>{
+      const idx = inp.dataset.kpi.lastIndexOf(":");
+      const name = inp.dataset.kpi.slice(0,idx), k = inp.dataset.kpi.slice(idx+1);
+      if(!rec.kpis[name]) rec.kpis[name] = {};
+      rec.kpis[name][k] = inp.value;
+      queueSave();
+    });
+  });
+  wrap.querySelectorAll("[data-field]").forEach(el=>{
+    el.addEventListener("input", ()=>{
+      const f = el.dataset.field;
+      if(f==="constraint") rec.constraint = el.value;
+      else if(f==="opportunity") rec.opportunity = el.value;
+      else if(f==="packetQuestions") rec.packet.questions = el.value;
+      else if(f==="packetReviewed") rec.packet.reviewed = el.checked;
+      queueSave();
+    });
+  });
+  document.getElementById("btnMd").addEventListener("click", ()=>{
+    const md = buildMarkdown(person, rec);
+    const pv = document.getElementById("mdPreview");
+    pv.value = md; pv.classList.add("show"); // always show what got copied
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(md).then(()=>toast("Copied — paste it to your regional or your 1:1 pulse"), ()=>toast("Copy blocked — select it from the preview below"));
+    } else {
+      toast("Copy not available in this browser — select it from the preview below");
+    }
+  });
+  document.getElementById("btnMdPreview").addEventListener("click", ()=>{
+    const pv = document.getElementById("mdPreview");
+    pv.value = buildMarkdown(person, rec); pv.classList.toggle("show");
+  });
+  document.getElementById("btnJson").addEventListener("click", ()=>{
+    downloadFile("aar-"+person.id+"-q2-2026.json", JSON.stringify(buildJsonRecord(person, rec), null, 2), "application/json");
+    toast("JSON record downloaded");
+  });
+  document.getElementById("btnInterview").addEventListener("click", ()=>{
+    const prompt = buildInterviewPrompt(person, rec);
+    const pv = document.getElementById("mdPreview");
+    pv.value = prompt; pv.classList.add("show");
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(prompt).then(()=>toast("Interview prompt copied — paste it into Claude and let it push back"), ()=>toast("Copy blocked — select it from the preview below"));
+    } else {
+      toast("Copy not available in this browser — select it from the preview below");
+    }
+  });
+}
+
+/* ============ Export builders ============ */
+function computeScorecard(person, rec){
+  // the QG success-rate baseline: per-goal grades, aggregable across managers/quarters
+  const sc = { goalsTotal:(person.goals||[]).length, graded:0, sg:0, g:0, r:0, proj:0, successRatePct:null };
+  (person.goals||[]).forEach(gl=>{
+    const gr = rec.goals[gl.num]||{};
+    if(gr.color){ sc.graded++; if(gr.proj) sc.proj++;
+      if(gr.color==="SG") sc.sg++; else if(gr.color==="G") sc.g++; else if(gr.color==="R") sc.r++; }
+  });
+  if(sc.graded) sc.successRatePct = Math.round((sc.sg+sc.g)/sc.graded*100);
+  return sc;
+}
+function buildMarkdown(person, rec){
+  const d = new Date().toISOString().slice(0,10);
+  let md = "# Q2 AAR — "+person.name+" — "+d+"\n";
+  md += "*"+(POS_LABEL[person.position]||person.position)+" · "+person.branch+" · "+person.region+"*\n";
+  const sc = computeScorecard(person, rec);
+  md += "**Scorecard: "+sc.sg+" SG / "+sc.g+" G / "+sc.r+" R"+(sc.graded<sc.goalsTotal?" ("+(sc.goalsTotal-sc.graded)+" ungraded)":"")+(sc.successRatePct!==null?" — success rate "+sc.successRatePct+"%":"")+(sc.proj?" · "+sc.proj+" PROJ":"")+"**\n\n";
+  const gutCheck = [];
+  (person.goals||[]).forEach(g=>{
+    const gr = rec.goals[g.num]||{};
+    md += "## "+g.rock+" — CRIT: "+(g.critical?"yes":"no")+"\n";
+    md += "- Color: "+(gr.color||"—")+(gr.proj?" (PROJ)":"")+"\n";
+    md += "- Results: "+((gr.results||"").trim()||"—")+"\n";
+    md += "- How we got here: "+((gr.how||"").trim()||"—")+"\n";
+    md += "- Went well: "+((gr.well||"").trim()||"—")+"\n";
+    md += "- Tried / differently / next-quarter lesson: "+((gr.diff||"").trim()||"—")+"\n\n";
+    if(gr.color && !(gr.results||"").trim()) gutCheck.push("Goal \""+g.rock+"\" — colored "+gr.color+" with no results written");
+  });
+  md += "## CHOICES self-eval (1–5)\n";
+  CORE_VALUES.forEach(cv=>{
+    const v = rec.choices.items[cv], note = (rec.choices.itemNotes[cv]||"").trim();
+    md += "- "+cv+": "+(v||"—")+(note?" — "+note:"")+"\n";
+    if(v && !note) gutCheck.push("CHOICES \""+cv+"\" — rated "+v+" with no reasoning captured");
+  });
+  const kpis = kpisFor(person.position);
+  if(kpis.length){
+    md += "\n## Position KPIs\n";
+    kpis.forEach(k=>{
+      const kr = rec.kpis[k.name]||{};
+      md += "- "+k.name+": target "+(k.target||"(not consistently tracked)")+" · estimate "+((kr.est||"").trim()||"—")+" · actual "+((kr.actual||"").trim()||"—")+"\n";
+    });
+  }
+  md += "\n## Constraint & opportunity (for the QGR room)\n";
+  md += "- Biggest constraint: "+((rec.constraint||"").trim()||"—")+"\n";
+  md += "- Biggest opportunity: "+((rec.opportunity||"").trim()||"—")+"\n";
+  md += "\n## QGR packet\n- Reviewed: "+(rec.packet.reviewed?"yes":"not yet")+"\n- Questions for the room: "+((rec.packet.questions||"").trim()||"—")+"\n";
+  if(gutCheck.length){
+    md += "\n---\n### For the gut-check (incomplete grades)\n";
+    gutCheck.forEach(x=>md += "- "+x+"\n");
+  }
+  return md;
+}
+function buildJsonRecord(person, rec){
+  return {
+    schema: "einstein-manager-aar/v1",
+    exportedAt: new Date().toISOString(),
+    quarter: QUARTER,
+    person: { id: person.id, name: person.name, position: person.position, branch: person.branch, region: person.region, regional: person.regional||null },
+    goals: (person.goals||[]).map(g=>{
+      const gr = rec.goals[g.num]||{};
+      return { num: g.num, rock: g.rock, critical: !!g.critical,
+        definitions: { superGreen: g.superGreen||null, green: g.green||null, red: g.red||null },
+        color: gr.color||null, proj: !!gr.proj,
+        aar: { results: gr.results||"", how: gr.how||"", well: gr.well||"", differently: gr.diff||"" } };
+    }),
+    choices: CORE_VALUES.map(cv=>({ value: cv, score: rec.choices.items[cv]?Number(rec.choices.items[cv]):null, note: rec.choices.itemNotes[cv]||"" })),
+    kpis: kpisFor(person.position).map(k=>{
+      const kr = rec.kpis[k.name]||{};
+      return { name: k.name, target: k.target||null, estimate: kr.est||null, actual: kr.actual||null };
+    }),
+    scorecard: computeScorecard(person, rec),
+    constraint: rec.constraint||"", opportunity: rec.opportunity||"",
+    packet: { reviewed: !!rec.packet.reviewed, questions: rec.packet.questions||"" },
+    startedAt: rec.startedAt||null
+  };
+}
+function buildInterviewPrompt(person, rec){
+  const goals = (person.goals||[]).map(g=>{
+    const gr = rec.goals[g.num]||{};
+    return "### Goal "+g.num+": "+g.rock+(g.critical?" (CRITICAL #)":"")+"\n"+
+      "- Written definitions — Super Green: "+(g.superGreen||"—")+" | Green: "+(g.green||"—")+" | Red: "+(g.red||"—")+"\n"+
+      "- My draft color: "+(gr.color||"not graded yet")+(gr.proj?" (PROJ)":"")+"\n"+
+      "- My draft answers — Results: "+((gr.results||"").trim()||"(blank)")+" | How we got here: "+((gr.how||"").trim()||"(blank)")+" | Went well: "+((gr.well||"").trim()||"(blank)")+" | Tried/differently: "+((gr.diff||"").trim()||"(blank)");
+  }).join("\n\n");
+  return "You are my after-action-review coach. I'm "+person.name+", "+(POS_LABEL[person.position]||person.position)+" of the "+person.branch+" branch at Einstein Moving Company. Below are my Q2 2026 goals with the Super Green / Green / Red definitions written at quarter start, plus my draft self-assessment.\n\n"+
+    "Interview me ONE GOAL AT A TIME through four questions:\n"+
+    "1. Results — my numbers and color, graded against the WRITTEN definition, not the vibe. Challenge my color if it doesn't match.\n"+
+    "2. How we got here — push past vague answers; ask for the brutal parts.\n"+
+    "3. What went well — what should become a playbook.\n"+
+    "4. What did I try, and what would I do differently — 'bullets before cannons': a bullet is a small cheap experiment beyond my seat's standard routine; a cannon is going big once a bullet proves out. If I describe routine work as a bullet, call it out. On my CRITICAL # goals, make me go deeper on questions 2 and 4.\n\n"+
+    "Be direct but fair — the goal is a truer self-assessment, not a softer one. When we finish all goals, output my final AAR in EXACTLY this format, one block per goal, no extra prose:\n\n"+
+    "## [Goal name] — CRIT: yes/no\n- Color: [SG/G/R] (PROJ if the quarter is still running)\n- Results: ...\n- How we got here: ...\n- Went well: ...\n- Tried / differently / next-quarter lesson: ...\n\n"+
+    "I'll paste that final output back into my AAR tool and send it to my regional.\n\n---\n\n## MY GOALS AND DRAFTS\n\n"+goals;
+}
+function downloadFile(filename, text, mime){
+  const blob = new Blob([text], {type: mime||"text/plain"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+}
+
+/* ============ Boot ============ */
+loadState();
+renderSaveStamp();
+renderLanding();
+</script>
+</body>
+</html>
