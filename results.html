@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>QGR Live Results — Manager AARs</title>
+<!-- results-v1.0 2026-07-22 -->
+<style>
+:root{
+  --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
+  --navy-50:#EEF1F4; --navy-100:#CDD5DA; --navy-200:#9AADB7; --navy-400:#507080; --navy-500:#27343D; --navy-700:#1A2329;
+  --blue-50:#EBF4FB; --blue-100:#C3DFEF; --blue-500:#0979C3; --blue-900:#023B63;
+  --grey-50:#F4F5F5; --grey-100:#E2E3E4; --grey-200:#C0C2C4; --grey-400:#787C7F; --grey-500:#53575A; --grey-700:#363839;
+  --success:#69995D; --error:#CC0100;
+  --radius-sm:6px; --radius-md:12px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(39,52,61,.08); --shadow-md:0 4px 12px rgba(39,52,61,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:var(--grey-700);background:var(--grey-50);font-size:15px;line-height:1.5;min-width:1000px}
+h1,h2,h3,h4{color:var(--navy-500);font-weight:700}
+button{font:inherit;cursor:pointer}
+#appHeader{background:var(--navy-500);color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:50;box-shadow:var(--shadow-md)}
+#appHeader .bebas{font-family:'Bebas Neue','Roboto',sans-serif;font-size:26px;letter-spacing:.03em}
+#appHeader .tag{font-size:12px;color:var(--navy-100);margin-left:10px}
+#appHeader .load{font-size:12px;color:var(--navy-100)}
+main{max-width:1360px;margin:0 auto;padding:24px 28px 60px}
+.badge{display:inline-block;padding:2px 10px;border-radius:var(--radius-pill);font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+.badge.SG{background:#CFE6C6;color:#2E5227}
+.badge.G{background:#E3EEDF;color:#3E6636}
+.badge.R{background:#F8DCDC;color:#8E0000}
+.badge.none{background:var(--grey-100);color:var(--grey-500)}
+.badge.crit{background:var(--orange-100);color:var(--orange-900)}
+
+.dropzone{border:2px dashed var(--navy-200);border-radius:var(--radius-md);background:#fff;padding:34px;text-align:center;margin-bottom:22px}
+.dropzone.drag{border-color:var(--orange-500);background:var(--orange-50)}
+.dropzone h2{font-size:18px;margin-bottom:6px}
+.dropzone p{font-size:13px;color:var(--grey-500);max-width:640px;margin:0 auto 12px}
+.dropzone label{display:inline-block;background:var(--navy-500);color:#fff;border-radius:var(--radius-sm);padding:11px 22px;font-size:13px;font-weight:700;cursor:pointer}
+.dropzone input{display:none}
+.dropzone .privacy{font-size:11px;color:var(--grey-400);margin-top:10px}
+
+.rollup{display:flex;gap:26px;align-items:center;background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:16px 26px;margin-bottom:20px;flex-wrap:wrap}
+.rollup .stat{text-align:center}
+.rollup .stat b{display:block;font-size:26px;color:var(--navy-500);line-height:1.2}
+.rollup .stat span{font-size:10.5px;color:var(--grey-400);text-transform:uppercase;letter-spacing:.04em}
+.rollup .stat b.sg{color:#2E5227}.rollup .stat b.g{color:#3E6636}.rollup .stat b.r{color:var(--error)}
+
+.layout{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+.roster{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:14px;position:sticky;top:76px;max-height:calc(100vh - 100px);overflow-y:auto}
+.roster .rg{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--grey-400);font-weight:700;margin:12px 6px 4px}
+.roster .rg:first-child{margin-top:0}
+.rrow{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:none;border-radius:var(--radius-sm);padding:8px 10px;text-align:left;gap:8px}
+.rrow:hover{background:var(--grey-50)}
+.rrow.active{background:var(--navy-500)}
+.rrow.active .rname, .rrow.active .rpos{color:#fff}
+.rrow .rname{font-size:13px;font-weight:700;color:var(--navy-500)}
+.rrow .rpos{font-size:10.5px;color:var(--grey-400)}
+.rrow .dots{display:flex;gap:3px}
+.dot{width:10px;height:10px;border-radius:3px;background:var(--grey-100)}
+.dot.SG{background:#4C7A41}.dot.G{background:var(--success)}.dot.R{background:var(--error)}
+.rrow .nosub{font-size:9.5px;color:var(--grey-400);font-style:italic}
+
+.detail{min-height:400px}
+.d-head{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:18px 24px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.d-head h2{font-size:22px}
+.d-head .sub{font-size:12px;color:var(--grey-400)}
+.d-head .score{font-size:14px;font-weight:700;color:var(--navy-500);text-align:right}
+.d-head .score .pct{font-size:22px}
+.callout{background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:14px}
+.callout h4{font-size:13px;color:var(--orange-900);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+.callout p{font-size:14px;color:var(--navy-500)}
+.goalcard{background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:12px}
+.goalcard .gh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.goalcard .gt{font-size:14.5px;font-weight:700;color:var(--navy-500)}
+.qa{display:grid;grid-template-columns:170px 1fr;gap:4px 14px;font-size:13px}
+.qa dt{font-weight:700;color:var(--grey-400);font-size:11.5px;text-transform:uppercase;letter-spacing:.02em;padding-top:2px}
+.qa dd{color:var(--grey-700);margin-bottom:6px;white-space:pre-wrap}
+.qa dd.blank{color:var(--grey-400);font-style:italic}
+.chorow{display:flex;gap:6px;flex-wrap:wrap;background:#fff;border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:14px 20px;margin-bottom:14px}
+.chip5{font-size:12px;font-weight:700;border-radius:var(--radius-sm);padding:5px 10px;border:1px solid var(--grey-100);display:flex;gap:6px;align-items:center}
+.chip5 b{font-size:14px}
+.chip5.hi b{color:var(--success)}.chip5.mid b{color:var(--orange-700)}.chip5.lo b{color:var(--error)}.chip5.none b{color:var(--grey-400)}
+.notsub{background:#fff;border:1px dashed var(--grey-200);border-radius:var(--radius-md);padding:44px;text-align:center;color:var(--grey-400);font-size:14px}
+.keys{font-size:11px;color:var(--grey-400);text-align:center;margin-top:14px}
+footer{background:var(--navy-700);color:var(--navy-100);text-align:center;padding:12px;font-size:11px}
+</style>
+</head>
+<body>
+<header id="appHeader">
+  <div><span class="bebas">QGR LIVE RESULTS</span><span class="tag">Manager AARs · Q2 2026 · read-only</span></div>
+  <div class="load" id="loadStatus">no submissions loaded</div>
+</header>
+<main>
+  <div class="dropzone" id="dropzone">
+    <h2>Drop the submission files here</h2>
+    <p>Drag in the managers' exported <b>aar-*.json</b> files (or the whole folder's contents). Everything renders in this browser only — nothing uploads anywhere. Reload the page to clear.</p>
+    <label>Choose files<input type="file" id="filePick" multiple accept=".json,application/json"></label>
+    <div class="privacy">Self-evals are sensitive: this page deliberately ships empty — the data walks in with you and leaves when you close the tab.</div>
+  </div>
+  <div id="content"></div>
+  <div class="keys" id="keysHint" style="display:none">← → move between managers · presenting tip: roster order = region, branch</div>
+</main>
+<footer>Internal · Einstein Moving Company · submissions render locally, never uploaded</footer>
+
+<script src="preload-data.js"></script>
+<script>
+const CORE_VALUES_SHORT = {
+  "Communicate clearly and with kindness":"Communicate",
+  "Hustle but don't rush":"Hustle",
+  "Ownership over results":"Ownership",
+  "Improve with Enthusiasm":"Improve",
+  "Conscientious attention to detail":"Conscientious",
+  "Elevate attitudes":"Elevate",
+  "Support Generously":"Support"
+};
+const POS_LABEL = {BM:"Branch Manager", OPs:"Operations Manager", FM:"Field Manager", Flex:"Flex Manager"};
+const BRANCHES = {CTXH:["North Austin","South Austin","Leander","San Antonio","Houston"], DFWT:["Dallas","Fort Worth","Garland","McKinney","Tampa"]};
+let SUBS = {};        // personId -> submitted JSON record
+let currentId = null;
+
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+/* ---- ingest ---- */
+function ingestFiles(fileList){
+  const files = [...fileList].filter(f=>f.name.endsWith(".json"));
+  if(!files.length){ alert("No .json files found in that drop."); return; }
+  let done = 0, ok = 0, bad = [];
+  files.forEach(f=>{
+    const r = new FileReader();
+    r.onload = ()=>{
+      try{
+        const j = JSON.parse(r.result);
+        if(j.schema === "einstein-manager-aar/v1" && j.person && j.person.id){ SUBS[j.person.id] = j; ok++; }
+        else bad.push(f.name);
+      }catch(e){ bad.push(f.name); }
+      if(++done === files.length){
+        document.getElementById("loadStatus").textContent = Object.keys(SUBS).length + " of " + PRELOAD.people.filter(p=>p.name).length + " submitted" + (bad.length? " · "+bad.length+" file(s) skipped (wrong format)":"");
+        if(!currentId){ const first = PRELOAD.people.find(p=>p.name && SUBS[p.id]); currentId = first ? first.id : null; }
+        render();
+      }
+    };
+    r.readAsText(f);
+  });
+}
+const dz = document.getElementById("dropzone");
+["dragover","dragenter"].forEach(ev=>dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.add("drag"); }));
+["dragleave","drop"].forEach(ev=>dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.remove("drag"); }));
+dz.addEventListener("drop", e=>ingestFiles(e.dataTransfer.files));
+document.getElementById("filePick").addEventListener("change", e=>ingestFiles(e.target.files));
+
+/* ---- rollup ---- */
+function companyRollup(){
+  let sg=0,g=0,r=0,graded=0,submitted=0;
+  Object.values(SUBS).forEach(s=>{
+    submitted++;
+    const sc = s.scorecard || {};
+    sg += sc.sg||0; g += sc.g||0; r += sc.r||0; graded += sc.graded||0;
+  });
+  const rate = graded ? Math.round((sg+g)/graded*100) : null;
+  return {sg,g,r,graded,submitted,rate};
+}
+
+/* ---- render ---- */
+function render(){
+  const c = document.getElementById("content");
+  if(!Object.keys(SUBS).length){ c.innerHTML=""; document.getElementById("keysHint").style.display="none"; return; }
+  const ru = companyRollup();
+  let html = '<div class="rollup">'+
+    '<div class="stat"><b>'+ru.submitted+'/'+PRELOAD.people.filter(p=>p.name).length+'</b><span>submitted</span></div>'+
+    '<div class="stat"><b class="sg">'+ru.sg+'</b><span>Super Green</span></div>'+
+    '<div class="stat"><b class="g">'+ru.g+'</b><span>Green</span></div>'+
+    '<div class="stat"><b class="r">'+ru.r+'</b><span>Red</span></div>'+
+    '<div class="stat"><b>'+(ru.rate===null?"—":ru.rate+"%")+'</b><span>success rate (Q2 baseline)</span></div>'+
+  '</div>';
+  html += '<div class="layout"><div class="roster">';
+  Object.entries(BRANCHES).forEach(([region, branches])=>{
+    branches.forEach(br=>{
+      const folks = PRELOAD.people.filter(p=>p.branch===br && p.name);
+      if(!folks.length) return;
+      html += '<div class="rg">'+esc(br)+' · '+esc(region)+'</div>';
+      folks.forEach(p=>{
+        const s = SUBS[p.id];
+        const dots = s ? (s.goals||[]).map(gl=>'<span class="dot '+(gl.color||'')+'"></span>').join("") : '';
+        html += '<button class="rrow'+(p.id===currentId?' active':'')+'" data-sel="'+esc(p.id)+'">'+
+          '<span><span class="rname">'+esc(p.name)+'</span> <span class="rpos">'+esc(p.position)+'</span></span>'+
+          (s?'<span class="dots">'+dots+'</span>':'<span class="nosub">not submitted</span>')+'</button>';
+      });
+    });
+  });
+  html += '</div><div class="detail">'+detailHtml()+'</div></div>';
+  c.innerHTML = html;
+  document.getElementById("keysHint").style.display = "block";
+  c.querySelectorAll("[data-sel]").forEach(b=>b.addEventListener("click", ()=>{ currentId=b.dataset.sel; render(); }));
+}
+
+function detailHtml(){
+  const person = PRELOAD.people.find(p=>p.id===currentId);
+  if(!person) return '<div class="notsub">Pick a manager on the left.</div>';
+  const s = SUBS[person.id];
+  if(!s) return '<div class="notsub"><b>'+esc(person.name)+'</b> — no submission loaded yet.</div>';
+  const sc = s.scorecard||{};
+  let html = '<div class="d-head"><div><h2>'+esc(person.name)+'</h2><div class="sub">'+esc(POS_LABEL[person.position]||person.position)+' · '+esc(person.branch)+' · '+esc(person.region)+'</div></div>'+
+    '<div class="score"><span class="pct">'+(sc.successRatePct!=null?sc.successRatePct+"%":"—")+'</span><br>'+(sc.sg||0)+' SG · '+(sc.g||0)+' G · '+(sc.r||0)+' R'+(sc.proj?' · '+sc.proj+' PROJ':'')+'</div></div>';
+  if((s.constraint||"").trim() || (s.opportunity||"").trim()){
+    html += '<div class="callout"><h4>For the room</h4>'+
+      ((s.constraint||"").trim()?'<p><b>Biggest constraint:</b> '+esc(s.constraint)+'</p>':'')+
+      ((s.opportunity||"").trim()?'<p><b>Biggest opportunity:</b> '+esc(s.opportunity)+'</p>':'')+'</div>';
+  }
+  const cho = (s.choices||[]).map(cv=>{
+    const short = CORE_VALUES_SHORT[cv.value]||cv.value;
+    const cls = cv.score==null?"none":cv.score>=4?"hi":cv.score===3?"mid":"lo";
+    return '<span class="chip5 '+cls+'" title="'+esc(cv.note||"")+'">'+esc(short)+' <b>'+(cv.score!=null?cv.score:"—")+'</b></span>';
+  }).join("");
+  if(cho) html += '<div class="chorow">'+cho+'</div>';
+  (s.goals||[]).forEach(gl=>{
+    const a = gl.aar||{};
+    const dd = t => t && t.trim() ? '<dd>'+esc(t)+'</dd>' : '<dd class="blank">—</dd>';
+    html += '<div class="goalcard"><div class="gh"><span class="gt">'+esc(gl.rock)+(gl.critical?' <span class="badge crit">Critical #</span>':'')+'</span>'+
+      '<span class="badge '+(gl.color||"none")+'">'+(gl.color||"ungraded")+(gl.proj?' · PROJ':'')+'</span></div>'+
+      '<dl class="qa"><dt>Results</dt>'+dd(a.results)+
+      '<dt>How we got here</dt>'+dd(a.how)+
+      '<dt>Went well</dt>'+dd(a.well)+
+      '<dt>Tried / differently</dt>'+dd(a.differently)+'</dl></div>';
+  });
+  return html;
+}
+
+/* ---- keyboard presenting flow ---- */
+document.addEventListener("keydown", e=>{
+  if(e.key!=="ArrowRight" && e.key!=="ArrowLeft") return;
+  const order = [];
+  Object.values(BRANCHES).flat().forEach(br=>PRELOAD.people.filter(p=>p.branch===br && p.name).forEach(p=>order.push(p.id)));
+  const i = order.indexOf(currentId);
+  if(i===-1) return;
+  const next = e.key==="ArrowRight" ? Math.min(i+1, order.length-1) : Math.max(i-1, 0);
+  if(order[next]!==currentId){ currentId = order[next]; render(); }
+});
+</script>
+</body>
+</html>
