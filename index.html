@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein QGR Prep — Manager Hub</title>
-<!-- v1.3-web 2026-07-22 -->
+<!-- v1.4 2026-07-27 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -174,6 +174,14 @@ details.defs[open] summary:before{content:"▾ "}
 .rownote{width:100%;margin-top:8px;border:1px solid var(--grey-200);border-radius:var(--radius-sm);padding:7px 10px;font:inherit;font-size:12.5px;resize:vertical;min-height:38px}
 .rownote.note-missing{border-color:var(--orange-500);background:var(--orange-50)}
 
+/* v1.4: parked packet section, leadership-only KPI rows, thin-answer nudge */
+.sec-parked{opacity:.55}
+.sec-parked input{pointer-events:none}
+.pane-parked{opacity:.6}
+tr.kpi-locked{opacity:.5}
+tr.kpi-locked input{background:var(--grey-50)}
+textarea.thin{border-color:var(--orange-500)!important;background:var(--orange-50)}
+
 /* KPI table */
 table.kpi-table{width:100%;border-collapse:collapse;font-size:12.5px}
 table.kpi-table th{background:var(--navy-50);color:var(--navy-500);padding:8px 10px;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.02em}
@@ -202,7 +210,7 @@ footer{background:var(--navy-700);color:var(--navy-100);text-align:center;paddin
 </head>
 <body>
 <header id="appHeader">
-  <div class="brand"><span class="bebas">EINSTEIN QGR PREP</span><span class="tag">Manager AAR &amp; Self-Eval · Q2 2026 · v1.2</span></div>
+  <div class="brand"><span class="bebas">EINSTEIN QGR PREP</span><span class="tag">Manager AAR &amp; Self-Eval · Q2 2026 · v1.4</span></div>
   <div class="savebox" id="saveBox">Local only — nothing leaves this computer<br><b id="saveStamp">—</b></div>
 </header>
 <main>
@@ -280,6 +288,7 @@ function emptyRecord(person){
     constraint: "",
     opportunity: "",
     packet: { reviewed:false, questions:"" },
+    interviewDone: false,
     startedAt: null,
     person: { id: person.id, name: person.name, position: person.position, branch: person.branch, region: person.region }
   };
@@ -292,6 +301,7 @@ function getRecord(person){
   if(!rec.choices.itemNotes) rec.choices.itemNotes = {};
   if(!rec.kpis) rec.kpis = {};
   if(!rec.packet) rec.packet = {reviewed:false,questions:""};
+  if(typeof rec.interviewDone === "undefined") rec.interviewDone = false;
   return rec;
 }
 function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
@@ -373,10 +383,10 @@ function renderLanding(){
 
 function roadmapHtml(){
   return '<div class="roadmap-card"><h3>Where this tool is headed</h3><div class="rm-sub">The roadmap lives here so nothing gets lost. Updated 7/22 from Roundtable feedback.</div><ul>'+
-    '<li><span class="rm-chip now">Now</span><span>Your page: preloaded Q2 goals, the four AAR questions (with the bullets-before-cannons reframe), CHOICES self-eval, exports — including a <b>Claude interview prompt</b> that challenges your draft answers before you submit.</span></li>'+
+    '<li><span class="rm-chip now">Now</span><span>Your page: preloaded Q2 goals, the four AAR questions (with the bullets-before-cannons reframe), CHOICES self-eval, exports — with the <b>required Claude interview</b> that challenges your draft answers before you submit.</span></li>'+
     '<li><span class="rm-chip now">Now</span><span>Exports carry clean per-goal SG/G/R grades — this quarter starts the company\'s goal success-rate baseline (there is no historical one; yours is the first data point).</span></li>'+
     '<li><span class="rm-chip next">Next</span><span>QGR live-results view — your submitted AAR displayed in the room at the QGR, so presenting takes minutes, not an hour.</span></li>'+
-    '<li><span class="rm-chip next">Next</span><span>Your branch QGR packet lands on your page for pre-read + questions.</span></li>'+
+    '<li><span class="rm-chip later">Later</span><span>Your branch QGR packet lands on your page for pre-read + questions <b>(parked — no pre-read this cycle)</b>.</span></li>'+
     '<li><span class="rm-chip later">Later</span><span>Built-in AI interviewer that pushes back using your actual branch data (the leadership approach from last quarter) — the copy-paste prompt is the bridge until then.</span></li>'+
     '<li><span class="rm-chip later">Later</span><span>Clean PDF export for permanent record-keeping (Anne).</span></li>'+
     '<li><span class="rm-chip later">Later</span><span>Rippling storage: Rippling can\'t hold loose documents, but its custom objects can hold structured data — likely path is data → custom object, PDF as the human-readable copy. Open integration question (Matisen).</span></li>'+
@@ -442,7 +452,7 @@ function renderPerson(){
 function railHtml(person){
   return '<div class="hub-rail">'+
     '<div class="pane live"><h4>AAR + Self-Eval <span class="now">You are here</span></h4><p>The Q2 exercise — goals AAR, CHOICES, KPIs, and your constraint for the room.</p></div>'+
-    '<div class="pane placeholder"><h4>Your QGR Packet <span class="soon">Coming</span></h4><p>Your branch scorecard and the quarter packet will land here — review before the QGR and bring questions.</p></div>'+
+    '<div class="pane placeholder pane-parked"><h4>Your QGR Packet <span class="soon">Parked</span></h4><p>No packet pre-read this cycle — your scorecard gets walked in the room instead. This lands in a future quarter.</p></div>'+
     '<div class="pane placeholder"><h4>Track Record <span class="mock-tag">Mockup</span></h4><p>Your goal history vs. company + position average — real once we have 2+ quarters of records.</p>'+
       '<div class="tr-mock"><div class="mockbars">'+
         '<div class="mb" style="height:55%"><span>Co</span></div>'+
@@ -450,7 +460,7 @@ function railHtml(person){
         '<div class="mb you" style="height:78%"><span>You</span></div>'+
       '</div><div class="legend"><i style="background:var(--navy-200)"></i>Company / position avg &nbsp; <i style="background:var(--orange-500)"></i>Your goal hit-rate <span class="muted">(example data)</span></div></div></div>'+
     '<div class="pane placeholder"><h4>Coaching Signals <span class="soon">Coming</span></h4><p>A low self-score will raise a hand in-quarter so it gets coached before your review — never sprung at it.</p></div>'+
-    '<div class="pane placeholder"><h4>Talk It Instead <span class="soon">Coming</span></h4><p>A built-in AI interviewer is on the roadmap — but you don\'t have to wait: section 6 has a <b>Claude interview prompt</b> that challenges your answers today.</p></div>'+
+    '<div class="pane placeholder"><h4>Talk It Instead <span class="soon">Coming</span></h4><p>A built-in AI interviewer is on the roadmap. Until then the <b>Claude interview prompt</b> (sections 1 and 6) is the required path — it challenges your answers today.</p></div>'+
     '</div>';
 }
 
@@ -461,8 +471,8 @@ function secNavHtml(person, rec){
     ["sec-choices","2 · CHOICES", CORE_VALUES.every(cv=>rec.choices.items[cv])],
     ["sec-kpis","3 · KPIs", null],
     ["sec-constraint","4 · Constraint", !!((rec.constraint||"").trim()||(rec.opportunity||"").trim())],
-    ["sec-packet","5 · Packet", !!rec.packet.reviewed],
-    ["sec-export","6 · Submit", null]
+    ["sec-packet","5 · Packet (parked)", null],
+    ["sec-export","6 · Submit", !!rec.interviewDone]
   ];
   return '<div id="secNav">'+items.map(([id,label,done])=>
     '<button data-jump="'+id+'">'+esc(label)+(done?' <span class="ok">✓</span>':'')+'</button>'
@@ -478,8 +488,8 @@ function chipRowHtml(dimKey, opts, val, extraCls){
 function sectionGoals(person, rec){
   const goals = person.goals||[];
   let html = '<div class="section" id="sec-goals"><div class="shead"><h3>1 · Goal AAR — the four questions</h3>'+(goalsDone(person,rec)?'<span class="done-chip">✓ all goals colored</span>':'')+'</div>'+
-    '<div class="shelp">One block per Q2 goal. Color it against the <b>written</b> Green / Super Green definition from quarter start (expand it under each goal) — not the vibe. If the quarter is still running, grade where it lands by 7/31 and check <b>PROJ</b>. On your Critical # goals, questions 2 and 4 get short paragraphs, not sentences.</div>'+
-    '<div class="interview-callout"><div><b>🎙 Recommended: let Claude interview you instead of typing cold.</b> Copy the prompt, paste it into your Claude account, and talk through your quarter — Claude pushes back on your colors and vague answers, then hands you a block you paste straight back in here and every field fills itself.</div>'+
+    '<div class="shelp">One block per Q2 goal. Color it against the <b>written</b> Green / Super Green definition from quarter start (expand it under each goal) — not the vibe. If the quarter is still running, grade where it lands by 7/31 and check <b>PROJ</b>. On your Critical # goals, questions 2 and 4 get short paragraphs, not sentences. <b>And write like it matters:</b> one- or two-line answers aren\'t an AAR — if your answer fits in a text message, it isn\'t done. The Claude interview will pull the real story out of you; that\'s why it\'s required.</div>'+
+    '<div class="interview-callout"><div><b>🎙 Required: let Claude interview you — don\'t type this cold.</b> This is how the AAR gets done, not an optional extra. Copy the prompt, paste it into your Claude account, and talk through your quarter — Claude pushes back on your colors and vague answers, then hands you a block you paste straight back in here and every field fills itself.</div>'+
     '<div class="ic-actions"><button class="ic-btn" data-copyinterview>Copy interview prompt</button><button class="ic-btn secondary" data-pasteback>Paste Claude\'s results</button></div>'+
     '<div id="pasteWrap" style="display:none"><textarea id="pasteBox" placeholder="Paste Claude\'s whole final answer here — I\'ll find the answers block and fill in your goals."></textarea><button class="ic-btn" id="applyPaste">Fill my form from this</button></div></div>';
   if(!goals.length){
@@ -514,7 +524,7 @@ function sectionGoals(person, rec){
           '<details><summary>the full metaphor, in plain words</summary>Before a ship fires its big cannon, it fires cheap bullets to find the range. A bullet costs little if it misses — a new phone script, a schedule tweak, a different way to run trial days. Once a bullet hits, you fire the cannon: commit real time and money to it. Tell us what you tried, what it taught you, and which bullet deserves a cannon next quarter.</details></div>';
       }
       html += '<div class="q-block"><label>'+q.label+' <span class="qhint">— '+esc(q.hint)+'</span></label>'+
-        '<textarea class="'+(deep?'depth ':'')+(missing?'note-missing':'')+'" data-goalq="'+g.num+':'+q.k+'" placeholder="'+(deep?'Critical # — go deeper here.':'')+'">'+esc(val)+'</textarea></div>';
+        '<textarea class="'+(deep?'depth ':'')+(missing?'note-missing ':'')+((val.trim()&&val.trim().length<100)?'thin':'')+'" data-goalq="'+g.num+':'+q.k+'" placeholder="'+(deep?'Critical # — go deeper here.':'')+'">'+esc(val)+'</textarea></div>';
     });
     if(g.critical) html += '<div class="depth-hint">Critical # — make questions 2 and 4 the deep ones.</div>';
     html += '</div></div>';
@@ -558,6 +568,13 @@ function sectionKpis(person, rec){
   html += '<table class="kpi-table"><thead><tr><th style="width:38%">KPI</th><th>Target</th><th>Your estimate</th><th>Actual</th></tr></thead><tbody>';
   kpis.forEach((k,i)=>{
     const kr = rec.kpis[k.name]||{};
+    if(k.locked){
+      html += '<tr class="kpi-locked"><td><b>'+esc(k.name)+'</b>'+(k.notes?'<div class="tiny muted">'+esc(k.notes)+'</div>':'')+'</td>'+
+        '<td>'+(k.target?esc(k.target):'<span class="blank-note">leadership-tracked</span>')+'</td>'+
+        '<td><input type="text" disabled placeholder="grayed out for now"></td>'+
+        '<td><input type="text" disabled placeholder="grayed out for now"></td></tr>';
+      return;
+    }
     html += '<tr><td><b>'+esc(k.name)+'</b>'+(k.notes?'<div class="tiny muted">'+esc(k.notes)+'</div>':'')+'</td>'+
       '<td>'+(k.target?esc(k.target):'<span class="blank-note">not consistently tracked</span>')+'</td>'+
       '<td><input type="text" data-kpi="'+esc(k.name)+':est" value="'+esc(kr.est||"")+'" placeholder="where you think you are"></td>'+
@@ -578,8 +595,8 @@ function sectionConstraint(person, rec){
 
 /* ---- Section 5: Packet review ---- */
 function sectionPacket(person, rec){
-  return '<div class="section" id="sec-packet"><div class="shead"><h3>5 · QGR packet review</h3></div>'+
-    '<div class="shelp">Once your branch packet lands (see the rail — coming), review it and write down what surprised you or what you\'d challenge. Come to the QGR with questions, not just answers.</div>'+
+  return '<div class="section sec-parked" id="sec-packet"><div class="shead"><h3>5 · QGR packet review <span class="soon">Parked</span></h3></div>'+
+    '<div class="shelp">No packet pre-read this cycle — your scorecard gets walked in the room. This section is parked until packets land on this page in a future quarter.</div>'+
     '<label class="check-line"><input type="checkbox" data-field="packetReviewed"'+(rec.packet.reviewed?' checked':'')+'> I reviewed my QGR packet</label>'+
     '<div class="q-block"><label>Questions / challenges for the room</label><textarea class="narrative" data-field="packetQuestions" placeholder="What in the packet doesn\'t match how the quarter felt from your seat?">'+esc(rec.packet.questions||"")+'</textarea></div></div>';
 }
@@ -587,7 +604,8 @@ function sectionPacket(person, rec){
 /* ---- Section 6: Export ---- */
 function sectionExport(person, rec){
   return '<div class="section" id="sec-export"><div class="shead"><h3>6 · Submit</h3></div>'+
-    '<div class="shelp">When you\'re done: export and send to your regional (or bring it to your one-on-one). Markdown = the readable write-up. JSON = the data record. <b>Want a second set of eyes first?</b> "Copy Claude interview prompt" grabs your goals + draft answers wrapped in instructions — paste it into your Claude account and it will interview you, challenge your colors against the written definitions, and hand back a sharpened final version.</div>'+
+    '<div class="shelp"><b>Step 1 is not optional:</b> "Copy Claude interview prompt" grabs your goals + draft answers wrapped in instructions — paste it into your Claude account and let it interview you. It challenges your colors against the written definitions and hands back a sharpened version you paste straight back in. <b>Then</b> export and send to your regional (or bring it to your one-on-one). Markdown = the readable write-up. JSON = the data record.</div>'+
+    '<label class="check-line"><input type="checkbox" data-field="interviewDone"'+(rec.interviewDone?' checked':'')+'> <b>I let Claude interview me</b> (required)</label>'+
     '<div class="export-actions">'+
       '<button id="btnMd">Copy markdown write-up</button>'+
       '<button id="btnMdPreview" class="secondary">Preview</button>'+
@@ -690,6 +708,9 @@ function wirePerson(person, rec){
     ta.addEventListener("input", ()=>{
       const [num,k] = ta.dataset.goalq.split(":");
       if(!rec.goals[num]) rec.goals[num] = {};
+      const t = ta.value.trim();
+      ta.classList.toggle("thin", !!t && t.length < 100);
+      ta.title = (!!t && t.length < 100) ? "Thin answer — one or two lines isn't an AAR. Say more, or let the Claude interview pull it out of you." : "";
       rec.goals[num][k] = ta.value;
       queueSave();
     });
@@ -716,10 +737,12 @@ function wirePerson(person, rec){
       else if(f==="opportunity") rec.opportunity = el.value;
       else if(f==="packetQuestions") rec.packet.questions = el.value;
       else if(f==="packetReviewed") rec.packet.reviewed = el.checked;
+      else if(f==="interviewDone"){ rec.interviewDone = el.checked; queueSave(); renderPerson(); return; }
       queueSave();
     });
   });
   document.getElementById("btnMd").addEventListener("click", ()=>{
+    if(!rec.interviewDone && !confirm("The Claude interview is required before you submit — it's the step that makes this an AAR instead of a form. Export anyway?")) return;
     const md = buildMarkdown(person, rec);
     const pv = document.getElementById("mdPreview");
     pv.value = md; pv.classList.add("show"); // always show what got copied
@@ -734,6 +757,7 @@ function wirePerson(person, rec){
     pv.value = buildMarkdown(person, rec); pv.classList.toggle("show");
   });
   document.getElementById("btnJson").addEventListener("click", ()=>{
+    if(!rec.interviewDone && !confirm("The Claude interview is required before you submit — it's the step that makes this an AAR instead of a form. Export anyway?")) return;
     downloadFile("aar-"+person.id+"-q2-2026.json", JSON.stringify(buildJsonRecord(person, rec), null, 2), "application/json");
     toast("JSON record downloaded");
   });
@@ -795,6 +819,7 @@ function buildMarkdown(person, rec){
   md += "\n## Constraint & opportunity (for the QGR room)\n";
   md += "- Biggest constraint: "+((rec.constraint||"").trim()||"—")+"\n";
   md += "- Biggest opportunity: "+((rec.opportunity||"").trim()||"—")+"\n";
+  md += "\n## Claude interview (required)\n- Completed: "+(rec.interviewDone?"yes":"NOT DONE")+"\n";
   md += "\n## QGR packet\n- Reviewed: "+(rec.packet.reviewed?"yes":"not yet")+"\n- Questions for the room: "+((rec.packet.questions||"").trim()||"—")+"\n";
   if(gutCheck.length){
     md += "\n---\n### For the gut-check (incomplete grades)\n";
@@ -807,6 +832,7 @@ function buildJsonRecord(person, rec){
     schema: "einstein-manager-aar/v1",
     exportedAt: new Date().toISOString(),
     quarter: QUARTER,
+    interviewDone: !!rec.interviewDone,
     person: { id: person.id, name: person.name, position: person.position, branch: person.branch, region: person.region, regional: person.regional||null },
     goals: (person.goals||[]).map(g=>{
       const gr = rec.goals[g.num]||{};

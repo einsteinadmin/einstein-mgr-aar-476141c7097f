@@ -177,62 +177,64 @@ const PRELOAD = {
       {
         "name": "TUR",
         "target": null,
-        "notes": "Blank/no explicit target in Q1 2026 snapshot (most recent available; tab has no Q2 2026 section yet)."
+        "locked": true,
+        "notes": "Leadership-tracked — you don't have visibility into this one yet, so it's grayed out for now."
       },
       {
         "name": "Profit/Truck",
         "target": null,
-        "notes": "Blank/no explicit target in Q1 2026 snapshot."
+        "locked": true,
+        "notes": "Leadership-tracked — you don't have visibility into this one yet, so it's grayed out for now."
       },
       {
         "name": "NPS",
         "target": ">90%",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
         "name": "Praise",
         "target": "4 per week (48 total)",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
-        "name": "Critical # (Q1 2026)",
+        "name": "Critical Number 1",
         "target": "EMC Games",
-        "notes": "Labeled 'Critical #' in the Position KPIs tab, Q1 2026 BM/EXP column."
+        "notes": "BM/EXP column."
       },
       {
-        "name": "Critical # (Q1 2026)",
+        "name": "Critical Number 2",
         "target": "Hiring Targets",
-        "notes": "Labeled 'Critical #' in the Position KPIs tab, Q1 2026 BM/EXP column."
+        "notes": "BM/EXP column."
       }
     ],
     "OPs": [
       {
         "name": "Sales",
         "target": "100%",
-        "notes": "Q1 2026 snapshot, OPS column."
+        "notes": "OPS column."
       },
       {
         "name": "Fleet Costs %",
         "target": "TBD",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
         "name": "Driver Scores",
         "target": ">90",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
         "name": "Praise",
         "target": "3 per week (36 total)",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
-        "name": "Critical # (Q1 2026)",
+        "name": "Critical Number 1",
         "target": "EMC Games",
         "notes": "OPS column."
       },
       {
-        "name": "Critical # (Q1 2026)",
+        "name": "Critical Number 2",
         "target": "Sales",
         "notes": "OPS column."
       }
@@ -241,30 +243,30 @@ const PRELOAD = {
       {
         "name": "Damages/hour",
         "target": "< $1.23/hr",
-        "notes": "Q1 2026 snapshot, FM column."
+        "notes": "FM column."
       },
       {
         "name": "Onsites %",
         "target": "90%",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
         "name": "Onsites Conducted",
         "target": "75",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
         "name": "Praise",
         "target": "3 per week (36 total)",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
-        "name": "Critical # (Q1 2026)",
+        "name": "Critical Number 1",
         "target": "EMC Games",
         "notes": "FM column."
       },
       {
-        "name": "Critical # (Q1 2026)",
+        "name": "Critical Number 2",
         "target": "Evals",
         "notes": "FM column."
       }
@@ -273,20 +275,20 @@ const PRELOAD = {
       {
         "name": "Sales",
         "target": "100%",
-        "notes": "Q1 2026 snapshot, FLEX column."
+        "notes": "FLEX column."
       },
       {
         "name": "Praise",
         "target": "3 per week (36 total)",
-        "notes": "Q1 2026 snapshot."
+        "notes": ""
       },
       {
-        "name": "Critical # (Q1 2026)",
+        "name": "Critical Number 1",
         "target": "Drivers Ed",
         "notes": "FLEX column."
       },
       {
-        "name": "Critical # (Q1 2026)",
+        "name": "Critical Number 2",
         "target": "Sales",
         "notes": "FLEX column."
       }
