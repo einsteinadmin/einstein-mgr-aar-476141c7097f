@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein FLM QGR Prep — Manager Hub</title>
-<!-- v1.6.1 2026-07-27 -->
+<!-- v1.6.2 2026-07-27 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -124,7 +124,7 @@ details.defs[open] summary:before{content:"▾ "}
 .q-block textarea.depth{min-height:64px}
 .q-block textarea.note-missing{border-color:var(--orange-500);background:var(--orange-50)}
 .depth-hint{font-size:11px;color:var(--orange-900);background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-sm);padding:5px 10px;margin-top:10px;display:inline-block}
-.bullets-mini{font-size:11.5px;color:var(--navy-500);background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-sm);padding:8px 12px;margin-top:12px;line-height:1.55}
+.bullets-mini{font-size:11.5px;color:var(--navy-500);background:var(--orange-50);border:1px solid var(--orange-100);border-radius:var(--radius-sm);padding:8px 12px;margin:12px 0 12px;line-height:1.55}
 .bullets-mini details{margin-top:4px;color:var(--grey-500)}
 .bullets-mini summary{cursor:pointer;font-weight:700;color:var(--orange-900);font-size:11px}
 .interview-callout{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--radius-md);padding:14px 18px;margin-bottom:16px;font-size:12.5px;color:var(--blue-900);line-height:1.55}
@@ -210,7 +210,7 @@ footer{background:var(--navy-700);color:var(--navy-100);text-align:center;paddin
 </head>
 <body>
 <header id="appHeader">
-  <div class="brand"><span class="bebas">EINSTEIN FLM QGR PREP</span><span class="tag">Frontline Manager AAR &amp; Self-Eval · Q2 2026 · v1.6.1</span></div>
+  <div class="brand"><span class="bebas">EINSTEIN FLM QGR PREP</span><span class="tag">Frontline Manager AAR &amp; Self-Eval · Q2 2026 · v1.6.2</span></div>
   <div class="savebox" id="saveBox">Local only — nothing leaves this computer<br><b id="saveStamp">—</b></div>
 </header>
 <main>
@@ -518,10 +518,7 @@ function sectionGoals(person, rec){
       '</div></details>'+
       '<div style="display:flex;align-items:center">'+chipRowHtml("goal:"+g.num, SGR_OPTIONS, gr.color)+
       '<label class="proj-toggle"><input type="checkbox" data-proj="'+g.num+'"'+(gr.proj?' checked':'')+'> PROJ (quarter still running)</label></div>';
-    const take = (typeof TAKES!=="undefined" && TAKES[person.id] && TAKES[person.id][g.num]) || null;
-    if(take && !(gr.results||"").trim()){
-      html += '<div class="take-chip">📊 <b>Our take, from the Q2 data:</b> '+esc(take)+' <button class="take-use" data-usetake="'+g.num+'">Start my Results from this</button></div>';
-    }
+    /* 'Our take' pre-population chip removed v1.6.2 (Cameron: more confusing than helpful; TAKES data + aar-takes.js left in place, unused) */
     AAR_QUESTIONS.forEach(q=>{
       const deep = g.critical && (q.k==="how"||q.k==="diff");
       const val = gr[q.k]||"";
@@ -690,25 +687,7 @@ function wirePerson(person, rec){
     queueSave(); renderPerson();
     toast("Filled "+filled+" goal"+(filled===1?"":"s")+(skipped?" ("+skipped+" skipped — unknown goal number)":"")+" — read them over, they're yours now.");
   });
-  wrap.querySelectorAll("[data-usetake]").forEach(b=>b.addEventListener("click", ()=>{
-    const n = b.dataset.usetake;
-    const tgt = rec.goals[n] = rec.goals[n]||{};
-    if(!(tgt.results||"").trim()){
-      tgt.results = (TAKES[person.id][n]||"") + " — ";
-      queueSave(); renderPerson();
-      const ta = document.querySelector('[data-goalq="'+n+':results"]');
-      if(ta){ ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }
-    }
-  }));
-
-  wrap.querySelectorAll("[data-gtoggle]").forEach(h=>{
-    h.addEventListener("click", (e)=>{
-      if(e.target.closest("button,input,textarea,details")) return; // don't toggle on inner controls
-      const n = h.dataset.gtoggle;
-      if(EXPANDED.has(n)) EXPANDED.delete(n); else EXPANDED.add(n);
-      renderPerson();
-    });
-  });
+  /* usetake wiring removed v1.6.2 */
 
   wrap.querySelectorAll("[data-dim]").forEach(btn=>{
     btn.addEventListener("click", ()=>{
