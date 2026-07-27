@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein QGR Prep — Manager Hub</title>
-<!-- v1.4.1 2026-07-27 -->
+<!-- v1.5 2026-07-27 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -210,7 +210,7 @@ footer{background:var(--navy-700);color:var(--navy-100);text-align:center;paddin
 </head>
 <body>
 <header id="appHeader">
-  <div class="brand"><span class="bebas">EINSTEIN QGR PREP</span><span class="tag">Manager AAR &amp; Self-Eval · Q2 2026 · v1.4.1</span></div>
+  <div class="brand"><span class="bebas">EINSTEIN QGR PREP</span><span class="tag">Manager AAR &amp; Self-Eval · Q2 2026 · v1.5</span></div>
   <div class="savebox" id="saveBox">Local only — nothing leaves this computer<br><b id="saveStamp">—</b></div>
 </header>
 <main>
@@ -289,6 +289,7 @@ function emptyRecord(person){
     opportunity: "",
     packet: { reviewed:false, questions:"" },
     interviewDone: false,
+    flywheel: { reviewed:false, bring:"" },
     startedAt: null,
     person: { id: person.id, name: person.name, position: person.position, branch: person.branch, region: person.region }
   };
@@ -302,6 +303,7 @@ function getRecord(person){
   if(!rec.kpis) rec.kpis = {};
   if(!rec.packet) rec.packet = {reviewed:false,questions:""};
   if(typeof rec.interviewDone === "undefined") rec.interviewDone = false;
+  if(!rec.flywheel) rec.flywheel = {reviewed:false, bring:""};
   return rec;
 }
 function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
@@ -438,6 +440,7 @@ function renderPerson(){
   html += sectionChoices(person, rec);
   html += sectionKpis(person, rec);
   html += sectionConstraint(person, rec);
+  html += sectionFlywheel(person, rec);
   html += sectionPacket(person, rec);
   html += sectionExport(person, rec);
   html += '</div>';
@@ -471,8 +474,9 @@ function secNavHtml(person, rec){
     ["sec-choices","2 · CHOICES", CORE_VALUES.every(cv=>rec.choices.items[cv])],
     ["sec-kpis","3 · KPIs", null],
     ["sec-constraint","4 · Constraint", !!((rec.constraint||"").trim()||(rec.opportunity||"").trim())],
-    ["sec-packet","5 · Packet (parked)", null],
-    ["sec-export","6 · Submit", !!rec.interviewDone]
+    ["sec-flywheel","5 · Flywheel", !!(rec.flywheel.reviewed || (rec.flywheel.bring||"").trim())],
+    ["sec-packet","6 · Packet (parked)", null],
+    ["sec-export","7 · Submit", !!rec.interviewDone]
   ];
   return '<div id="secNav">'+items.map(([id,label,done])=>
     '<button data-jump="'+id+'">'+esc(label)+(done?' <span class="ok">✓</span>':'')+'</button>'
@@ -595,15 +599,39 @@ function sectionConstraint(person, rec){
 
 /* ---- Section 5: Packet review ---- */
 function sectionPacket(person, rec){
-  return '<div class="section sec-parked" id="sec-packet"><div class="shead"><h3>5 · QGR packet review <span class="soon">Parked</span></h3></div>'+
+  return '<div class="section sec-parked" id="sec-packet"><div class="shead"><h3>6 · QGR packet review <span class="soon">Parked</span></h3></div>'+
     '<div class="shelp">No packet pre-read this cycle — your scorecard gets walked in the room. This section is parked until packets land on this page in a future quarter.</div>'+
     '<label class="check-line"><input type="checkbox" data-field="packetReviewed"'+(rec.packet.reviewed?' checked':'')+'> I reviewed my QGR packet</label>'+
     '<div class="q-block"><label>Questions / challenges for the room</label><textarea class="narrative" data-field="packetQuestions" placeholder="What in the packet doesn\'t match how the quarter felt from your seat?">'+esc(rec.packet.questions||"")+'</textarea></div></div>';
 }
 
+/* ---- Section 5: Flywheel pre-work (FLM QGR prep) ---- */
+function sectionFlywheel(person, rec){
+  const fw = rec.flywheel;
+  const done = fw.reviewed || (fw.bring||"").trim();
+  return '<div class="section" id="sec-flywheel"><div class="shead"><h3>5 \u00b7 Flywheel pre-work <span class="ai-draft">FLM QGR prep</span></h3>'+
+    (done?'<span class="done-chip">\u2713 prepped</span>':'')+'</div>'+
+    '<div class="shelp">Your regional QGR session includes a live flywheel exercise \u2014 where is Einstein strongest, where is the biggest leak, and what would spin the wheel faster at <b>your</b> branch. Come prepared: <b>\u2460</b> spend 10 minutes on the flywheel site, <b>\u2461</b> run the Claude prompt below and talk it through, <b>\u2462</b> jot what you\'re bringing to the room. Your actual votes happen live in the session \u2014 this is prep, not the vote.</div>'+
+    '<div style="margin-bottom:12px"><a href="https://einsteinadmin.github.io/einstein-flywheel/" target="_blank" rel="noopener" style="font-size:13px;font-weight:700">\ud83d\udd04 Open the Einstein Flywheel \u2192</a> <span class="tiny muted">\u2014 the main wheel + the three engines (People \u00b7 Capacity \u00b7 Demand)</span></div>'+
+    '<div class="cos-row" style="margin:0 0 12px 0"><button id="btnFlywheelPrompt">\ud83c\udf99 Copy Claude flywheel prompt</button><span class="cos-hint">Paste into your Claude account \u2014 it walks the wheel with you and helps you pick your one opportunity.</span></div>'+
+    '<label class="check-line"><input type="checkbox" data-field="flywheelReviewed"'+(fw.reviewed?' checked':'')+'> I reviewed the flywheel + ran the prompt</label>'+
+    '<div class="q-block"><label>What I\'m bringing to the room <span class="qhint">\u2014 one line is fine: the component you think is our biggest opportunity and why</span></label>'+
+    '<textarea class="narrative" data-field="flywheelBring" placeholder="e.g. Optimize Capacity \u2014 we sell trucks we can\'t crew in June\u2026">'+esc(fw.bring||"")+'</textarea></div></div>';
+}
+function buildFlywheelPrompt(person, rec){
+  return "You are helping me prep for my company's frontline-manager quarterly session. I'm "+person.name+", "+(POS_LABEL[person.position]||person.position)+" of the "+person.branch+" branch at Einstein Moving Company (a residential moving company). Our company runs on a flywheel with six components:\n"+
+    "1. Attract & Develop Great Movers\n2. Deliver the Smart Move Experience\n3. Earn Trust at Scale\n4. Win Demand\n5. Optimize Capacity\n6. Reinvest Profit in People and Innovation\n"+
+    "Three of these have deeper engines: the People Engine (component 1), the Capacity Engine (component 5), and the Demand Engine (component 4).\n\n"+
+    "In 10-15 minutes, one question at a time, no tangents:\n"+
+    "1. Quiz me briefly so I can explain the flywheel in my own words \u2014 correct me where I'm fuzzy.\n"+
+    "2. Then interview me about MY branch: where does the wheel spin strongest? Where is the biggest leak? Push for concrete evidence from my floor, not vibes.\n"+
+    "3. Help me land ONE opportunity I'd name in the room \u2014 the single change at my branch that would spin the wheel faster \u2014 and pressure-test it: is it really the biggest lever?\n\n"+
+    "End with a 3-line summary I can bring to the session: strongest component, biggest leak, my one opportunity. Do NOT have me lock final votes \u2014 those happen live in the room.";
+}
+
 /* ---- Section 6: Export ---- */
 function sectionExport(person, rec){
-  return '<div class="section" id="sec-export"><div class="shead"><h3>6 · Submit</h3></div>'+
+  return '<div class="section" id="sec-export"><div class="shead"><h3>7 · Submit</h3></div>'+
     '<div class="shelp"><b>Step 1 is not optional:</b> "Copy Claude interview prompt" grabs your goals + draft answers wrapped in instructions — paste it into your Claude account and let it interview you. It challenges your colors against the written definitions and hands back a sharpened version you paste straight back in. <b>Then</b> export and send to your regional (or bring it to your one-on-one). Markdown = the readable write-up. JSON = the data record.</div>'+
     '<label class="check-line"><input type="checkbox" data-field="interviewDone"'+(rec.interviewDone?' checked':'')+'> <b>I let Claude interview me</b> (required)</label>'+
     '<div class="export-actions">'+
@@ -738,6 +766,8 @@ function wirePerson(person, rec){
       else if(f==="packetQuestions") rec.packet.questions = el.value;
       else if(f==="packetReviewed") rec.packet.reviewed = el.checked;
       else if(f==="interviewDone"){ rec.interviewDone = el.checked; queueSave(); renderPerson(); return; }
+      else if(f==="flywheelReviewed"){ rec.flywheel.reviewed = el.checked; queueSave(); renderPerson(); return; }
+      else if(f==="flywheelBring") rec.flywheel.bring = el.value;
       queueSave();
     });
   });
@@ -760,6 +790,10 @@ function wirePerson(person, rec){
     if(!rec.interviewDone && !confirm("The Claude interview is required before you submit — it's the step that makes this an AAR instead of a form. Export anyway?")) return;
     downloadFile("aar-"+person.id+"-q2-2026.json", JSON.stringify(buildJsonRecord(person, rec), null, 2), "application/json");
     toast("JSON record downloaded");
+  });
+  const fwBtn = document.getElementById("btnFlywheelPrompt");
+  if(fwBtn) fwBtn.addEventListener("click", ()=>{
+    navigator.clipboard.writeText(buildFlywheelPrompt(person, rec)).then(()=>toast("Flywheel prompt copied \u2014 paste it to Claude"));
   });
   document.getElementById("btnInterview").addEventListener("click", ()=>{
     const prompt = buildInterviewPrompt(person, rec);
@@ -820,6 +854,7 @@ function buildMarkdown(person, rec){
   md += "- Biggest constraint: "+((rec.constraint||"").trim()||"—")+"\n";
   md += "- Biggest opportunity: "+((rec.opportunity||"").trim()||"—")+"\n";
   md += "\n## Claude interview (required)\n- Completed: "+(rec.interviewDone?"yes":"NOT DONE")+"\n";
+  md += "\n## Flywheel pre-work (FLM QGR prep)\n- Reviewed + prompt run: "+(rec.flywheel.reviewed?"yes":"not yet")+"\n- Bringing to the room: "+((rec.flywheel.bring||"").trim()||"\u2014")+"\n";
   md += "\n## QGR packet\n- Reviewed: "+(rec.packet.reviewed?"yes":"not yet")+"\n- Questions for the room: "+((rec.packet.questions||"").trim()||"—")+"\n";
   if(gutCheck.length){
     md += "\n---\n### For the gut-check (incomplete grades)\n";
@@ -833,6 +868,7 @@ function buildJsonRecord(person, rec){
     exportedAt: new Date().toISOString(),
     quarter: QUARTER,
     interviewDone: !!rec.interviewDone,
+    flywheel: { reviewed: !!rec.flywheel.reviewed, bring: (rec.flywheel.bring||"").trim() },
     person: { id: person.id, name: person.name, position: person.position, branch: person.branch, region: person.region, regional: person.regional||null },
     goals: (person.goals||[]).map(g=>{
       const gr = rec.goals[g.num]||{};
