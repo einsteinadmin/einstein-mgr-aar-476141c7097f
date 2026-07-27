@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein FLM QGR Prep — Manager Hub</title>
-<!-- v1.5.1 2026-07-27 -->
+<!-- v1.6 2026-07-27 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -210,7 +210,7 @@ footer{background:var(--navy-700);color:var(--navy-100);text-align:center;paddin
 </head>
 <body>
 <header id="appHeader">
-  <div class="brand"><span class="bebas">EINSTEIN FLM QGR PREP</span><span class="tag">Frontline Manager AAR &amp; Self-Eval · Q2 2026 · v1.5.1</span></div>
+  <div class="brand"><span class="bebas">EINSTEIN FLM QGR PREP</span><span class="tag">Frontline Manager AAR &amp; Self-Eval · Q2 2026 · v1.6</span></div>
   <div class="savebox" id="saveBox">Local only — nothing leaves this computer<br><b id="saveStamp">—</b></div>
 </header>
 <main>
@@ -384,18 +384,21 @@ function renderLanding(){
 }
 
 function roadmapHtml(){
-  return '<div class="roadmap-card"><h3>Where this tool is headed</h3><div class="rm-sub">The roadmap lives here so nothing gets lost. Updated 7/22 from Roundtable feedback.</div><ul>'+
-    '<li><span class="rm-chip now">Now</span><span>Your page: preloaded Q2 goals, the four AAR questions (with the bullets-before-cannons reframe), CHOICES self-eval, exports — with the <b>required Claude interview</b> that challenges your draft answers before you submit.</span></li>'+
-    '<li><span class="rm-chip now">Now</span><span>Exports carry clean per-goal SG/G/R grades — this quarter starts the company\'s goal success-rate baseline (there is no historical one; yours is the first data point).</span></li>'+
-    '<li><span class="rm-chip next">Next</span><span>QGR live-results view — your submitted AAR displayed in the room at the QGR, so presenting takes minutes, not an hour.</span></li>'+
-    '<li><span class="rm-chip later">Later</span><span>Your branch QGR packet lands on your page for pre-read + questions <b>(parked — no pre-read this cycle)</b>.</span></li>'+
-    '<li><span class="rm-chip later">Later</span><span>Built-in AI interviewer that pushes back using your actual branch data (the leadership approach from last quarter) — the copy-paste prompt is the bridge until then.</span></li>'+
-    '<li><span class="rm-chip later">Later</span><span>Clean PDF export for permanent record-keeping (Anne).</span></li>'+
-    '<li><span class="rm-chip later">Later</span><span>Rippling storage: Rippling can\'t hold loose documents, but its custom objects can hold structured data — likely path is data → custom object, PDF as the human-readable copy. Open integration question (Matisen).</span></li>'+
-    '<li><span class="rm-chip later">Later</span><span>Track record: your goal history vs. company + position average (needs 2+ quarters of records).</span></li>'+
-    '<li><span class="rm-chip later">Later</span><span>In-quarter coaching signals — a low self-score raises a hand early so it gets coached before your review, never sprung at it.</span></li>'+
+  return '<div class="roadmap-card"><h3>How you\'ll use this — now and at the QGR</h3><div class="rm-sub">First time we\'ve run this exercise at the manager level. Here\'s the short version of what it\'s for.</div><ul>'+
+    '<li><span class="rm-chip now">Now</span><span>Your page: your Q2 goals, the four AAR questions, CHOICES self-eval, flywheel pre-work, exports — with the <b>required Claude interview</b> that pulls the real story out before you submit.</span></li>'+
+    '<li><span class="rm-chip now">Now</span><span>Honesty over polish: some of these questions may not have an answer yet — <b>"I didn\'t try anything beyond the routine" is a legitimate answer.</b> Short and true beats long and padded.</span></li>'+
+    '<li><span class="rm-chip next">Next</span><span><b>At your regional QGR</b>, the AI has your submitted page to help guide the conversation and feedback on the day — your answers become the agenda, not a form that disappears into a drawer.</span></li>'+
+    '<li><span class="rm-chip next">Next</span><span><b>Why it helps your region:</b> your regional gets your results readily, and we start tracking goal success rates over time — so when targets get missed, we can see why across the company and get better at coaching and setting strategy, instead of guessing.</span></li>'+
     '</ul></div>';
 }
+/* INTERNAL ROADMAP (Cameron / Brian / Mike / Paul — not manager-facing; stripped from the page 7/26 per Cameron):
+   · Branch QGR packet pre-read on this page (parked this cycle)
+   · Built-in AI interviewer using actual branch data (copy-paste prompt is the bridge)
+   · Clean PDF export for permanent records (Anne)
+   · Rippling storage via custom objects, PDF as human-readable copy (Matisen, open)
+   · Track record: goal history vs company/position average (needs 2+ quarters)
+   · In-quarter coaching signals (low self-score raises a hand early)
+*/
 
 function leadershipBandHtml(){
   return '<div class="first-band"><span class="fb-ico">🪞</span><div><b>Leadership went first.</b> Cameron, Paul, and every Roundtable leader ran this exact exercise on their own Q2 goals this cycle &mdash; same four AAR questions, same 1&ndash;5 CHOICES scale, same brutal-facts standard. Your answers become the agenda for <i>your</i> quarterly one-on-one: your meeting, your mirror. Honest beats impressive.</div></div>';
@@ -492,7 +495,7 @@ function chipRowHtml(dimKey, opts, val, extraCls){
 function sectionGoals(person, rec){
   const goals = person.goals||[];
   let html = '<div class="section" id="sec-goals"><div class="shead"><h3>1 · Goal AAR — the four questions</h3>'+(goalsDone(person,rec)?'<span class="done-chip">✓ all goals colored</span>':'')+'</div>'+
-    '<div class="shelp">One block per Q2 goal. Color it against the <b>written</b> Green / Super Green definition from quarter start (expand it under each goal) — not the vibe. If the quarter is still running, grade where it lands by 7/31 and check <b>PROJ</b>. On your Critical # goals, questions 2 and 4 get short paragraphs, not sentences. <b>And write like it matters:</b> one- or two-line answers aren\'t an AAR — if your answer fits in a text message, it isn\'t done. The Claude interview will pull the real story out of you; that\'s why it\'s required.</div>'+
+    '<div class="shelp">One block per Q2 goal. Color it against the <b>written</b> Green / Super Green definition from quarter start (expand it under each goal) — not the vibe. If the quarter is still running, grade where it lands by 7/31 and check <b>PROJ</b>. On your Critical # goals, questions 2 and 4 get short paragraphs, not sentences. <b>And write like it matters:</b> one- or two-line answers aren\'t an AAR — if your answer fits in a text message, it isn\'t done. The Claude interview will pull the real story out of you; that\'s why it\'s required. <b>The honest opposite is fine too:</b> this is our first run at this exercise — if you genuinely didn\'t try anything on a question, say so plainly. Short and true beats long and padded.</div>'+
     '<div class="interview-callout"><div><b>🎙 Required: let Claude interview you — don\'t type this cold.</b> This is how the AAR gets done, not an optional extra. Copy the prompt, paste it into your Claude account, and talk through your quarter — Claude pushes back on your colors and vague answers, then hands you a block you paste straight back in here and every field fills itself.</div>'+
     '<div class="ic-actions"><button class="ic-btn" data-copyinterview>Copy interview prompt</button><button class="ic-btn secondary" data-pasteback>Paste Claude\'s results</button></div>'+
     '<div id="pasteWrap" style="display:none"><textarea id="pasteBox" placeholder="Paste Claude\'s whole final answer here — I\'ll find the answers block and fill in your goals."></textarea><button class="ic-btn" id="applyPaste">Fill my form from this</button></div></div>';
@@ -528,7 +531,7 @@ function sectionGoals(person, rec){
           '<details><summary>the full metaphor, in plain words</summary>Before a ship fires its big cannon, it fires cheap bullets to find the range. A bullet costs little if it misses — a new phone script, a schedule tweak, a different way to run trial days. Once a bullet hits, you fire the cannon: commit real time and money to it. Tell us what you tried, what it taught you, and which bullet deserves a cannon next quarter.</details></div>';
       }
       html += '<div class="q-block"><label>'+q.label+' <span class="qhint">— '+esc(q.hint)+'</span></label>'+
-        '<textarea class="'+(deep?'depth ':'')+(missing?'note-missing ':'')+((val.trim()&&val.trim().length<100)?'thin':'')+'" data-goalq="'+g.num+':'+q.k+'" placeholder="'+(deep?'Critical # — go deeper here.':'')+'">'+esc(val)+'</textarea></div>';
+        '<textarea class="'+(deep?'depth ':'')+(missing?'note-missing ':'')+(((q.k==='results'||q.k==='how')&&val.trim()&&val.trim().length<100)?'thin':'')+'" data-goalq="'+g.num+':'+q.k+'" placeholder="'+(deep?'Critical # — go deeper here.':'')+'">'+esc(val)+'</textarea></div>';
     });
     if(g.critical) html += '<div class="depth-hint">Critical # — make questions 2 and 4 the deep ones.</div>';
     html += '</div></div>';
@@ -737,8 +740,9 @@ function wirePerson(person, rec){
       const [num,k] = ta.dataset.goalq.split(":");
       if(!rec.goals[num]) rec.goals[num] = {};
       const t = ta.value.trim();
-      ta.classList.toggle("thin", !!t && t.length < 100);
-      ta.title = (!!t && t.length < 100) ? "Thin answer — one or two lines isn't an AAR. Say more, or let the Claude interview pull it out of you." : "";
+      const nudge = (k==="results"||k==="how");
+      ta.classList.toggle("thin", nudge && !!t && t.length < 100);
+      ta.title = (nudge && !!t && t.length < 100) ? "Thin answer — one or two lines isn't an AAR. Say more, or let the Claude interview pull it out of you." : "";
       rec.goals[num][k] = ta.value;
       queueSave();
     });
@@ -978,6 +982,7 @@ function buildInterviewPrompt(person, rec){
     "3. What went well — what should become a playbook.\n"+
     "4. What did I try, and what would I do differently — 'bullets before cannons': a bullet is a small cheap experiment beyond my seat's standard routine; a cannon is going big once a bullet proves out. If I describe routine work as a bullet, call it out. On my CRITICAL # goals, make me go deeper on questions 2 and 4.\n\n"+
     "Keep the interview TIGHT: one question at a time, at most two follow-ups per goal, and pull me back if either of us drifts onto a tangent — the whole thing should take 15-20 minutes, not an hour. If my answer is thin, push once, then take what I give you and move on.\n\n"+
+    "If I genuinely didn't try anything beyond the routine, don't manufacture something — that's an honest answer, this is our first time running this exercise. Ask me ONCE what I WOULD try next quarter if I had to pick one cheap experiment, capture whatever I give you, and move on.\n\n"+
     "Be direct but fair — the goal is a truer self-assessment, not a softer one. When we finish all goals, output TWO things:\n\n"+
     "1. My final AAR, one readable block per goal:\n"+
     "## [Goal name] — CRIT: yes/no\n- Color: [SG/G/R] (PROJ if the quarter is still running)\n- Results: ...\n- How we got here: ...\n- Went well: ...\n- Tried / differently / next-quarter lesson: ...\n\n"+
