@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein FLM QGR Prep — Manager Hub</title>
-<!-- v1.6.3 2026-07-27 -->
+<!-- v1.6.4-web 2026-07-28 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -210,7 +210,7 @@ footer{background:var(--navy-700);color:var(--navy-100);text-align:center;paddin
 </head>
 <body>
 <header id="appHeader">
-  <div class="brand"><span class="bebas">EINSTEIN FLM QGR PREP</span><span class="tag">Frontline Manager AAR &amp; Self-Eval · Q2 2026 · v1.6.3</span></div>
+  <div class="brand"><span class="bebas">EINSTEIN FLM QGR PREP</span><span class="tag">Frontline Manager AAR &amp; Self-Eval · Q2 2026 · v1.6.4</span></div>
   <div class="savebox" id="saveBox">Local only — nothing leaves this computer<br><b id="saveStamp">—</b></div>
 </header>
 <main>
@@ -695,6 +695,17 @@ function wirePerson(person, rec){
     toast("Filled "+filled+" goal"+(filled===1?"":"s")+(skipped?" ("+skipped+" skipped — unknown goal number)":"")+" — read them over, they're yours now.");
   });
   /* usetake wiring removed v1.6.2 */
+
+  /* goal-card open/close — restored v1.6.4 (was deleted as collateral with the
+     usetake block in v1.6.2, which left every collapsed goal card unopenable) */
+  wrap.querySelectorAll("[data-gtoggle]").forEach(h=>{
+    h.addEventListener("click", (e)=>{
+      if(e.target.closest("button,input,textarea,details")) return; // don't toggle on inner controls
+      const n = h.dataset.gtoggle;
+      if(EXPANDED.has(n)) EXPANDED.delete(n); else EXPANDED.add(n);
+      renderPerson();
+    });
+  });
 
   wrap.querySelectorAll("[data-dim]").forEach(btn=>{
     btn.addEventListener("click", ()=>{
