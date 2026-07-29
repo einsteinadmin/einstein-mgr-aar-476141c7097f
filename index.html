@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein FLM QGR Prep — Manager Hub</title>
-<!-- v1.6.4-web 2026-07-28 -->
+<!-- v1.7 2026-07-29 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -174,6 +174,19 @@ details.defs[open] summary:before{content:"▾ "}
 .rownote{width:100%;margin-top:8px;border:1px solid var(--grey-200);border-radius:var(--radius-sm);padding:7px 10px;font:inherit;font-size:12.5px;resize:vertical;min-height:38px}
 .rownote.note-missing{border-color:var(--orange-500);background:var(--orange-50)}
 
+/* 2b · Evaluate your managers (7/29) — per-direct sub-cards inside the section, GWC/rehire toggles */
+.togglepair{display:flex;gap:6px}
+.togglepair button{border:1.5px solid var(--grey-200);background:#fff;border-radius:var(--radius-sm);padding:6px 14px;font-size:12px;font-weight:700;color:var(--grey-500)}
+.togglepair button.yes.sel{background:var(--success);border-color:var(--success);color:#fff}
+.togglepair button.no.sel{background:var(--error);border-color:var(--error);color:#fff}
+.de-block{border:1px solid var(--grey-100);border-radius:var(--radius-md);padding:18px 20px;margin-bottom:18px;background:var(--grey-50)}
+.de-block:last-child{margin-bottom:0}
+.de-name{font-size:14px;margin-bottom:10px}
+.de-role{font-size:11px;font-weight:400;color:var(--grey-400);margin-left:6px}
+.de-sub{margin-bottom:14px}
+.de-sub:last-child{margin-bottom:0}
+.de-subhead{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--grey-400);margin-bottom:6px}
+
 /* v1.4: parked packet section, leadership-only KPI rows, thin-answer nudge */
 .sec-parked{opacity:.55}
 .sec-parked input{pointer-events:none}
@@ -239,6 +252,16 @@ const CORE_VALUES = [
 const CV_ANCHORS = {1:"active problem",2:"below the bar",3:"meets the bar",4:"strong, with named opportunities",5:"the standard others get pointed to"};
 const CV_SUBS = {1:"problem",2:"below bar",3:"meets bar",4:"strong",5:"the standard"};
 const CV_OPTIONS = [1,2,3,4,5].map(n=>({v:String(n),label:String(n),sub:CV_SUBS[n],cls:n>=4?"good":n===3?"mid":"bad",title:CV_ANCHORS[n]}));
+// 2b · Evaluate your managers (7/29, Cameron's QGR Day-1 ruling) — Ideal Team Player rubric, same
+// 1-5 chip component as CHOICES (chipRowHtml/CV-style rendering), different anchor text.
+const ITP_TRAITS = [
+  {key:"humble", label:"Humble", def:"Lacks excessive ego, shares credit."},
+  {key:"hungry", label:"Hungry", def:"Self-motivated, always looking for more."},
+  {key:"smart",  label:"Smart",  def:"People-smart, interpersonally aware."}
+];
+const ITP_SUBS = {1:"rarely",2:"",3:"sometimes",4:"",5:"unprompted"};
+const ITP_ANCHORS = {1:"rarely",2:"below the bar",3:"sometimes, with prompting",4:"strong, with named opportunities",5:"consistently, unprompted"};
+const ITP_OPTIONS = [1,2,3,4,5].map(n=>({v:String(n),label:String(n),sub:ITP_SUBS[n],cls:n>=4?"good":n===3?"mid":"bad",title:ITP_ANCHORS[n]}));
 const SGR_OPTIONS = [
   {v:"SG",label:"Super Green",cls:"good",title:"Exceeded the written Super Green definition"},
   {v:"G",label:"Green",cls:"good",title:"Hit the written Green definition"},
@@ -283,7 +306,7 @@ function emptyRecord(person){
   return {
     quarter: QUARTER,
     goals: {},        // num -> {color, proj, results, how, well, diff}
-    choices: { items:{}, itemNotes:{} },
+    choices: { items: Object.fromEntries(CORE_VALUES.map(cv=>[cv,"3"])), itemNotes:{} },  /* Cameron 7/29: 3 = the default; 4/5 must be an intentional click */
     kpis: {},         // kpi name -> {est, actual, note}
     constraint: "",
     opportunity: "",
@@ -294,16 +317,69 @@ function emptyRecord(person){
     person: { id: person.id, name: person.name, position: person.position, branch: person.branch, region: person.region }
   };
 }
+// 2b · Evaluate your managers — the OTHER non-vacant seats on a BM's own branch (ops/field/flex),
+// derived live from PRELOAD every render. No hardcoded rosters — a branch's roster changes the
+// moment preload-data.js changes.
+function directsFor(person){
+  if(!havePreload()) return [];
+  return PRELOAD.people.filter(p=>p.branch===person.branch && p.position!=="BM" && p.name);
+}
+function emptyDirectEval(){
+  return {
+    coreValues: { items: Object.fromEntries(CORE_VALUES.map(cv=>[cv,"3"])), itemNotes:{} },
+    itp: { humble:{v:"3",note:""}, hungry:{v:"3",note:""}, smart:{v:"3",note:""} },
+    gwc: { get:null, want:null, capacity:null, notes:{get:"",want:"",capacity:""} },
+    rehire: null,
+    overallNote: ""
+  };
+}
+function directsEvalDone(person, rec){
+  if(person.position !== "BM") return true;
+  const directs = directsFor(person);
+  return directs.every(d=>{
+    const de = (rec.directsEval||{})[d.name];
+    if(!de) return false;
+    const cvOk = CORE_VALUES.every(cv=> de.coreValues.items[cv] && (de.coreValues.itemNotes[cv]||"").trim());
+    const itpOk = ITP_TRAITS.every(t=> de.itp[t.key] && de.itp[t.key].v && (de.itp[t.key].note||"").trim());
+    const gwcOk = ["get","want","capacity"].every(k=> de.gwc[k]!=null && ((de.gwc.notes||{})[k]||"").trim());
+    return cvOk && itpOk && gwcOk;
+  });
+}
 function getRecord(person){
   if(!STATE.records[person.id]) STATE.records[person.id] = emptyRecord(person);
   const rec = STATE.records[person.id];
   // backfill fields added later so old saves never crash
   if(!rec.choices) rec.choices = {items:{},itemNotes:{}};
   if(!rec.choices.itemNotes) rec.choices.itemNotes = {};
+  /* Cameron 7/29 default-3: fill-only backfill — a value never scored (and with no note) starts
+     at 3 even on records created before this rule. Real scores are never touched. */
+  CORE_VALUES.forEach(cv=>{ if(rec.choices.items[cv]==null && !(rec.choices.itemNotes[cv]||"").trim()) rec.choices.items[cv]="3"; });
   if(!rec.kpis) rec.kpis = {};
   if(!rec.packet) rec.packet = {reviewed:false,questions:""};
   if(typeof rec.interviewDone === "undefined") rec.interviewDone = false;
   if(!rec.flywheel) rec.flywheel = {reviewed:false, bring:""};
+  // 2b backfill (7/29) — BM only. Same fill-only contract: a direct's blank 1-5 fields default to
+  // "3", never overwriting a real score or an existing note. Runs every getRecord() call so a
+  // roster change in preload-data.js (a new manager added) picks up a fresh directsEval slot too.
+  if(!rec.directsEval) rec.directsEval = {};
+  if(person.position === "BM"){
+    directsFor(person).forEach(d=>{
+      if(!rec.directsEval[d.name]) rec.directsEval[d.name] = emptyDirectEval();
+      const de = rec.directsEval[d.name];
+      if(!de.coreValues) de.coreValues = {items:{},itemNotes:{}};
+      if(!de.coreValues.itemNotes) de.coreValues.itemNotes = {};
+      CORE_VALUES.forEach(cv=>{ if(de.coreValues.items[cv]==null && !(de.coreValues.itemNotes[cv]||"").trim()) de.coreValues.items[cv]="3"; });
+      if(!de.itp) de.itp = {};
+      ITP_TRAITS.forEach(t=>{
+        if(!de.itp[t.key]) de.itp[t.key] = {v:null,note:""};
+        if(de.itp[t.key].v==null && !(de.itp[t.key].note||"").trim()) de.itp[t.key].v="3";
+      });
+      if(!de.gwc) de.gwc = {get:null,want:null,capacity:null,notes:{}};
+      if(!de.gwc.notes) de.gwc.notes = {get:"",want:"",capacity:""};
+      if(typeof de.rehire === "undefined") de.rehire = null;
+      if(typeof de.overallNote !== "string") de.overallNote = "";
+    });
+  }
   return rec;
 }
 function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
@@ -340,6 +416,14 @@ function recProgress(person, rec){
     }
   });
   CORE_VALUES.forEach(cv=>{ total++; if(rec.choices.items[cv] && (rec.choices.itemNotes[cv]||"").trim()) done++; });
+  if(person.position === "BM"){
+    directsFor(person).forEach(d=>{
+      const de = (rec.directsEval||{})[d.name] || emptyDirectEval();
+      CORE_VALUES.forEach(cv=>{ total++; if(de.coreValues.items[cv] && (de.coreValues.itemNotes[cv]||"").trim()) done++; });
+      ITP_TRAITS.forEach(t=>{ total++; const rt=de.itp[t.key]||{}; if(rt.v && (rt.note||"").trim()) done++; });
+      ["get","want","capacity"].forEach(k=>{ total++; if(de.gwc[k]!=null && ((de.gwc.notes||{})[k]||"").trim()) done++; });
+    });
+  }
   total++; if((rec.constraint||"").trim() || (rec.opportunity||"").trim()) done++;
   return total ? Math.round(done/total*100) : 0;
 }
@@ -441,6 +525,7 @@ function renderPerson(){
   html += '<div class="hub-grid"><div class="hub-main">';
   html += sectionGoals(person, rec);
   html += sectionChoices(person, rec);
+  html += sectionDirectsEval(person, rec);
   html += sectionKpis(person, rec);
   html += sectionConstraint(person, rec);
   html += sectionFlywheel(person, rec);
@@ -474,13 +559,16 @@ function railHtml(person){
 function secNavHtml(person, rec){
   const items = [
     ["sec-goals","1 · Goals", goalsDone(person,rec)],
-    ["sec-choices","2 · CHOICES", CORE_VALUES.every(cv=>rec.choices.items[cv])],
+    ["sec-choices","2 · CHOICES", CORE_VALUES.every(cv=>rec.choices.items[cv] && (rec.choices.itemNotes[cv]||"").trim())]
+  ];
+  if(person.position === "BM") items.push(["sec-directs","2b · Your managers", directsEvalDone(person,rec)]);
+  items.push(
     ["sec-kpis","3 · KPIs", null],
     ["sec-constraint","4 · Constraint", !!((rec.constraint||"").trim()||(rec.opportunity||"").trim())],
     ["sec-flywheel","5 · Flywheel", !!(rec.flywheel.reviewed || (rec.flywheel.bring||"").trim())],
     ["sec-packet","6 · Packet (parked)", null],
     ["sec-export","7 · Submit", !!rec.interviewDone]
-  ];
+  );
   return '<div id="secNav">'+items.map(([id,label,done])=>
     '<button data-jump="'+id+'">'+esc(label)+(done?' <span class="ok">✓</span>':'')+'</button>'
   ).join("")+'</div>';
@@ -542,8 +630,8 @@ function goalsDone(person, rec){
 /* ---- Section 2: CHOICES ---- */
 function sectionChoices(person, rec){
   let html = '<div class="section" id="sec-choices"><div class="shead"><h3>2 · CHOICES self-eval</h3>'+
-    (CORE_VALUES.every(cv=>rec.choices.items[cv])?'<span class="done-chip">✓ complete</span>':'')+'</div>'+
-    '<div class="shelp">Score yourself 1&ndash;5 on each value — same scale leadership uses on itself. <b>1</b> active problem · <b>2</b> below the bar · <b>3</b> meets the bar · <b>4</b> strong, with named opportunities · <b>5</b> the standard others get pointed to. A 4 without a note naming the opportunity is an incomplete grade — the note box appears once you rate.</div>';
+    (CORE_VALUES.every(cv=>rec.choices.items[cv] && (rec.choices.itemNotes[cv]||"").trim())?'<span class="done-chip">✓ complete</span>':'')+'</div>'+
+    '<div class="shelp"><b>Every value starts at 3 — that\'s not a placeholder, it\'s the grade: 3 means you\'re meeting the bar.</b> Moving to a 4 or 5 is an intentional claim. The scale, same one leadership uses on itself: <b>1</b> active problem · <b>2</b> below the bar · <b>3</b> meets the bar · <b>4</b> strong, with named opportunities · <b>5</b> the standard others get pointed to. <b>Every score needs a note — including a 3 (what does meeting the bar look like for you?) and especially a 5 (why are you the standard-bearer?).</b> A score without a note is an incomplete grade.</div>';
   CORE_VALUES.forEach(cv=>{
     const val = rec.choices.items[cv];
     const note = rec.choices.itemNotes[cv]||"";
@@ -551,9 +639,82 @@ function sectionChoices(person, rec){
     const missing = !!val && !note.trim();
     html += '<div class="row"><div class="rowhead"><div class="rtitle">'+esc(cv)+'</div></div>'+
       chipRowHtml("cv:"+cv, CV_OPTIONS, val)+
-      (noteVisible?'<textarea class="rownote'+(missing?' note-missing':'')+'" data-cvnote="'+esc(cv)+'" placeholder="Why this score? Name the evidence — and for a 4, the opportunity.">'+esc(note)+'</textarea>':'')+
+      (noteVisible?'<textarea class="rownote'+(missing?' note-missing':'')+'" data-cvnote="'+esc(cv)+'" placeholder="Why this score? Name the evidence — a 3 says how you meet the bar, a 4 names the opportunity, a 5 says why you\'re the standard.">'+esc(note)+'</textarea>':'')+
       '</div>';
   });
+  html += '</div>';
+  return html;
+}
+
+/* ---- Section 2b: Evaluate your managers (BM only, 7/29) ----
+   After the BM's own self-eval, they grade the OTHER non-vacant seats on their own branch —
+   leadership just ran this exact exercise on them at the QGR (Cameron's Day-1 ruling). Roster is
+   derived live via directsFor() from PRELOAD — no hardcoded lists. Rubric mirrors the PA-directs
+   tool: 7 CHOICES values (reusing CV_OPTIONS/anchors), ITP humble/hungry/smart, GWC get/want/
+   capacity, rehire, one overall note. Default-3 + universal note gate, same rules as section 2. */
+function sectionDirectsEval(person, rec){
+  if(person.position !== "BM") return "";
+  const directs = directsFor(person);
+  const done = directsEvalDone(person, rec);
+  let html = '<div class="section" id="sec-directs"><div class="shead"><h3>2b · Evaluate your managers</h3>'+
+    (done?'<span class="done-chip">✓ complete</span>':'')+'</div>'+
+    '<div class="shelp">After your own self-eval, you grade the managers on your team — leadership just ran this exact exercise on you. Same scale, same rules: every value starts at 3 (meets the bar); moving to a 4 or 5 is an intentional claim. <b>1</b> active problem · <b>2</b> below the bar · <b>3</b> meets the bar · <b>4</b> strong, with named opportunities · <b>5</b> the standard others get pointed to. <b>A note is required for every score — including a 5</b> (why they\'re the standard) <b>and every GWC answer.</b></div>';
+  if(!directs.length){
+    html += '<div class="blank-note">No other seats on your branch roster yet — nothing to evaluate here.</div></div>';
+    return html;
+  }
+  directs.forEach(d=>{
+    const de = (rec.directsEval||{})[d.name] || emptyDirectEval();
+    html += directEvalBlockHtml(d, de);
+  });
+  html += '</div>';
+  return html;
+}
+function directEvalBlockHtml(d, de){
+  const id = esc(d.id);
+  let html = '<div class="de-block" data-deblock="'+id+'"><h4 class="de-name">'+esc(d.name)+'<span class="de-role">'+esc(POS_LABEL[d.position]||d.position)+'</span></h4>';
+  html += '<div class="de-sub"><div class="de-subhead">CHOICES</div>';
+  CORE_VALUES.forEach(cv=>{
+    const val = de.coreValues.items[cv];
+    const note = de.coreValues.itemNotes[cv]||"";
+    const missing = !!val && !note.trim();
+    html += '<div class="row"><div class="rowhead"><div class="rtitle">'+esc(cv)+'</div></div>'+
+      chipRowHtml("de:"+d.id+":cv:"+cv, CV_OPTIONS, val)+
+      '<textarea class="rownote'+(missing?' note-missing':'')+'" data-decvnote="'+id+'|'+esc(cv)+'" placeholder="Why this score — required, even on a 5.">'+esc(note)+'</textarea>'+
+      '</div>';
+  });
+  html += '</div>';
+  html += '<div class="de-sub"><div class="de-subhead">Ideal Team Player</div>';
+  ITP_TRAITS.forEach(t=>{
+    const rt = de.itp[t.key] || {v:null,note:""};
+    const missing = !!rt.v && !(rt.note||"").trim();
+    html += '<div class="row"><div class="rowhead"><div><div class="rtitle">'+t.label+'</div><div class="tiny muted">'+t.def+'</div></div></div>'+
+      chipRowHtml("de:"+d.id+":itp:"+t.key, ITP_OPTIONS, rt.v)+
+      '<textarea class="rownote'+(missing?' note-missing':'')+'" data-deitpnote="'+id+'|'+t.key+'" placeholder="Why this score — required, even on a 5.">'+esc(rt.note||"")+'</textarea>'+
+      '</div>';
+  });
+  html += '</div>';
+  html += '<div class="de-sub"><div class="de-subhead">GWC</div>';
+  [["get","Get it"],["want","Want it"],["capacity","Capacity to do it"]].forEach(([key,label])=>{
+    const v = de.gwc[key];
+    const note = (de.gwc.notes||{})[key] || "";
+    const missing = v!=null && !note.trim();
+    html += '<div class="row"><div class="rowhead"><div class="rtitle">'+label+'</div></div>'+
+      '<div class="togglepair" data-degwc="'+id+'|'+key+'">'+
+      '<button type="button" class="yes'+(v===true?' sel':'')+'" data-v="true">Yes</button>'+
+      '<button type="button" class="no'+(v===false?' sel':'')+'" data-v="false">No</button>'+
+      '</div>'+
+      '<textarea class="rownote'+(missing?' note-missing':'')+'" data-degwcnote="'+id+'|'+key+'" placeholder="Why — required once answered.">'+esc(note)+'</textarea>'+
+      '</div>';
+  });
+  html += '</div>';
+  html += '<div class="de-sub"><div class="row"><div class="rowhead"><div class="rtitle">Enthusiastically rehire?</div></div>'+
+    '<div class="togglepair" data-derehire="'+id+'">'+
+    '<button type="button" class="yes'+(de.rehire===true?' sel':'')+'" data-v="true">Yes</button>'+
+    '<button type="button" class="no'+(de.rehire===false?' sel':'')+'" data-v="false">No</button>'+
+    '</div></div>'+
+    '<div class="row"><div class="rtitle">Overall note (optional)</div>'+
+    '<textarea class="rownote" data-deoverallnote="'+id+'" placeholder="Anything else — context, examples, what to watch.">'+esc(de.overallNote||"")+'</textarea></div></div>';
   html += '</div>';
   return html;
 }
@@ -718,6 +879,27 @@ function wirePerson(person, rec){
         const cv = dim.slice(3);
         rec.choices.items[cv] = rec.choices.items[cv]===val ? undefined : val;
         if(rec.choices.items[cv]===undefined) delete rec.choices.items[cv];
+      } else if(dim.startsWith("de:")){
+        // "de:<directId>:cv:<cvName>" or "de:<directId>:itp:<traitKey>"
+        const rest = dim.slice(3);
+        const c1 = rest.indexOf(":");
+        const directId = rest.slice(0, c1);
+        const rest2 = rest.slice(c1+1);
+        const c2 = rest2.indexOf(":");
+        const kind = rest2.slice(0, c2), key = rest2.slice(c2+1);
+        const dp = personById(directId);
+        if(dp){
+          if(!rec.directsEval) rec.directsEval = {};
+          if(!rec.directsEval[dp.name]) rec.directsEval[dp.name] = emptyDirectEval();
+          const de = rec.directsEval[dp.name];
+          if(kind==="cv"){
+            de.coreValues.items[key] = de.coreValues.items[key]===val ? undefined : val;
+            if(de.coreValues.items[key]===undefined) delete de.coreValues.items[key];
+          } else if(kind==="itp"){
+            if(!de.itp[key]) de.itp[key] = {v:null,note:""};
+            de.itp[key].v = de.itp[key].v===val ? null : val;
+          }
+        }
       }
       queueSave(); renderPerson();
     });
@@ -746,6 +928,74 @@ function wirePerson(person, rec){
     ta.addEventListener("input", ()=>{
       rec.choices.itemNotes[ta.dataset.cvnote] = ta.value;
       queueSave();
+    });
+  });
+  // 2b · Evaluate your managers — note fields + GWC/rehire toggles. Same split-key pattern as the
+  // chip click handler above ("<directId>|<field>"); directId -> name resolved via personById so
+  // rec.directsEval stays keyed by name (matches the export shape + the PA-directs tool).
+  const deDirectByField = (raw)=>{
+    const bar = raw.indexOf("|");
+    const id = bar===-1 ? raw : raw.slice(0,bar);
+    const key = bar===-1 ? null : raw.slice(bar+1);
+    const dp = personById(id);
+    if(!dp) return null;
+    if(!rec.directsEval) rec.directsEval = {};
+    if(!rec.directsEval[dp.name]) rec.directsEval[dp.name] = emptyDirectEval();
+    return {de: rec.directsEval[dp.name], key};
+  };
+  wrap.querySelectorAll("[data-decvnote]").forEach(ta=>{
+    ta.addEventListener("input", ()=>{
+      const hit = deDirectByField(ta.dataset.decvnote);
+      if(!hit) return;
+      hit.de.coreValues.itemNotes[hit.key] = ta.value;
+      queueSave();
+    });
+  });
+  wrap.querySelectorAll("[data-deitpnote]").forEach(ta=>{
+    ta.addEventListener("input", ()=>{
+      const hit = deDirectByField(ta.dataset.deitpnote);
+      if(!hit) return;
+      if(!hit.de.itp[hit.key]) hit.de.itp[hit.key] = {v:null,note:""};
+      hit.de.itp[hit.key].note = ta.value;
+      queueSave();
+    });
+  });
+  wrap.querySelectorAll("[data-degwcnote]").forEach(ta=>{
+    ta.addEventListener("input", ()=>{
+      const hit = deDirectByField(ta.dataset.degwcnote);
+      if(!hit) return;
+      hit.de.gwc.notes[hit.key] = ta.value;
+      queueSave();
+    });
+  });
+  wrap.querySelectorAll("[data-deoverallnote]").forEach(ta=>{
+    ta.addEventListener("input", ()=>{
+      const hit = deDirectByField(ta.dataset.deoverallnote);
+      if(!hit) return;
+      hit.de.overallNote = ta.value;
+      queueSave();
+    });
+  });
+  wrap.querySelectorAll("[data-degwc]").forEach(group=>{
+    group.querySelectorAll("button").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const hit = deDirectByField(group.dataset.degwc);
+        if(!hit) return;
+        hit.de.gwc[hit.key] = btn.dataset.v === "true";
+        queueSave(); renderPerson();
+      });
+    });
+  });
+  wrap.querySelectorAll("[data-derehire]").forEach(group=>{
+    group.querySelectorAll("button").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const dp = personById(group.dataset.derehire);
+        if(!dp) return;
+        if(!rec.directsEval) rec.directsEval = {};
+        if(!rec.directsEval[dp.name]) rec.directsEval[dp.name] = emptyDirectEval();
+        rec.directsEval[dp.name].rehire = btn.dataset.v === "true";
+        queueSave(); renderPerson();
+      });
     });
   });
   wrap.querySelectorAll("[data-kpi]").forEach(inp=>{
@@ -841,6 +1091,37 @@ function buildMarkdown(person, rec){
     md += "- "+cv+": "+(v||"—")+(note?" — "+note:"")+"\n";
     if(v && !note) gutCheck.push("CHOICES \""+cv+"\" — rated "+v+" with no reasoning captured");
   });
+  if(person.position === "BM"){
+    const directs = directsFor(person);
+    md += "\n## 2b · Evaluate your managers\n";
+    if(!directs.length){
+      md += "_No other seats on this branch to evaluate._\n";
+    } else {
+      directs.forEach(d=>{
+        const de = (rec.directsEval||{})[d.name] || emptyDirectEval();
+        md += "\n### "+d.name+" — "+(POS_LABEL[d.position]||d.position)+"\n**CHOICES**\n";
+        CORE_VALUES.forEach(cv=>{
+          const v = de.coreValues.items[cv], note = (de.coreValues.itemNotes[cv]||"").trim();
+          md += "- "+cv+": "+(v||"—")+(note?" — "+note:"")+"\n";
+          if(v && !note) gutCheck.push(d.name+" — CHOICES \""+cv+"\" — rated "+v+" with no reasoning captured");
+        });
+        md += "**Ideal Team Player**\n";
+        ITP_TRAITS.forEach(t=>{
+          const rt = de.itp[t.key]||{}, note = (rt.note||"").trim();
+          md += "- "+t.label+": "+(rt.v||"—")+(note?" — "+note:"")+"\n";
+          if(rt.v && !note) gutCheck.push(d.name+" — ITP \""+t.label+"\" — rated "+rt.v+" with no reasoning captured");
+        });
+        md += "**GWC**\n";
+        [["get","Get it"],["want","Want it"],["capacity","Capacity to do it"]].forEach(([key,label])=>{
+          const v = de.gwc[key], note = ((de.gwc.notes||{})[key]||"").trim();
+          md += "- "+label+": "+(v===null||v===undefined?"—":(v?"Yes":"No"))+(note?" — "+note:"")+"\n";
+          if(v!=null && !note) gutCheck.push(d.name+" — GWC "+label+" — answered with no reasoning captured");
+        });
+        md += "- Enthusiastically rehire: "+(de.rehire===null||de.rehire===undefined?"—":(de.rehire?"Yes":"No"))+"\n";
+        if((de.overallNote||"").trim()) md += "- Note: "+de.overallNote.trim()+"\n";
+      });
+    }
+  }
   const kpis = kpisFor(person.position);
   if(kpis.length){
     md += "\n## Position KPIs\n";
@@ -877,6 +1158,20 @@ function buildJsonRecord(person, rec){
         aar: { results: gr.results||"", how: gr.how||"", well: gr.well||"", differently: gr.diff||"" } };
     }),
     choices: CORE_VALUES.map(cv=>({ value: cv, score: rec.choices.items[cv]?Number(rec.choices.items[cv]):null, note: rec.choices.itemNotes[cv]||"" })),
+    directsEval: person.position!=="BM" ? [] : directsFor(person).map(d=>{
+      const de = (rec.directsEval||{})[d.name] || emptyDirectEval();
+      return {
+        direct: { id: d.id, name: d.name, position: d.position },
+        coreValues: CORE_VALUES.map(cv=>({ value: cv, score: de.coreValues.items[cv]?Number(de.coreValues.items[cv]):null, note: de.coreValues.itemNotes[cv]||"" })),
+        itp: ITP_TRAITS.map(t=>{
+          const rt = de.itp[t.key]||{};
+          return { trait: t.key, score: rt.v?Number(rt.v):null, note: rt.note||"" };
+        }),
+        gwc: { get: de.gwc.get, want: de.gwc.want, capacity: de.gwc.capacity, notes: Object.assign({get:"",want:"",capacity:""}, de.gwc.notes) },
+        rehire: de.rehire,
+        overallNote: de.overallNote||""
+      };
+    }),
     kpis: kpisFor(person.position).map(k=>{
       const kr = rec.kpis[k.name]||{};
       return { name: k.name, target: k.target||null, estimate: kr.est||null, actual: kr.actual||null };
