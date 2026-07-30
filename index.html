@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein FLM QGR Prep — Manager Hub</title>
-<!-- v1.8 2026-07-30 -->
+<!-- v1.8.1 2026-07-30 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -716,14 +716,17 @@ function directEvalBlockHtml(d, de){
       '</div>';
   });
   html += '</div>';
+  /* 7/30 ruling (Cameron, placement correction): Nine-More sits directly under GWC, ABOVE the
+     overall note — not at the very end of the card. */
+  html += nineMoreBlockHtml("nm:"+id, de);
   html += '<div class="de-sub"><div class="row"><div class="rtitle">Overall note (optional)</div>'+
     '<textarea class="rownote" data-deoverallnote="'+id+'" placeholder="Anything else — context, examples, what to watch.">'+esc(de.overallNote||"")+'</textarea></div></div>';
-  html += nineMoreBlockHtml("nm:"+id, de);
   html += '</div>';
   return html;
 }
 /* Nine-More Test (7/30 ruling — replaces the retired "enthusiastically rehire?" question, which had
-   gone blind at 28/30 Yes). Always the LAST question of a person's eval. dimPrefix keys the two chip
+   gone blind at 28/30 Yes). Sits directly under GWC, above the overall note (Cameron's 7/30
+   placement correction). dimPrefix keys the two chip
    rows through the same click-delegation pattern as everything else ("<prefix>:perf"/":culture"). */
 function nineMoreBlockHtml(dimPrefix, de){
   const nm = de.nineMore || {performance:"same", culture:"same", note:""};
@@ -1173,12 +1176,12 @@ function buildMarkdown(person, rec){
           md += "- "+label+": "+(v===null||v===undefined?"—":(v?"Yes":"No"))+(note?" — "+note:"")+"\n";
           if(v!=null && !note) gutCheck.push(d.name+" — GWC "+label+" — answered with no reasoning captured");
         });
-        if((de.overallNote||"").trim()) md += "- Note: "+de.overallNote.trim()+"\n";
         const nm = de.nineMore || {performance:"same",culture:"same",note:""};
         md += "**Nine-More Test** (imagine nine more of them on the team)\n";
         md += "- Team performance: "+nm.performance+"\n- Team culture: "+nm.culture+"\n";
         md += "- Why: "+((nm.note||"").trim()||"—")+"\n";
         if(!((nm.note||"").trim())) gutCheck.push(d.name+" — Nine-More Test answered with no reasoning captured");
+        if((de.overallNote||"").trim()) md += "- Note: "+de.overallNote.trim()+"\n";
       });
     }
   }
