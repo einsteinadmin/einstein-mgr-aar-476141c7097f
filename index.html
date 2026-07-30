@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein FLM QGR Prep — Manager Hub</title>
-<!-- v1.7.1 2026-07-29 -->
+<!-- v1.8 2026-07-30 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -174,7 +174,7 @@ details.defs[open] summary:before{content:"▾ "}
 .rownote{width:100%;margin-top:8px;border:1px solid var(--grey-200);border-radius:var(--radius-sm);padding:7px 10px;font:inherit;font-size:12.5px;resize:vertical;min-height:38px}
 .rownote.note-missing{border-color:var(--orange-500);background:var(--orange-50)}
 
-/* 2b · Evaluate your managers (7/29) — per-direct sub-cards inside the section, GWC/rehire toggles */
+/* 2b · Evaluate your managers (7/29) — per-direct sub-cards inside the section, GWC toggles + Nine-More Test */
 .togglepair{display:flex;gap:6px}
 .togglepair button{border:1.5px solid var(--grey-200);background:#fff;border-radius:var(--radius-sm);padding:6px 14px;font-size:12px;font-weight:700;color:var(--grey-500)}
 .togglepair button.yes.sel{background:var(--success);border-color:var(--success);color:#fff}
@@ -249,8 +249,8 @@ const CORE_VALUES = [
   "Elevate attitudes",
   "Support Generously"
 ];
-const CV_ANCHORS = {1:"active problem",2:"below the bar",3:"meets the bar",4:"strong, with named opportunities",5:"the standard others get pointed to"};
-const CV_SUBS = {1:"problem",2:"below bar",3:"meets bar",4:"strong",5:"the standard"};
+const CV_ANCHORS = {1:"active problem",2:"below the bar",3:"meets the bar",4:"strong, with named opportunities",5:"best of the best — the shining example you'd point the whole team to"};
+const CV_SUBS = {1:"problem",2:"below bar",3:"meets bar",4:"strong",5:"best of the best"};
 const CV_OPTIONS = [1,2,3,4,5].map(n=>({v:String(n),label:String(n),sub:CV_SUBS[n],cls:n>=4?"good":n===3?"mid":"bad",title:CV_ANCHORS[n]}));
 // 2b · Evaluate your managers (7/29, Cameron's QGR Day-1 ruling) — Ideal Team Player rubric, same
 // 1-5 chip component as CHOICES (chipRowHtml/CV-style rendering), different anchor text.
@@ -328,7 +328,11 @@ function emptyDirectEval(){
     coreValues: { items: Object.fromEntries(CORE_VALUES.map(cv=>[cv,"3"])), itemNotes:{} },
     itp: { humble:{v:"3",note:""}, hungry:{v:"3",note:""}, smart:{v:"3",note:""} },
     gwc: { get:null, want:null, capacity:null, notes:{get:"",want:"",capacity:""} },
+    /* 7/30 ruling: rehire question RETIRED (28/30 went blind-Yes). Replaced by nineMore, always the
+       LAST question. rehire key kept only so pre-7/30 saved records don't crash — never written to
+       again, never rendered. */
     rehire: null,
+    nineMore: { performance:"same", culture:"same", note:"" },
     overallNote: ""
   };
 }
@@ -341,7 +345,8 @@ function directsEvalDone(person, rec){
     const cvOk = CORE_VALUES.every(cv=> de.coreValues.items[cv] && (de.coreValues.itemNotes[cv]||"").trim());
     const itpOk = ITP_TRAITS.every(t=> de.itp[t.key] && de.itp[t.key].v && (de.itp[t.key].note||"").trim());
     const gwcOk = ["get","want","capacity"].every(k=> de.gwc[k]!=null && ((de.gwc.notes||{})[k]||"").trim());
-    return cvOk && itpOk && gwcOk;
+    const nineMoreOk = !!((de.nineMore||{}).note||"").trim();
+    return cvOk && itpOk && gwcOk && nineMoreOk;
   });
 }
 function getRecord(person){
@@ -375,7 +380,10 @@ function getRecord(person){
       });
       if(!de.gwc) de.gwc = {get:null,want:null,capacity:null,notes:{}};
       if(!de.gwc.notes) de.gwc.notes = {get:"",want:"",capacity:""};
-      if(typeof de.rehire === "undefined") de.rehire = null;
+      if(typeof de.rehire === "undefined") de.rehire = null; // legacy field, read-only going forward
+      if(!de.nineMore) de.nineMore = {performance:"same", culture:"same", note:""};
+      if(de.nineMore.performance==null) de.nineMore.performance = "same";
+      if(de.nineMore.culture==null) de.nineMore.culture = "same";
       if(typeof de.overallNote !== "string") de.overallNote = "";
     });
   }
@@ -421,6 +429,7 @@ function recProgress(person, rec){
       CORE_VALUES.forEach(cv=>{ total++; if(de.coreValues.items[cv] && (de.coreValues.itemNotes[cv]||"").trim()) done++; });
       ITP_TRAITS.forEach(t=>{ total++; const rt=de.itp[t.key]||{}; if(rt.v && (rt.note||"").trim()) done++; });
       ["get","want","capacity"].forEach(k=>{ total++; if(de.gwc[k]!=null && ((de.gwc.notes||{})[k]||"").trim()) done++; });
+      total++; if(((de.nineMore||{}).note||"").trim()) done++;
     });
   }
   total++; if((rec.constraint||"").trim() || (rec.opportunity||"").trim()) done++;
@@ -630,7 +639,7 @@ function goalsDone(person, rec){
 function sectionChoices(person, rec){
   let html = '<div class="section" id="sec-choices"><div class="shead"><h3>2 · CHOICES self-eval</h3>'+
     (CORE_VALUES.every(cv=>rec.choices.items[cv] && (rec.choices.itemNotes[cv]||"").trim())?'<span class="done-chip">✓ complete</span>':'')+'</div>'+
-    '<div class="shelp"><b>Every value starts at 3 — that\'s not a placeholder, it\'s the grade: 3 means you\'re meeting the bar.</b> Moving to a 4 or 5 is an intentional claim. The scale, same one leadership uses on itself: <b>1</b> active problem · <b>2</b> below the bar · <b>3</b> meets the bar · <b>4</b> strong, with named opportunities · <b>5</b> the standard others get pointed to. <b>Every score needs a note — including a 3 (what does meeting the bar look like for you?) and especially a 5 (why are you the standard-bearer?).</b> A score without a note is an incomplete grade.</div>';
+    '<div class="shelp"><b>Every value starts at 3 — that\'s not a placeholder, it\'s the grade: 3 means you\'re meeting the bar.</b> Moving to a 4 or 5 is an intentional claim. The scale, same one leadership uses on itself: <b>1</b> active problem · <b>2</b> below the bar · <b>3</b> meets the bar · <b>4</b> strong, with named opportunities · <b>5</b> best of the best — the shining example you\'d point the whole team to. <b>Every score needs a note — including a 3 (what does meeting the bar look like for you?) and especially a 5 (a 5 says why you\'re the best of the best).</b> A score without a note is an incomplete grade.</div>';
   CORE_VALUES.forEach(cv=>{
     const val = rec.choices.items[cv];
     const note = rec.choices.itemNotes[cv]||"";
@@ -638,7 +647,7 @@ function sectionChoices(person, rec){
     const missing = !!val && !note.trim();
     html += '<div class="row"><div class="rowhead"><div class="rtitle">'+esc(cv)+'</div></div>'+
       chipRowHtml("cv:"+cv, CV_OPTIONS, val)+
-      (noteVisible?'<textarea class="rownote'+(missing?' note-missing':'')+'" data-cvnote="'+esc(cv)+'" placeholder="Why this score? Name the evidence — a 3 says how you meet the bar, a 4 names the opportunity, a 5 says why you\'re the standard.">'+esc(note)+'</textarea>':'')+
+      (noteVisible?'<textarea class="rownote'+(missing?' note-missing':'')+'" data-cvnote="'+esc(cv)+'" placeholder="Why this score? Name the evidence — a 3 says how you meet the bar, a 4 names the opportunity, a 5 says why you\'re the best of the best.">'+esc(note)+'</textarea>':'')+
       '</div>';
   });
   html += '</div>';
@@ -650,14 +659,14 @@ function sectionChoices(person, rec){
    leadership just ran this exact exercise on them at the QGR (Cameron's Day-1 ruling). Roster is
    derived live via directsFor() from PRELOAD — no hardcoded lists. Rubric mirrors the PA-directs
    tool: 7 CHOICES values (reusing CV_OPTIONS/anchors), ITP humble/hungry/smart, GWC get/want/
-   capacity, rehire, one overall note. Default-3 + universal note gate, same rules as section 2. */
+   capacity, Nine-More Test (replaces rehire), one overall note. Default-3 + universal note gate, same rules as section 2. */
 function sectionDirectsEval(person, rec){
   if(person.position !== "BM") return "";
   const directs = directsFor(person);
   const done = directsEvalDone(person, rec);
   let html = '<div class="section" id="sec-directs"><div class="shead"><h3>2b · Evaluate your managers</h3>'+
     (done?'<span class="done-chip">✓ complete</span>':'')+'</div>'+
-    '<div class="shelp">After your own self-eval, you grade the managers on your team — leadership just ran this exact exercise on you. Same scale, same rules: every value starts at 3 (meets the bar); moving to a 4 or 5 is an intentional claim. <b>1</b> active problem · <b>2</b> below the bar · <b>3</b> meets the bar · <b>4</b> strong, with named opportunities · <b>5</b> the standard others get pointed to. <b>A note is required for every score — including a 5</b> (why they\'re the standard) <b>and every GWC answer.</b></div>';
+    '<div class="shelp">After your own self-eval, you grade the managers on your team — leadership just ran this exact exercise on you. Same scale, same rules: every value starts at 3 (meets the bar); moving to a 4 or 5 is an intentional claim. <b>1</b> active problem · <b>2</b> below the bar · <b>3</b> meets the bar · <b>4</b> strong, with named opportunities · <b>5</b> best of the best — the shining example you\'d point the whole team to. <b>A note is required for every score — including a 5</b> (a 5 says why they\'re the best of the best) <b>and every GWC answer.</b></div>';
   if(!directs.length){
     html += '<div class="blank-note">No other seats on your branch roster yet — nothing to evaluate here.</div></div>';
     return html;
@@ -707,15 +716,46 @@ function directEvalBlockHtml(d, de){
       '</div>';
   });
   html += '</div>';
-  html += '<div class="de-sub"><div class="row"><div class="rowhead"><div class="rtitle">Enthusiastically rehire?</div></div>'+
-    '<div class="togglepair" data-derehire="'+id+'">'+
-    '<button type="button" class="yes'+(de.rehire===true?' sel':'')+'" data-v="true">Yes</button>'+
-    '<button type="button" class="no'+(de.rehire===false?' sel':'')+'" data-v="false">No</button>'+
-    '</div></div>'+
-    '<div class="row"><div class="rtitle">Overall note (optional)</div>'+
+  html += '<div class="de-sub"><div class="row"><div class="rtitle">Overall note (optional)</div>'+
     '<textarea class="rownote" data-deoverallnote="'+id+'" placeholder="Anything else — context, examples, what to watch.">'+esc(de.overallNote||"")+'</textarea></div></div>';
+  html += nineMoreBlockHtml("nm:"+id, de);
   html += '</div>';
   return html;
+}
+/* Nine-More Test (7/30 ruling — replaces the retired "enthusiastically rehire?" question, which had
+   gone blind at 28/30 Yes). Always the LAST question of a person's eval. dimPrefix keys the two chip
+   rows through the same click-delegation pattern as everything else ("<prefix>:perf"/":culture"). */
+function nineMoreBlockHtml(dimPrefix, de){
+  const nm = de.nineMore || {performance:"same", culture:"same", note:""};
+  const avg = deAverages(de);
+  const recapBits = [];
+  if(avg.choices!=null) recapBits.push("CHOICES avg "+avg.choices.toFixed(1));
+  if(avg.itp!=null) recapBits.push("ITP avg "+avg.itp.toFixed(1));
+  const recap = recapBits.length
+    ? 'You scored them: '+recapBits.join(' · ')+(avg.composite!=null?' → composite '+avg.composite.toFixed(1):'')+'. Now the net call.'
+    : "Score CHOICES and ITP above, then make the net call.";
+  const arrowRow = (dim, val)=>[
+    ["better","⬆ Better"],["same","↔ Same"],["worse","⬇ Worse"]
+  ].map(([v,label])=>
+    '<button type="button" class="chip'+(val===v?' sel '+(v==="worse"?"bad":v==="better"?"good":"mid"):'')+'" data-dim="'+esc(dim)+'" data-val="'+v+'">'+label+'</button>'
+  ).join("");
+  const noteMissing = !nm.note || !nm.note.trim();
+  return '<div class="de-sub nine-more"><div class="de-subhead">🧪 The Nine-More Test</div>'+
+    '<div class="tiny muted" style="margin-bottom:6px">'+esc(recap)+'</div>'+
+    '<div class="tiny" style="margin-bottom:8px"><b>Imagine nine more of them on your team.</b></div>'+
+    '<div class="row"><div class="rowhead"><div class="rtitle">Team performance:</div></div><div class="chiprow">'+arrowRow(dimPrefix+":perf", nm.performance)+'</div></div>'+
+    '<div class="row"><div class="rowhead"><div class="rtitle">Team culture:</div></div><div class="chiprow">'+arrowRow(dimPrefix+":culture", nm.culture)+'</div></div>'+
+    '<textarea class="rownote'+(noteMissing?' note-missing':'')+'" data-denineminenote="'+esc(dimPrefix)+'" placeholder="Why? Name the evidence — one note covering both.">'+esc(nm.note||"")+'</textarea>'+
+    '<div class="tiny muted" style="margin-top:4px">"Same" is a real answer, not a dodge — most solid people are ↔/↔. The two arrows disagreeing is the signal worth writing about: strong numbers that cost you culture, or great culture that isn\'t pulling weight.</div>'+
+    '</div>';
+}
+function deAverages(de){
+  const cvVals = CORE_VALUES.map(cv=>Number(de.coreValues.items[cv])).filter(n=>!isNaN(n));
+  const itpVals = ITP_TRAITS.map(t=>Number((de.itp[t.key]||{}).v)).filter(n=>!isNaN(n));
+  const choices = cvVals.length ? cvVals.reduce((a,b)=>a+b,0)/cvVals.length : null;
+  const itp = itpVals.length ? itpVals.reduce((a,b)=>a+b,0)/itpVals.length : null;
+  const composite = (choices!=null && itp!=null) ? (choices+itp)/2 : (choices!=null ? choices : itp);
+  return {choices, itp, composite};
 }
 
 /* ---- Section 3: Position KPIs ---- */
@@ -878,6 +918,21 @@ function wirePerson(person, rec){
         const cv = dim.slice(3);
         rec.choices.items[cv] = rec.choices.items[cv]===val ? undefined : val;
         if(rec.choices.items[cv]===undefined) delete rec.choices.items[cv];
+      } else if(dim.startsWith("nm:")){
+        // "nm:<directId>:perf" or "nm:<directId>:culture" — Nine-More Test arrows
+        const rest = dim.slice(3);
+        const c1 = rest.lastIndexOf(":");
+        const directId = rest.slice(0, c1);
+        const field = rest.slice(c1+1); // "perf" or "culture"
+        const dp = personById(directId);
+        if(dp){
+          if(!rec.directsEval) rec.directsEval = {};
+          if(!rec.directsEval[dp.name]) rec.directsEval[dp.name] = emptyDirectEval();
+          const de = rec.directsEval[dp.name];
+          if(!de.nineMore) de.nineMore = {performance:"same", culture:"same", note:""};
+          if(field==="perf") de.nineMore.performance = val;
+          else if(field==="culture") de.nineMore.culture = val;
+        }
       } else if(dim.startsWith("de:")){
         // "de:<directId>:cv:<cvName>" or "de:<directId>:itp:<traitKey>"
         const rest = dim.slice(3);
@@ -929,7 +984,7 @@ function wirePerson(person, rec){
       queueSave();
     });
   });
-  // 2b · Evaluate your managers — note fields + GWC/rehire toggles. Same split-key pattern as the
+  // 2b · Evaluate your managers — note fields + GWC toggles. Same split-key pattern as the
   // chip click handler above ("<directId>|<field>"); directId -> name resolved via personById so
   // rec.directsEval stays keyed by name (matches the export shape + the PA-directs tool).
   const deDirectByField = (raw)=>{
@@ -985,16 +1040,18 @@ function wirePerson(person, rec){
       });
     });
   });
-  wrap.querySelectorAll("[data-derehire]").forEach(group=>{
-    group.querySelectorAll("button").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const dp = personById(group.dataset.derehire);
-        if(!dp) return;
-        if(!rec.directsEval) rec.directsEval = {};
-        if(!rec.directsEval[dp.name]) rec.directsEval[dp.name] = emptyDirectEval();
-        rec.directsEval[dp.name].rehire = btn.dataset.v === "true";
-        queueSave(); renderPerson();
-      });
+  wrap.querySelectorAll("[data-denineminenote]").forEach(ta=>{
+    ta.addEventListener("input", ()=>{
+      // data-denineminenote carries "nm:<directId>" (from nineMoreBlockHtml's dimPrefix) — strip it.
+      const rawId = ta.dataset.denineminenote.startsWith("nm:") ? ta.dataset.denineminenote.slice(3) : ta.dataset.denineminenote;
+      const dp = personById(rawId);
+      if(!dp) return;
+      if(!rec.directsEval) rec.directsEval = {};
+      if(!rec.directsEval[dp.name]) rec.directsEval[dp.name] = emptyDirectEval();
+      const de = rec.directsEval[dp.name];
+      if(!de.nineMore) de.nineMore = {performance:"same", culture:"same", note:""};
+      de.nineMore.note = ta.value;
+      queueSave();
     });
   });
   wrap.querySelectorAll("[data-kpi]").forEach(inp=>{
@@ -1116,8 +1173,12 @@ function buildMarkdown(person, rec){
           md += "- "+label+": "+(v===null||v===undefined?"—":(v?"Yes":"No"))+(note?" — "+note:"")+"\n";
           if(v!=null && !note) gutCheck.push(d.name+" — GWC "+label+" — answered with no reasoning captured");
         });
-        md += "- Enthusiastically rehire: "+(de.rehire===null||de.rehire===undefined?"—":(de.rehire?"Yes":"No"))+"\n";
         if((de.overallNote||"").trim()) md += "- Note: "+de.overallNote.trim()+"\n";
+        const nm = de.nineMore || {performance:"same",culture:"same",note:""};
+        md += "**Nine-More Test** (imagine nine more of them on the team)\n";
+        md += "- Team performance: "+nm.performance+"\n- Team culture: "+nm.culture+"\n";
+        md += "- Why: "+((nm.note||"").trim()||"—")+"\n";
+        if(!((nm.note||"").trim())) gutCheck.push(d.name+" — Nine-More Test answered with no reasoning captured");
       });
     }
   }
@@ -1167,7 +1228,7 @@ function buildJsonRecord(person, rec){
           return { trait: t.key, score: rt.v?Number(rt.v):null, note: rt.note||"" };
         }),
         gwc: { get: de.gwc.get, want: de.gwc.want, capacity: de.gwc.capacity, notes: Object.assign({get:"",want:"",capacity:""}, de.gwc.notes) },
-        rehire: de.rehire,
+        nineMore: { performance: (de.nineMore||{}).performance||"same", culture: (de.nineMore||{}).culture||"same", note: (de.nineMore||{}).note||"" },
         overallNote: de.overallNote||""
       };
     }),
