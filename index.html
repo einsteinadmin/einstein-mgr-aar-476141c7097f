@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Einstein FLM QGR Prep — Manager Hub</title>
-<!-- v1.7 2026-07-29 -->
+<!-- v1.7.1 2026-07-29 -->
 <style>
 :root{
   --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-200:#FABD84; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
@@ -259,9 +259,8 @@ const ITP_TRAITS = [
   {key:"hungry", label:"Hungry", def:"Self-motivated, always looking for more."},
   {key:"smart",  label:"Smart",  def:"People-smart, interpersonally aware."}
 ];
-const ITP_SUBS = {1:"rarely",2:"",3:"sometimes",4:"",5:"unprompted"};
-const ITP_ANCHORS = {1:"rarely",2:"below the bar",3:"sometimes, with prompting",4:"strong, with named opportunities",5:"consistently, unprompted"};
-const ITP_OPTIONS = [1,2,3,4,5].map(n=>({v:String(n),label:String(n),sub:ITP_SUBS[n],cls:n>=4?"good":n===3?"mid":"bad",title:ITP_ANCHORS[n]}));
+/* Cameron 7/29: ITP uses the SAME 1–5 scale language as CHOICES — one scale everywhere. */
+const ITP_OPTIONS = CV_OPTIONS;
 const SGR_OPTIONS = [
   {v:"SG",label:"Super Green",cls:"good",title:"Exceeded the written Super Green definition"},
   {v:"G",label:"Green",cls:"good",title:"Hit the written Green definition"},
