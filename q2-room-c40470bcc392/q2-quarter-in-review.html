@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Quarter in Review — What We Built &amp; What's Coming · Q2 2026</title>
+<style>
+:root{
+  --orange-50:#FEF6EC; --orange-100:#FDE3C2; --orange-500:#EF8B22; --orange-700:#D96B10; --orange-900:#CC5500;
+  --navy-50:#EEF1F4; --navy-100:#CDD5DA; --navy-400:#507080; --navy-500:#27343D; --navy-700:#1A2329; --navy-900:#0B1014;
+  --blue-50:#EBF4FB; --blue-500:#0979C3; --blue-700:#065E9A; --blue-900:#023B63;
+  --grey-50:#F4F5F5; --grey-100:#E2E3E4; --grey-200:#C0C2C4; --grey-500:#53575A; --grey-700:#363839;
+  --success:#69995D; --error:#CC0100; --white:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:var(--navy-500);background:var(--white);font-size:18px;line-height:1.55;}
+a{color:var(--blue-500);}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+
+/* ---------- header ---------- */
+header{background:var(--navy-500);color:var(--white);padding:44px 0 36px;}
+header .kicker{color:var(--orange-500);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:14px;margin-bottom:10px;}
+header h1{font-size:38px;line-height:1.15;margin-bottom:14px;}
+header p{color:var(--navy-100);max-width:720px;font-size:19px;}
+
+/* ---------- internal draft banner (strip before any deploy) ---------- */
+.draft-banner{background:var(--orange-900);color:var(--white);text-align:center;padding:10px 16px;font-weight:700;font-size:15px;letter-spacing:.04em;}
+
+/* ---------- redline box (internal — strip before deploy) ---------- */
+.redline{background:var(--blue-50);border-left:5px solid var(--blue-500);padding:18px 22px;margin:28px 0;border-radius:0 8px 8px 0;font-size:16px;}
+.redline b{color:var(--blue-900);}
+
+/* ---------- audience filter ---------- */
+.filterbar{position:sticky;top:0;background:var(--white);border-bottom:1px solid var(--grey-100);padding:14px 0;z-index:10;}
+.filterbar .wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.filterbar span.lbl{font-size:14px;font-weight:700;color:var(--grey-500);text-transform:uppercase;letter-spacing:.08em;}
+.fbtn{border:1.5px solid var(--navy-100);background:var(--white);color:var(--navy-500);border-radius:999px;padding:7px 18px;font-size:15px;font-weight:600;cursor:pointer;}
+.fbtn:hover{border-color:var(--blue-500);}
+.fbtn.active{background:var(--navy-500);border-color:var(--navy-500);color:var(--white);}
+
+/* ---------- tiles ---------- */
+main{padding:34px 0 60px;}
+.tile{border:1px solid var(--grey-100);border-radius:14px;margin:0 0 30px;overflow:hidden;background:var(--white);box-shadow:0 1px 3px rgba(11,16,20,.06);}
+.tile-head{padding:24px 28px 6px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;}
+.tile-head h2{font-size:26px;line-height:1.2;}
+.tile-head .num{color:var(--orange-900);font-weight:800;margin-right:8px;}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.chip{font-size:13px;font-weight:700;border-radius:999px;padding:4px 12px;white-space:nowrap;}
+.chip.presenter{background:var(--navy-50);color:var(--navy-500);}
+.chip.aud{background:var(--orange-50);color:var(--orange-900);border:1px solid var(--orange-100);}
+.tile-body{padding:14px 28px 26px;display:grid;grid-template-columns:1fr 300px;gap:26px;}
+@media(max-width:760px){.tile-body{grid-template-columns:1fr;}}
+.block{margin-bottom:16px;}
+.block h3{font-size:14px;text-transform:uppercase;letter-spacing:.09em;color:var(--grey-500);margin-bottom:6px;}
+.block.wifm h3{color:var(--orange-900);}
+.block.wifm{background:var(--orange-50);border-radius:10px;padding:14px 16px;}
+.block p, .block li{font-size:17px;color:var(--grey-700);}
+.block ul{padding-left:20px;}
+.shot{background:var(--grey-50);border:1.5px dashed var(--grey-200);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--grey-500);font-size:14px;padding:16px;}
+.shot b{display:block;color:var(--navy-400);margin-bottom:4px;}
+.links{margin-top:12px;font-size:15px;}
+.links a{display:block;margin-bottom:6px;}
+.flag{background:var(--blue-50);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--blue-900);margin-top:10px;}
+
+/* ---------- interview question card mocks ---------- */
+.qcards{display:flex;flex-direction:column;gap:10px;}
+.qcard{background:var(--navy-50);border:1px solid var(--navy-100);border-radius:10px;padding:14px 16px;}
+.qtag{display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--orange-900);background:var(--orange-50);border-radius:999px;padding:3px 10px;margin-bottom:8px;}
+.qcard .q{font-size:16px;font-weight:600;color:var(--navy-500);margin-bottom:6px;}
+.qcard .listen{font-size:13px;color:var(--grey-500);}
+.qnote{font-size:12px;color:var(--grey-500);font-style:italic;}
+
+/* ---------- video embed ---------- */
+.video{position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;border:1px solid var(--grey-100);margin-bottom:10px;}
+.video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+/* ---------- embedded screenshots ---------- */
+.shotimg{border:1px solid var(--grey-100);border-radius:10px;overflow:hidden;margin-bottom:10px;}
+.shotimg img{display:block;width:100%;height:auto;}
+.shotimg .cap{font-size:12px;color:var(--grey-500);padding:6px 10px;background:var(--grey-50);}
+#lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,20,35,.88);cursor:zoom-out;align-items:center;justify-content:center;padding:32px;}
+#lightbox.open{display:flex;}
+#lightbox img{max-width:100%;max-height:100%;border-radius:10px;box-shadow:0 12px 48px rgba(0,0,0,.5);}
+
+footer{background:var(--navy-700);color:var(--navy-100);padding:26px 0;font-size:14px;text-align:center;}
+</style>
+</head>
+<body>
+
+<!-- v0.9.2 2026-08-03: tile 04 Hiring for Culture REAL questions in from Anne's Culture Assessment Interview doc (4 cards + scoring frame; sample-card qnote retired) + trial-day copy corrected to 'sunsetting soon' per Cameron's 8/3 ruling (NOT Aug 1) · v0.9.1 2026-07-30: last draft note cleared (Matisen field-app tile) — zero draft notes remain · v0.9: tile 07 finance screenshot in (South Austin branch deep-dive report, Cameron's pick — finalizes the finance half, Paul's draft note cleared) · prior v0.8 (Day-2 room fold): DRAFT banner removed per Cameron · tile 03 = Training Camp dashboard screenshot + einsteinmoving.replit.app link (Mike's draft note cleared) · tile 06 = Botpress chat-widget screenshot · click-to-expand lightbox on all screenshots · prior v0.7: tile 05 call-grading link+shot, Amanda notes cleared -->
+<header>
+  <div class="wrap">
+    <div class="kicker">Q2 2026 · Quarter in Review</div>
+    <h1>What We Built &amp; What's Coming</h1>
+    <p>A lot got built behind the scenes this quarter — tools that make quotes smarter, training faster, and your job easier. Here's the catch-up, straight from the leaders who own each one.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="redline">
+    <b>Roundtable — how to redline your tiles (15 min, Day 2, Thu 7/30):</b> Each of you owns 1–2 tiles below (presenter chip on each). Before Thursday, run your tile(s) past your chief of staff — it has the context. Check three things: ① is the plain-English description right, ② is the "What's in it for you" honest, ③ is "What's coming" something you're actually committing to. The ⚠ draft notes name the specific item to bring (a link, a screenshot, a sign-off). Speak your corrections in the room — Albert folds same-day. <b>This box and the ⚠ notes get stripped before anyone below Roundtable sees the page.</b>
+  </div>
+</div>
+
+<div class="filterbar">
+  <div class="wrap">
+    <span class="lbl">Show tiles for:</span>
+    <button class="fbtn active" data-aud="all">Everyone</button>
+    <button class="fbtn" data-aud="flm">Frontline Managers</button>
+    <button class="fbtn" data-aud="movers">Movers</button>
+    <button class="fbtn" data-aud="cx">CX Reps</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- 1 · QUOTE FORM -->
+<section class="tile" data-aud="flm cx">
+  <div class="tile-head">
+    <h2><span class="num">01</span>The Smarter Quote Form</h2>
+    <div class="meta"><span class="chip presenter">Presents: Matisen</span><span class="chip aud">FLMs</span><span class="chip aud">CX Reps</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>We added a small set of new questions to the online quote form — things like <i>why</i> someone is doing a partial move (storage, renovation, college, multi-stop). Every answer flows through to EMMA and to the manager reviewing the quote, even when the move can't be auto-estimated.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>Fewer surprise scopes on move day — the customer told us up front what kind of move this really is.</li>
+          <li>Better-qualified leads reach the sales team, with the "why" already attached.</li>
+          <li>Every answer feeds estimate accuracy — the more moves we collect, the better the quotes get.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>Right now we're in collect-and-learn mode (~1,000 moves), then we open up more auto-estimable move types. Speed-to-lead work is next — answering a quote within 5 minutes makes a customer ~21× more likely to book.</p>
+      </div>
+    </div>
+    <div>
+      <div class="shotimg"><img src="assets/qir/qir-quote-funnel.png" alt="New quote form flow — special items step"><div class="cap">The new quote flow — smarter questions, and every answer routes the lead.</div></div>
+      <div class="links"><span class="defused-link">Live demo: quote-funnel workshop tool</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · MOBILE APP -->
+<section class="tile" data-aud="flm movers">
+  <div class="tile-head">
+    <h2><span class="num">02</span>The Field Mobile App</h2>
+    <div class="meta"><span class="chip presenter">Presents: Mike / Matisen</span><span class="chip aud">FLMs</span><span class="chip aud">Movers</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>The app that runs the job in the field — dispatch, job details, and stage-by-stage timing: how long the load took, how long the drive took, how long the unload took. A much more intuitive flow for movers running the job. Live demo in the room.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>Load, drive, and unload times per job are the unlock we've needed to improve the estimate algorithm itself — quotes get more accurate and fairer to crews as the data builds.</li>
+          <li>Problems get flagged <i>during</i> the move, not discovered after — earlier help on jobs going sideways.</li>
+          <li>Less paperwork, faster invoice closure — and a flow that's built around how movers actually run a job.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>As the timing data accumulates, the estimate algorithm improves with it. There's a long list of wins stacked behind this one — Matisen walks the roadmap in the room.</p>
+      </div>
+    </div>
+    <div>
+      <div class="shotimg"><img src="assets/qir/qir-field-app.png" alt="Field mover app workshop — clickable app replica"><div class="cap">The field app workshop — a clickable replica of the real app, plus what each move now captures.</div></div>
+      <div class="links"><span class="defused-link">Live demo: field mobile app workshop</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · TRAINING APP -->
+<section class="tile" data-aud="flm movers">
+  <div class="tile-head">
+    <h2><span class="num">03</span>The Mover Training App</h2>
+    <div class="meta"><span class="chip presenter">Presents: Mike</span><span class="chip aud">FLMs</span><span class="chip aud">Movers</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>A training app built by us, for us — the full mover curriculum on your phone, with training videos hosted right alongside the written instruction, sign-offs, an in-app SOP wiki, and soon driver training too. It's been live across all of DFW/Tampa for three weeks with zero bugs.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>You always know exactly what to learn next and what stands between you and your next promotion.</li>
+          <li>Watch it, then do it — every skill comes with video instruction, not just a doc.</li>
+          <li>SOPs live in the app — no more hunting for the right doc or asking three people.</li>
+          <li>One platform carries you from new mover → driver → lead. Your progress follows you.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>Company-wide rollout is the leading candidate for the Q3 training theme. Performance management and your early check-ins (days 7/12/30/45/60) will run through the app too — so feedback lands on schedule, not when someone remembers. Also on the roadmap: an estimate-this-job training game and badges.</p>
+      </div>
+    </div>
+    <div>
+      <div class="shotimg"><img src="assets/qir/qir-training-app.png" alt="Training Camp dashboard — leads in training + fast-track leads by branch"><div class="cap">The Training Camp dashboard — every mover's route to competence, live by branch. This is the Q3 theme scoreboard.</div></div>
+      <div class="links"><span class="defused-link">Training App HQ</span><a href="https://einsteinmoving.replit.app" target="_blank">The training app</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · HIRING FOR CULTURE -->
+<section class="tile" data-aud="flm">
+  <div class="tile-head">
+    <h2><span class="num">04</span>Hiring for Culture — New Interviews</h2>
+    <div class="meta"><span class="chip presenter">Presents: Anne</span><span class="chip aud">FLMs</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>Trial days are sunsetting soon. In their place: a 30-minute culture-based phone screen run by the recruiting team using our CHOICES values framework, followed by a competency-based in-person interview with the hiring manager — with real interview training to back it up.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>No more burning a crew slot on a trial-day no-show.</li>
+          <li>The culture screen happens <i>before</i> a candidate reaches your branch — you interview people who already fit.</li>
+          <li>BMs get trained on structured interviewing — a skill you keep for your whole career.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>Application tightening (we get ~17,000 applicants — the funnel is getting smarter, not just bigger) and continued tuning of the tested culture questions.</p>
+      </div>
+    </div>
+    <div>
+      <div class="qcards">
+        <div class="qcard"><span class="qtag">CHOICES · Communicate</span>
+          <p class="q">"Describe a time your first attempt to teach or coach someone didn't work. What did you change, and what was the result?"</p>
+          <p class="listen">Listen for: clear, specific examples that feel natural to them — not slogans.</p>
+        </div>
+        <div class="qcard"><span class="qtag">CHOICES · Ownership</span>
+          <p class="q">"Have you ever missed a deadline or fallen short of an important goal? How did you handle it, and what did you learn?"</p>
+          <p class="listen">Listen for: owning it vs. getting defensive — we can teach skills, not values.</p>
+        </div>
+        <div class="qcard"><span class="qtag">CHOICES · Support</span>
+          <p class="q">"Tell me about a time you stepped in to support a co-worker who was falling behind. How did you manage your own work while helping them?"</p>
+          <p class="listen">Listen for: generosity with their own time, and how they kept their own work on track.</p>
+        </div>
+        <div class="qcard"><span class="qtag">Attendance &amp; punctuality</span>
+          <p class="q">"If you woke up feeling tired or just not feeling it, what would go through your mind about whether to come in or not?"</p>
+          <p class="listen">Listen for: how they think about the team counting on them.</p>
+        </div>
+        <p class="qnote">From Anne's tested Culture Assessment Interview: interviewers pick 1–2 questions per CHOICES value, rate each − / ± / +, and tally — 45–55 is a strong hire signal. Values first: hire for who they are, train the rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · CALL GRADING -->
+<section class="tile" data-aud="flm cx">
+  <div class="tile-head">
+    <h2><span class="num">05</span>Call Grading — Coaching at Scale</h2>
+    <div class="meta"><span class="chip presenter">Presents: Amanda</span><span class="chip aud">FLMs</span><span class="chip aud">CX Reps</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>Real sales calls, graded against a shared rubric — so every rep gets specific, personal coaching instead of generic advice. Amanda's team owns the pipeline and the rubric.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>This is a coaching tool, not a scoreboard — graded calls turn into 1:1 feedback that makes you better at a skill that pays.</li>
+          <li>Better calls → better conversions → fuller trucks → more hours for crews.</li>
+          <li>Down the road, grading connects to estimates and actuals, so we learn which call habits produce accurate quotes.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>Growing the share of real sales calls graded, tying grades to estimate accuracy once the mobile app's actuals land, and using calls to spot magic moments worth celebrating.</p>
+      </div>
+    </div>
+    <div>
+      <div class="shotimg"><img src="assets/qir/qir-call-grading.png" alt="Einstein AI Call Grading weekly report — week of 2026-07-27"><div class="cap">The weekly AI call-grading report — 41 calls graded against the rubric, with differentiator hit-rates and phone-presence reads.</div></div>
+      <div class="links"><span class="defused-link">AI Call Grading — weekly report</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · CHATBOT -->
+<section class="tile" data-aud="flm cx">
+  <div class="tile-head">
+    <h2><span class="num">06</span>The Chatbot Upgrade</h2>
+    <div class="meta"><span class="chip presenter">Presents: Amanda + Matisen</span><span class="chip aud">FLMs</span><span class="chip aud">CX Reps</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>The website chatbot is getting real AI. Our old platform, Leadferno, had none built in — and chat is a big slice of our inbound pipeline, which meant real people spent their day manning FAQs and routine questions. The new bot handles those itself and hands off the conversations that actually need a human.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>Fewer people tied up monitoring the chat channel — that bandwidth goes to answering sales calls and working directly with customers.</li>
+          <li>When a chat does reach you, it arrives qualified and with context instead of starting from zero.</li>
+          <li>Customers get instant answers around the clock — warmer leads in the morning queue.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>This is a shared Amanda + Matisen target heading into Q3 — rollout details land after the QGR.</p>
+      </div>
+    </div>
+    <div>
+      <div class="shotimg"><img src="assets/qir/qir-botpress.png" alt="Botpress chat widget — Ask me anything"><div class="cap">The Botpress chat widget — the platform behind the new bot. Real AI handling routine questions, with a hand-off to a human when it matters.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · FINANCE + AI -->
+<section class="tile" data-aud="flm">
+  <div class="tile-head">
+    <h2><span class="num">07</span>A Real Finance Department + AI Across Leadership</h2>
+    <div class="meta"><span class="chip presenter">Presents: Paul (finance) + Cameron (AI)</span><span class="chip aud">FLMs</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p><b>Finance:</b> the Prosper transition is nearly complete — a real finance department with monthly closes on a modern system. Margin meetings are resuming, and managers will get new branch-level reports built for their role. <b>AI:</b> every Roundtable leader now works with an AI chief of staff, and a growing set of live dashboards keeps goals, fleet, and sales visible in real time.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>Branch reports that actually show your branch's story — and where your decisions move the number.</li>
+          <li>Margin meetings mean you see the scoreboard regularly instead of once a quarter.</li>
+          <li>Your leaders answer faster and drop fewer balls — the AI works for them so requests don't sit in an inbox.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>Margin meeting cadence restarts, role-tailored reporting for RMs and BMs, and more tools graduating from leadership to branch level as they prove out.</p>
+      </div>
+    </div>
+    <div>
+      <div class="shotimg"><img src="assets/qir/qir-finance-report.png" alt="Branch deep-dive finance report — South Austin, June 2026"><div class="cap">The new branch-level finance report — a full monthly deep dive per branch: the bottom line, a plain-English diagnosis, the May-to-June profit bridge, and where every operating dollar goes.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · WEBSITE -->
+<section class="tile" data-aud="flm movers cx">
+  <div class="tile-head">
+    <h2><span class="num">08</span>The New Website</h2>
+    <div class="meta"><span class="chip presenter">Presents: Cameron</span><span class="chip aud">Everyone</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>A full redesign of einsteinmoving.com — crisper, more professional, and built to sell the Smart Move System and our value the way they deserve: complete and honest pricing, the care standard behind every move, and the proof to back it up. Designed with our agency partner Kickpoint.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>A site that converts better means more booked moves — fuller trucks, more hours, more tips.</li>
+          <li>Customers arrive already understanding how we price and what's included — fewer awkward move-day conversations.</li>
+          <li>The reviews and proof on the site are <i>your</i> work — 2,400+ reviews mined for the stories it tells.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>Design wraps with Kickpoint, then the development build. Sneak peek in the room.</p>
+      </div>
+    </div>
+    <div>
+      <div class="shotimg"><img src="assets/qir/qir-website.png" alt="New homepage draft — Let's face it: moving sucks"><div class="cap">Homepage draft v2 — the new hero + the "we quote the whole thing" price section.</div></div>
+      <div class="links"><span class="defused-link">Sneak peek: full homepage draft</span><span class="defused-link">Website workshop HQ</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · MOVING DAY VIDEO -->
+<section class="tile" data-aud="flm movers cx">
+  <div class="tile-head">
+    <h2><span class="num">09</span>"What to Expect on Moving Day" — The Video</h2>
+    <div class="meta"><span class="chip presenter">Presents: Cameron</span><span class="chip aud">Everyone</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>A customer-facing video, filmed by Austin, that walks a customer through exactly what moving day with Einstein looks like — from booking to the final walk-through of their new home. It's already live in our customer emails, so people are watching it before your crew ever pulls up. It's also a taste of what our content creation team is building.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>Customers arrive at move day already knowing the flow — fewer nervous questions, smoother starts.</li>
+          <li>The crew on screen is <i>us</i> — customers meet the real Einstein standard before they meet you.</li>
+          <li>This is the first of more: video content that sells the move, trains the team, and shows off the people doing the work.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>More from the content pipeline — customer education, recruiting, and training video that lives right inside the training app.</p>
+      </div>
+    </div>
+    <div>
+      <div class="video"><iframe src="https://www.youtube.com/embed/EEcSTsrhlNs" title="What To Expect on Your Moving Day" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="links"><a href="https://www.youtube.com/watch?v=EEcSTsrhlNs" target="_blank">Watch on YouTube: What To Expect on Your Moving Day</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · SCRUM RECERT -->
+<section class="tile" data-aud="flm">
+  <div class="tile-head">
+    <h2><span class="num">10</span>Scrum Recert — Manager Certification</h2>
+    <div class="meta"><span class="chip presenter">Presents: Brian</span><span class="chip aud">FLMs</span></div>
+  </div>
+  <div class="tile-body">
+    <div>
+      <div class="block"><h3>What it is</h3>
+        <p>Brian spent the quarter building a full Scrum certification system for managers — a scored scorecard covering board hygiene and sync-up meetings, a training module, a Monday training board, a glossary, and a home base for the whole process. Weekly scorecards already run across the CTXH branches, and board hygiene improved fast once they did.</p>
+      </div>
+      <div class="block wifm"><h3>What's in it for you</h3>
+        <ul>
+          <li>A clear, written standard for what a well-run board and sync-up look like — no more guessing what "good" means.</li>
+          <li>Certification is something you <i>earn and hold</i>, with a scorecard you can see — and recertification keeps the standard from drifting.</li>
+          <li>Clean boards mean less chasing, fewer dropped balls, and huddles that actually move work.</li>
+        </ul>
+      </div>
+      <div class="block"><h3>What's coming</h3>
+        <p>Q3 is the rollout: boards certified early in the quarter, then held with a regular follow-up cadence. And this isn't a one-time push — Scrum recertification becomes part of the ongoing education modules for managers going forward, alongside the rest of the manager training track.</p>
+      </div>
+    </div>
+    <div>
+      <div class="shotimg"><img src="assets/qir/qir-scrum-hq.png" alt="SCRUM Certification System Project HQ"><div class="cap">Brian's SCRUM Certification HQ — 5 branches tracked, rubric v1.3, 24 scorecard reads logged, best score 60/60 (Leander).</div></div>
+      <div class="links"><span class="defused-link">Live: SCRUM Certification System HQ</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">Einstein Moving Company · Quarter in Review · Q2 2026 — updated each quarter at the QGR.</div></footer>
+
+<script>
+document.querySelectorAll('.fbtn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    var aud = btn.dataset.aud;
+    document.querySelectorAll('.tile').forEach(function(t){
+      t.style.display = (aud === 'all' || t.dataset.aud.split(' ').indexOf(aud) !== -1) ? '' : 'none';
+    });
+  });
+});
+
+/* Click any screenshot to expand it full-screen; click anywhere or press Esc to close */
+(function(){
+  var lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.innerHTML = '<img alt="">';
+  document.body.appendChild(lb);
+  var lbImg = lb.querySelector('img');
+  document.querySelectorAll('.shotimg img').forEach(function(img){
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(){
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('open');
+    });
+  });
+  function closeLb(){ lb.classList.remove('open'); }
+  lb.addEventListener('click', closeLb);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+})();
+</script>
+</body>
+</html>

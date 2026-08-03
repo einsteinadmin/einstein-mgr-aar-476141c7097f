@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Einstein Moving — The Q2 Debrief · Q2 2026</title>
+<!-- Q2 Debrief v1.9 — 2026-07-29 QGR Day 1 · Cameron's 7/29 AM redline folded: 5 block edits (861 truck-days fleet-vacancy parenthetical · "number that matters" · Luis named-mover line cut · Employee Experience (HR) + "reviewed regularly" · claims-audit parenthetical), Nazier Owens removed from Dream Team (24→23, Tampa 5→4), NPS Now What rebuilt concrete, FCP promoted to headline of the CET card (own stat row) with sales look-back secondary, Claims/MM confirmed woven-in. Q4'25 per-10K reference = NO_SOURCE, chases at July close. -->
+<!-- Q2 Debrief v1.8 — 2026-07-28 eve · Cameron's full redline folded: revenue/profit misses split under separate headers, second metaphor cut (lawn-mowing = the one metaphor, ELI6 expander promoted + teaser), Q&A section removed (manager-bonus answer preserved in comment below), per-branch spend-per-lead table in marketing deep dive, untouched-leads phrasing corrected, Dream Team pills expand to names (24), fleet per-10K trend beat + new damages-focused Now What, NPS + reviews branch tables, formatting pass (short paragraphs, real lists) -->
+<!-- (v1.4 2026-07-27: MM photo wall 5 images + first mover-submitted MM callout · v1.5–v1.7.1: design lane) -->
+
+<style>
+  /* ══ Local fonts — bundled from the Einstein Brand Kit, same block as the packet/scorecards ══ */
+  @font-face { font-family: 'Roboto'; font-style: normal; font-weight: 400; font-display: swap; src: url('assets/fonts/Roboto-400.woff2') format('woff2'); }
+  @font-face { font-family: 'Roboto'; font-style: normal; font-weight: 500; font-display: swap; src: url('assets/fonts/Roboto-500.woff2') format('woff2'); }
+  @font-face { font-family: 'Roboto'; font-style: normal; font-weight: 700; font-display: swap; src: url('assets/fonts/Roboto-700.woff2') format('woff2'); }
+  @font-face { font-family: 'Roboto'; font-style: normal; font-weight: 900; font-display: swap; src: url('assets/fonts/Roboto-900.woff2') format('woff2'); }
+  @font-face { font-family: 'Lora'; font-style: normal; font-weight: 600; font-display: swap; src: url('assets/fonts/Lora-SemiBold.ttf') format('truetype'); }
+  :root {
+    /* ══ Einstein Brand Kit tokens — full ramps (colors_and_type.css) ══ */
+    --ein-orange-50:  #FEF6EC;
+    --ein-orange-100: #FDE3C2;
+    --ein-orange-200: #FABD84;
+    --ein-orange-300: #F5A054;
+    --ein-orange-500: #EF8B22;
+    --ein-orange-700: #D96B10;
+    --ein-orange-900: #CC5500;
+    --ein-navy-50:  #EEF1F4;
+    --ein-navy-100: #CDD5DA;
+    --ein-navy-200: #9AADB7;
+    --ein-navy-400: #507080;
+    --ein-navy-500: #27343D;
+    --ein-navy-700: #1A2329;
+    --ein-navy-900: #0B1014;
+    --ein-blue-50:  #EBF4FB;
+    --ein-blue-100: #C3DFEF;
+    --ein-blue-300: #46A2D5;
+    --ein-blue-500: #0979C3;
+    --ein-blue-700: #065E9A;
+    --ein-blue-900: #023B63;
+    --ein-grey-50:  #F4F5F5;
+    --ein-grey-100: #E2E3E4;
+    --ein-grey-200: #C0C2C4;
+    --ein-grey-400: #787C7F;
+    --ein-grey-500: #53575A;
+    --ein-grey-700: #363839;
+    --ein-grey-900: #191A1B;
+    /* ── role aliases (legacy var names kept so the mode-bar/notes CSS keeps working) ── */
+    --navy: var(--ein-navy-500);
+    --navy-light: var(--ein-navy-400);
+    --navy-2: var(--ein-navy-700);
+    --orange: var(--ein-orange-500);
+    --orange-dark: var(--ein-orange-900);
+    --orange-bg: var(--ein-orange-50);
+    --green: #4C7A3D;          /* brand-adjacent success — dark enough for 14px text on tints */
+    --green-light: #EFF4EC;
+    --red: #B3261E;
+    --red-light: #FBEDEB;
+    --amber: var(--ein-orange-700);
+    --amber-bg: var(--ein-orange-50);
+    --blue: var(--ein-blue-500);
+    --blue-700: var(--ein-blue-700);
+    --blue-bg: var(--ein-blue-50);
+    --gray-50: var(--ein-grey-50);
+    --gray-100: var(--ein-grey-100);
+    --gray-200: #D6D8D9;
+    --gray-300: var(--ein-grey-200);
+    --gray-400: var(--ein-grey-400);
+    --gray-600: var(--ein-grey-500);
+    --gray-700: var(--ein-grey-700);
+    --gray-800: var(--ein-grey-900);
+    /* ── type scale (internal-tool cut of the kit scale) ── */
+    --fs-body: 17px;
+    --fs-small: 14px;
+    --fs-micro: 12px;
+    --font-display: 'Lora', Georgia, serif;  /* kit rule: Lora = hero/banner display ONLY */
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .scorecard-tile { transition: none; }
+  }
+  body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    margin: 0; padding: 0;
+    color: var(--ein-navy-500);
+    background: var(--gray-50);
+    font-size: var(--fs-body);
+    line-height: 1.65;
+  }
+  .wrap { max-width: 1150px; margin: 0 auto; padding: 20px 16px 80px; }
+  @media (min-width: 640px) { .wrap { padding: 32px 24px 90px; } }
+
+  /* Header — the opening moment */
+  .page-header {
+    background: linear-gradient(105deg, rgba(19,26,31,0.94) 0%, rgba(19,26,31,0.80) 40%, rgba(19,26,31,0.18) 100%), url('assets/debrief/hero-crew-ramp.jpg') center 42% / cover no-repeat, var(--ein-navy-700);
+    color: white;
+    border-radius: 14px;
+    padding: 72px 36px 46px;
+    margin-bottom: 8px;
+    min-height: 340px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    box-shadow: 0 8px 24px rgba(11,16,20,0.18);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; left: 36px; top: 0;
+    width: 64px; height: 6px;
+    background: var(--ein-orange-500);
+    border-radius: 0 0 4px 4px;
+  }
+  .page-eyebrow {
+    color: var(--ein-orange-100);
+    font-size: 13px;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 6px 0 10px 0;
+  }
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    margin: 0 0 12px 0;
+    line-height: 1.08;
+  }
+  @media (min-width: 640px) { .page-header h1 { font-size: 48px; } }
+  .page-header .estimate-note {
+    color: rgba(255,255,255,0.92);
+    font-size: var(--fs-small);
+    margin: 0;
+    background: rgba(255,255,255,0.08);
+    border-left: 3px solid var(--ein-orange-500);
+    padding: 8px 14px;
+    border-radius: 0 6px 6px 0;
+    display: inline-block;
+  }
+
+  /* Chapter bands — the arc of the scroll */
+  .chapter-band {
+    background: var(--ein-navy-500);
+    background-size: cover;
+    background-position: center;
+    color: white;
+    border-radius: 14px;
+    margin: 48px 0 22px;
+    padding: 32px 36px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .chapter-band::after {
+    content: attr(data-ch);
+    position: absolute; right: 28px; top: 50%; transform: translateY(-50%);
+    font-family: 'Roboto', Arial, sans-serif; font-weight: 900;
+    font-size: 88px; line-height: 1;
+    color: rgba(255,255,255,0.10);
+    pointer-events: none;
+  }
+  .chapter-band[data-ch="2"] { background-image: linear-gradient(100deg, rgba(19,26,31,0.93) 0%, rgba(19,26,31,0.60) 55%, rgba(19,26,31,0.28) 100%), url('assets/debrief/band-truck.jpg'); }
+  .chapter-band[data-ch="3"] { background-image: linear-gradient(100deg, rgba(19,26,31,0.93) 0%, rgba(19,26,31,0.60) 55%, rgba(19,26,31,0.28) 100%), url('assets/debrief/band-mover-blanket.jpg'); background-position: center 30%; }
+  .chapter-band[data-ch="4"] { background-image: linear-gradient(100deg, rgba(19,26,31,0.93) 0%, rgba(19,26,31,0.60) 55%, rgba(19,26,31,0.28) 100%), url('assets/debrief/band-smartest-move.jpg'); background-position: center 55%; }
+  .chapter-band[data-ch="2"], .chapter-band[data-ch="3"], .chapter-band[data-ch="4"] { min-height: 230px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .chapter-kicker {
+    color: var(--ein-orange-100);
+    font-size: var(--fs-micro);
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+  }
+  .chapter-title {
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    margin: 0 0 4px 0;
+    line-height: 1.1;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+  }
+  .chapter-sub { color: rgba(255,255,255,0.92); font-size: 15px; margin: 0; max-width: 640px; text-shadow: 0 1px 6px rgba(0,0,0,0.45); }
+  body.mode-present .chapter-band { display: none !important; }
+  @media print { .chapter-band { break-inside: avoid; } }
+
+  h2.section-title {
+    color: var(--navy);
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    margin: 34px 0 6px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--ein-navy-100);
+    line-height: 1.05;
+  }
+  h2.section-title .sec-eyebrow {
+    display: block;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: var(--ein-orange-900);
+    font-size: var(--fs-micro);
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  p { margin: 6px 0 12px 0; }
+  ul { margin: 6px 0 12px 0; padding-left: 20px; }
+  li { margin: 5px 0; }
+  strong { color: var(--ein-navy-500); font-weight: 700; }
+
+  /* Card = one story */
+  .card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-top: 4px solid var(--navy);
+    border-radius: 12px;
+    padding: 26px 26px 22px;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px rgba(39,52,61,0.05);
+  }
+  @media (max-width: 520px) { .card { padding: 20px 16px 18px; } }
+  .card.hero-card-flavor { border-top-color: var(--ein-orange-500); }
+  .card.green { border-top-color: var(--green); }
+  .card.amber { border-top-color: var(--ein-orange-500); background: linear-gradient(180deg, var(--ein-orange-50) 0%, #fff 140px); }
+  .card.placeholder { border-top-color: var(--gray-400); background: var(--gray-50); }
+  .card h3.card-title {
+    color: var(--navy);
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    margin: 0 0 6px 0;
+    line-height: 1.15;
+  }
+  .card .card-num {
+    color: var(--gray-600);
+    font-size: var(--fs-micro);
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    font-weight: 700;
+    margin: 0 0 2px 0;
+  }
+
+  /* What / So What / Now What — typographic markers, open prose (no boxes-in-boxes) */
+  .wsw {
+    margin: 18px 0;
+    padding: 2px 0 2px 16px;
+    border-left: 3px solid var(--ein-orange-500);
+    background: transparent;
+    border-radius: 0;
+  }
+  .wsw.sowhat { border-left-color: var(--ein-blue-500); }
+  .wsw.nowwhat { border-left-color: var(--green); }
+  .wsw .wsw-label {
+    display: block;
+    font-size: var(--fs-micro);
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    font-weight: 700;
+    color: var(--ein-orange-900);
+    margin-bottom: 5px;
+  }
+  .wsw.sowhat .wsw-label { color: var(--ein-blue-700); }
+  .wsw.nowwhat .wsw-label { color: var(--green); }
+  .wsw p, .wsw ul, .card > p, .card > ul { max-width: none; }
+  .wsw p:last-child { margin-bottom: 0; }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .badge.green { background: var(--green-light); color: var(--green); }
+  .badge.red { background: var(--red-light); color: var(--red); }
+  .badge.amber { background: var(--ein-orange-50); color: var(--ein-orange-900); }
+  .badge.gray { background: var(--gray-100); color: var(--gray-600); }
+  .badge.navy { background: var(--navy); color: white; }
+
+  /* Mini stats — the scannable entry point of each card */
+  .mini-stat-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  @media (min-width: 520px) { .mini-stat-row.three { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .mini-stat {
+    background: var(--ein-navy-50);
+    padding: 14px 16px 12px;
+    border-radius: 8px;
+    border-left: 3px solid var(--ein-orange-500);
+    min-width: 0;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .mini-stat.green { border-left-color: var(--green); }
+  .mini-stat.red { border-left-color: var(--red); }
+  .mini-stat.amber { border-left-color: var(--ein-orange-700); }
+  .mini-stat .ms-label {
+    color: var(--gray-600);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .mini-stat .ms-value {
+    color: var(--navy);
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    line-height: 1.08;
+    margin-top: 4px;
+  }
+  .mini-stat .ms-sub {
+    color: var(--gray-600);
+    font-size: 13px;
+    margin-top: 4px;
+    line-height: 1.35;
+  }
+
+  /* Bar chart (revenue YoY, no $ axis) */
+  .yoy-bars { margin: 16px 0; }
+  .yoy-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; font-size: var(--fs-small); }
+  .yoy-branch { width: 104px; flex-shrink: 0; text-align: right; color: var(--ein-navy-500); }
+  .yoy-track { flex: 1; background: var(--gray-100); border-radius: 3px; height: 20px; position: relative; overflow: visible; }
+  .yoy-fill { height: 100%; border-radius: 3px; background: var(--green); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .yoy-fill.neg { background: var(--red); }
+  .yoy-pct { width: 62px; flex-shrink: 0; font-weight: 700; font-size: 13.5px; }
+  .yoy-pct.pos { color: var(--green); }
+  .yoy-pct.neg { color: var(--red); }
+
+  /* Dream Team badge — trophies, not inventory rows */
+  .dt-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--ein-orange-100); border: 1px solid var(--ein-orange-300);
+    border-radius: 20px; color: var(--ein-navy-500); font-weight: 700;
+    padding: 7px 14px 7px 11px; font-size: 13.5px; margin: 3px 4px 3px 0;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .dt-badge svg { fill: var(--ein-orange-700); flex-shrink: 0; width: 15px; height: 15px; }
+  /* Expandable pill (Cameron 7/28): each branch pill opens to show its Dream Team names */
+  details.dt-pill { display: inline-block; vertical-align: top; margin: 0; }
+  details.dt-pill summary { list-style: none; cursor: pointer; display: inline-block; }
+  details.dt-pill summary::-webkit-details-marker { display: none; }
+  details.dt-pill summary:hover .dt-badge { background: var(--ein-orange-200); }
+  details.dt-pill summary:focus-visible { outline: 2px solid var(--ein-orange-500); outline-offset: 2px; border-radius: 20px; }
+  details.dt-pill[open] .dt-badge { background: var(--ein-orange-300); }
+  details.dt-pill .dt-names {
+    font-size: 13.5px; color: var(--ein-navy-500); line-height: 1.5;
+    background: var(--ein-orange-50); border: 1px solid var(--ein-orange-100);
+    border-radius: 8px; padding: 8px 12px; margin: 2px 4px 6px 0; max-width: 340px;
+  }
+
+  /* 🧒 ELI6 expander — plain-English explainer. Keyed via data-eli6-for (deliberately NO data-eid:
+     it is not a review/edit block and must not enter the review-mode overlay). Collapsed by default. */
+  details.eli6 {
+    background: var(--ein-navy-50);
+    border: 1px solid var(--gray-200);
+    border-left: 3px solid var(--ein-blue-500);
+    border-radius: 8px;
+    margin: 16px 0;
+    overflow: hidden;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  details.eli6 summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--ein-blue-700);
+    font-size: 15px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  details.eli6 summary::-webkit-details-marker { display: none; }
+  details.eli6 summary::after {
+    content: '+';
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ein-blue-500);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  details.eli6[open] summary::after { content: '−'; }
+  details.eli6 summary:hover { background: var(--ein-blue-50); }
+  details.eli6 summary:focus-visible { outline: 2px solid var(--ein-blue-500); outline-offset: -2px; }
+  details.eli6 .eli6-body {
+    padding: 2px 16px 14px;
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.65;
+  }
+  details.eli6 .eli6-body p { margin: 10px 0; }
+  details.eli6 .eli6-body p:first-child { margin-top: 4px; }
+  @media print { details.eli6 { break-inside: avoid; } }
+
+  /* Scorecard closer — the destination, full navy band */
+  #scorecard-section {
+    background: var(--ein-navy-500);
+    border-radius: 14px;
+    padding: 28px 28px 24px;
+    margin-top: 34px;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  #scorecard-section h2.section-title { color: white; border-bottom-color: rgba(255,255,255,0.25); margin-top: 0; }
+  #scorecard-section h2.section-title .sec-eyebrow { color: var(--ein-orange-100); }
+  #scorecard-section .sc-intro { color: rgba(255,255,255,0.85) !important; font-size: 15px !important; }
+  #scorecard-section .sc-intro strong { color: #fff; }
+  #scorecard-section .review-note-toggle { border-color: var(--ein-navy-200); color: var(--ein-navy-100); }
+  .scorecard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 16px 0 6px 0;
+  }
+  .scorecard-tile {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--ein-navy-500);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .scorecard-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(11,16,20,0.3); }
+  .scorecard-tile:focus-visible { outline: 3px solid var(--ein-orange-500); outline-offset: 2px; }
+  .scorecard-tile-eyebrow {
+    color: var(--ein-navy-400);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .scorecard-tile-name { color: var(--navy); font-size: 17px; font-weight: 900; letter-spacing: -0.2px; margin: 0; line-height: 1.2; }
+  .scorecard-tile-go { margin-top: auto; padding-top: 8px; border-top: 1px solid var(--gray-200); font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ein-blue-500); }
+
+  /* Recognition polish — winners' names read as names (first .wsw in the CET card = FCP winners) */
+  #cx-lookback .wsw:not(.sowhat):not(.nowwhat) p strong { font-size: 1.1em; }
+
+  /* Q3 placeholder */
+  .placeholder-box {
+    text-align: center;
+    padding: 26px 16px;
+    color: var(--gray-600);
+    font-size: 15px;
+    font-style: italic;
+  }
+
+  hr.divider { border: none; border-top: 1px solid var(--gray-200); margin: 30px 0; }
+
+  footer.page-footer {
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-200);
+    color: var(--gray-600);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  @media print {
+    body { background: white; padding-top: 0 !important; }
+    .card { box-shadow: none; break-inside: avoid; }
+    .chapter-band, .page-header, #scorecard-section { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+
+</style>
+
+<style>
+  /* ══ Mode bar (Read / Present / Edit) — additive chrome, v1.
+     Mode itself is never persisted (always loads in Read); only notes (flp-q2-notes)
+     and edits (flp-q2-edits) survive a refresh, mirroring the deck's review-note pattern. ══ */
+  body { padding-top: 52px; }
+  @media (max-width: 640px) { body { padding-top: 84px; } }
+  .mode-bar {
+    position: sticky; top: 0; z-index: 300;
+    background: rgba(255,255,255,0.97);
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: 0 2px 8px rgba(39,52,61,0.06);
+    backdrop-filter: saturate(160%) blur(4px);
+  }
+  .mode-bar-inner {
+    max-width: 1150px; margin: 0 auto;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    padding: 8px 16px;
+  }
+  .mode-draft-chip {
+    background: #e8f3e8; border: 1.5px solid #2e7d32; color: #2e7d32;
+    font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;
+    padding: 3px 8px; border-radius: 10px; flex-shrink: 0;
+  }
+  .mode-btns { display: inline-flex; gap: 4px; background: var(--gray-100); border-radius: 20px; padding: 3px; }
+  .mode-btn {
+    border: none; background: transparent; color: var(--gray-700);
+    font-family: 'Roboto', Arial, sans-serif; font-size: 12.5px; font-weight: 700;
+    padding: 6px 13px; border-radius: 16px; cursor: pointer; white-space: nowrap;
+  }
+  .mode-btn:hover { color: var(--navy); }
+  .mode-btn.active { background: var(--navy); color: white; }
+  .mode-btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 1px; }
+  .mode-export-btn, .mode-copy-btn {
+    margin-left: auto;
+    background: var(--orange); color: white; border: none; border-radius: 14px;
+    padding: 7px 13px; font-size: 11.5px; font-weight: 700; cursor: pointer;
+    font-family: 'Roboto', Arial, sans-serif; white-space: nowrap;
+  }
+  .mode-export-btn:hover, .mode-export-btn:focus-visible { background: var(--orange-dark); outline: none; }
+  .mode-copy-btn { margin-left: 0; background: white; color: var(--gray-700); border: 1px solid var(--gray-300); }
+  .mode-copy-btn:hover { border-color: var(--orange); color: var(--orange-dark); }
+  .mode-reset-btn {
+    background: transparent; color: var(--red); border: 1px dashed var(--red);
+    border-radius: 12px; padding: 5px 10px; font-size: 11px; font-weight: 700;
+    cursor: pointer; font-family: 'Roboto', Arial, sans-serif; white-space: nowrap;
+  }
+  .mode-reset-btn:hover { background: var(--red-light); }
+  @media (max-width: 640px) {
+    .mode-bar-inner { padding: 8px 10px; }
+    .mode-export-btn, .mode-copy-btn { font-size: 11px; padding: 7px 10px; }
+    .mode-btn { padding: 6px 10px; font-size: 11.5px; }
+  }
+  @media print { .mode-bar { display: none !important; } }
+  body.mode-present .mode-bar { background: rgba(255,255,255,0.9); }
+
+  /* ══ Edit mode — contenteditable affordance ══ */
+  body.mode-edit [contenteditable="true"] {
+    outline: 1.5px dashed var(--orange-dark);
+    outline-offset: 2px;
+    background: #fffceb;
+    border-radius: 3px;
+    cursor: text;
+  }
+  body.mode-edit [contenteditable="true"]:hover { background: #fff6d6; }
+  body.mode-edit [contenteditable="true"]:focus { outline: 2px solid var(--orange); background: #fff6d6; }
+  @media print { body.mode-edit [contenteditable="true"] { outline: none; background: transparent; } }
+
+  /* ══ Review notes (mirrors the financial-deck review-note pattern) — Cameron's live
+     walkthrough notes. Never part of the page copy: dashed borders, muted tones, hidden
+     in print and in Present mode. Autosaves to localStorage 'flp-q2-notes'. ══ */
+  .review-note { margin: 14px 0 4px 0; }
+  .review-note-toggle {
+    background: transparent;
+    border: 1px dashed var(--gray-400);
+    color: var(--gray-600);
+    font-size: 11px;
+    padding: 4px 11px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Roboto', Arial, sans-serif;
+  }
+  .review-note-toggle:hover, .review-note-toggle:focus-visible { border-color: var(--orange); color: var(--orange-dark); outline: none; }
+  .review-note-toggle.has-note::after { content: '\2022'; color: var(--orange); margin-left: 6px; font-weight: 900; }
+  .review-note-body {
+    margin-top: 6px; border: 1px dashed var(--gray-400); border-radius: 4px;
+    padding: 10px 12px; background: var(--gray-50);
+  }
+  .review-note-microlabel { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gray-600); font-weight: 700; margin-bottom: 6px; }
+  .review-note-textarea {
+    width: 100%; min-height: 60px; border: 1px solid var(--gray-300); border-radius: 4px;
+    padding: 8px 10px; font-family: 'Roboto', Arial, sans-serif; font-size: 12.5px;
+    resize: vertical; box-sizing: border-box; color: var(--gray-800); background: white;
+  }
+  .review-note-textarea:focus-visible { outline: 2px solid var(--orange); outline-offset: 1px; }
+  @media print { .review-note { display: none !important; } }
+  body.mode-present .review-note { display: none !important; }
+
+  /* ══ Present mode — one card at a time, big type, TV/huddle friendly ══ */
+  body.mode-present .page-header,
+  body.mode-present .wrap > hr.divider,
+  body.mode-present footer.page-footer { display: none !important; }
+  body.mode-present .wrap { max-width: 100%; padding: 0; }
+  .slide-el { display: block; }
+  body.mode-present .slide-el { display: none; }
+  body.mode-present .slide-el.present-current {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; min-height: calc(100vh - 110px);
+    padding: 32px 24px 120px; margin: 0; max-width: 900px; margin-left: auto; margin-right: auto;
+    box-shadow: none; border-top-width: 5px;
+  }
+  body.mode-present .slide-el.present-current .card-num { font-size: 1.1em; }
+  body.mode-present .slide-el.present-current .card-title,
+  body.mode-present .slide-el.present-current h2.section-title {
+    font-size: 2.5em; border-bottom: none; padding-bottom: 0; margin-top: 0;
+  }
+  /* .sec-eyebrow is nested INSIDE h2.section-title — a relative em here would compound
+     against the 2.5em title above, so it's pinned to an absolute size instead. */
+  body.mode-present .slide-el.present-current h2.section-title .sec-eyebrow { font-size: 13px; }
+  body.mode-present .slide-el.present-current .mini-stat-row { width: 100%; gap: 16px; }
+  body.mode-present .slide-el.present-current .mini-stat { padding: 18px 16px; text-align: center; }
+  body.mode-present .slide-el.present-current .mini-stat .ms-label { font-size: 1.2em; }
+  body.mode-present .slide-el.present-current .mini-stat .ms-value { font-size: 2.5em; }
+  body.mode-present .slide-el.present-current .mini-stat .ms-sub { font-size: 1.1em; }
+  body.mode-present .slide-el.present-current .wsw:not(.sowhat):not(.nowwhat) { text-align: left; }
+  body.mode-present .slide-el.present-current .wsw:not(.sowhat):not(.nowwhat) p { font-size: 1.55em; line-height: 1.5; }
+  body.mode-present .slide-el.present-current .wsw:not(.sowhat):not(.nowwhat) .wsw-label { font-size: 1.05em; }
+  /* So What / Now What tucked behind a talking-points expander — dimmer, presenter-note styled */
+  body.mode-present .slide-el.present-current .wsw.sowhat,
+  body.mode-present .slide-el.present-current .wsw.nowwhat { display: none; }
+  body.mode-present .slide-el.present-current.talkpoints-open .wsw.sowhat,
+  body.mode-present .slide-el.present-current.talkpoints-open .wsw.nowwhat {
+    display: block; text-align: left; opacity: 0.68; font-size: 0.62em; max-width: 720px; margin: 10px auto 0;
+  }
+  .present-talk-toggle { display: none; }
+  body.mode-present .slide-el.present-current .present-talk-toggle {
+    display: inline-block; margin: 14px auto 0; background: transparent;
+    border: 1px dashed var(--gray-400); color: var(--gray-600);
+    font-size: 0.62em; padding: 6px 16px; border-radius: 14px; cursor: pointer;
+    font-family: 'Roboto', Arial, sans-serif;
+  }
+  body.mode-present .slide-el.present-current .present-talk-toggle:hover { border-color: var(--orange); color: var(--orange-dark); }
+  /* Scorecard slide: condensed present-mode view (Q&A section removed 7/28 per Cameron) */
+  body.mode-present #scorecard-section.present-current .sc-intro { display: none; }
+  body.mode-present #scorecard-section.present-current .scorecard-grid {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); max-width: 820px; margin: 18px auto 0;
+  }
+  body.mode-present #scorecard-section.present-current .scorecard-tile { padding: 20px 18px; }
+  body.mode-present #scorecard-section.present-current .scorecard-tile-name { font-size: 1.3em; }
+  @media (max-width: 480px) {
+    body.mode-present #scorecard-section.present-current .scorecard-grid { grid-template-columns: 1fr 1fr; gap: 8px; max-width: 100%; }
+    body.mode-present #scorecard-section.present-current .scorecard-tile { padding: 14px 12px; }
+    body.mode-present #scorecard-section.present-current .scorecard-tile-name { font-size: 1.05em; }
+  }
+
+  /* Present nav bar (prev/next/counter) — fixed bottom, big tap targets for TV + phone */
+  .present-nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 310;
+    display: flex; align-items: center; justify-content: center; gap: 18px;
+    background: rgba(255,255,255,0.96); border-top: 1px solid var(--gray-200);
+    padding: 12px 16px; box-shadow: 0 -2px 10px rgba(39,52,61,0.08);
+  }
+  .present-nav[hidden] { display: none !important; }
+  .present-nav-btn {
+    background: var(--navy); color: white; border: none; border-radius: 50%;
+    width: 52px; height: 52px; font-size: 22px; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .present-nav-btn:hover { background: var(--orange-dark); }
+  .present-nav-btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .present-counter { font-size: 14px; font-weight: 700; color: var(--navy); min-width: 64px; text-align: center; }
+  @media print { .present-nav { display: none !important; } }
+
+  /* ══ Notes/export toast ══ */
+  .flp-toast {
+    position: fixed; left: 16px; bottom: 18px; z-index: 999;
+    background: var(--ein-navy-700); color: white; font-size: 12px;
+    padding: 8px 14px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    max-width: 320px; line-height: 1.4;
+  }
+  body.mode-present .flp-toast { display: none !important; }
+  @media print { .flp-toast { display: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="mode-bar" id="modeBar">
+  <div class="mode-bar-inner">
+    <span class="mode-draft-chip">FINAL · 8/3</span>
+    <div class="mode-btns" role="group" aria-label="View mode">
+      <button type="button" class="mode-btn" data-mode="read">Read</button>
+      <button type="button" class="mode-btn" data-mode="present">Present</button>
+      <button type="button" class="mode-btn" data-mode="edit">Edit</button>
+    </div>
+    <button type="button" class="mode-reset-btn" id="flpResetEditsBtn" hidden>Reset edits</button>
+    <button type="button" class="mode-copy-btn" id="flpCopyBtn">Copy to clipboard</button>
+    <button type="button" class="mode-export-btn" id="flpExportBtn">Export notes &amp; edits</button>
+  </div>
+</div>
+
+<div class="present-nav" id="presentNav" hidden>
+  <button type="button" class="present-nav-btn" id="presentPrev" aria-label="Previous card">&#8592;</button>
+  <span class="present-counter" id="presentCounter">1 / 1</span>
+  <button type="button" class="present-nav-btn" id="presentNext" aria-label="Next card">&#8594;</button>
+</div>
+
+<div class="flp-toast" id="flpToast" hidden></div>
+
+<div class="wrap">
+
+  <header class="page-header">
+    <p class="page-eyebrow">Einstein Moving Company · Q2 2026</p>
+    <h1>The Q2 Debrief</h1>
+    <p style="color:rgba(255,255,255,0.85);font-size:15px;margin:0 0 10px 0;">What happened, what it means for you, and what we're doing about it. Five-minute read, straight talk.</p>
+    <p class="estimate-note">July numbers are estimates until books close ~Aug 1.</p>
+  </header>
+
+  <!-- ══════════════════ MAIN FINANCIAL STORY (spec §3, verbatim) ══════════════════ -->
+  <!-- ══════════════════ WHO WE ARE (vision summary grounding — Cameron 7/23) ══════════════════ -->
+  <div class="chapter-band" data-ch="1">
+    <p class="chapter-kicker">Chapter 1</p>
+    <h2 class="chapter-title">The Big Picture</h2>
+    <p class="chapter-sub">Who we are, and how the quarter really went — record revenue, honest math on the misses.</p>
+  </div>
+  <section class="card slide-el" id="who-we-are">
+    <p class="card-num">Before the Numbers</p>
+    <h3 class="card-title" data-eid="who-title">Who We Are &amp; Why We Do This</h3>
+    <div class="wsw">
+      <span class="wsw-label">Our purpose</span>
+      <p data-eid="who-purpose-1"><strong>Making moving easy and fun</strong> — because it usually sucks — by creating a customer service experience so remarkable it gets studied in college courses and analyzed in books.</p>
+    </div>
+    <div class="mini-stat-row">
+      <div class="mini-stat green"><div class="ms-label">Promise 1</div><div class="ms-value" style="font-size:1.05em;">Easy</div><div class="ms-sub" data-eid="who-bp-1">How we measure it: $ Conversion Rate — how easy it is for customers to say yes</div></div>
+      <div class="mini-stat green"><div class="ms-label">Promise 2</div><div class="ms-value" style="font-size:1.05em;">Happy customers for life</div><div class="ms-sub" data-eid="who-bp-2">How we measure it: NPS</div></div>
+      <div class="mini-stat green"><div class="ms-label">Promise 3</div><div class="ms-value" style="font-size:1.05em;">Do what we promise</div><div class="ms-sub" data-eid="who-bp-3">How we measure it: Estimate Accuracy</div></div>
+      <div class="mini-stat green"><div class="ms-label">Promise 4</div><div class="ms-value" style="font-size:1.05em;">Care for your stuff like it&#39;s our own</div><div class="ms-sub" data-eid="who-bp-4">How we measure it: Damage $ per Hour</div></div>
+    </div>
+    <div class="wsw sowhat">
+      <span class="wsw-label">Where we&#39;re headed</span>
+      <p data-eid="who-bhag-1">The big goal: <strong>300 trucks on the road by 2033</strong>.</p>
+    </div>
+  </section>
+
+  <section class="card hero-card-flavor slide-el" id="financial-story">
+    <p class="card-num">How the Company Did</p>
+    <h3 class="card-title" data-eid="fs-title">Q2 in Plain English</h3>
+
+    <div class="wsw">
+      <span class="wsw-label">What — Record revenue, profit behind plan</span>
+      <p data-eid="fs-what-1">We did <strong>$8.5M in revenue — up almost 10% over last year, the biggest quarter in company history!</strong> And we didn't just ride a good market: the moving markets around us grew about 2–5% — <strong>we grew at roughly 3× the market's pace</strong>.</p>
+      <p data-eid="fs-what-1b">We hit ~95% of our revenue plan. Profit came in at about <strong>two-thirds of what we planned</strong> — record revenue did not mean record profit this quarter. (July numbers are estimates until books close ~Aug 1.)</p>
+    </div>
+
+    <!-- Company report card — three-lens composite (_company_composite_q2_26, manifest v0.10.9; Cameron ruling 7/28 eve) -->
+    <div class="mini-stat green" style="margin:16px 0 8px;">
+      <div class="ms-label">The Company Report Card — Q2 Overall</div>
+      <div class="ms-value" style="font-size:34px;">B+</div>
+      <div class="ms-sub">One grade for the whole quarter, built from three things that all count equally. Provisional until the books close ~Aug 1.</div>
+    </div>
+    <div class="mini-stat-row three" aria-label="The three lenses behind the company grade">
+      <div class="mini-stat amber"><div class="ms-label">Money</div><div class="ms-value">B−</div><div class="ms-sub">Made real money and grew — but landed under the plan we set.</div></div>
+      <div class="mini-stat green"><div class="ms-label">Theme / Critical Numbers</div><div class="ms-value">A−</div><div class="ms-sub">Einstein Games hit Green (7.59) and staffing hit Super Green (101% of plan).</div></div>
+      <div class="mini-stat green"><div class="ms-label">People &amp; Customers</div><div class="ms-value">A−</div><div class="ms-sub">Customers scored us 88 (goal is 90 — close). The team scored us +81 — second-highest ever.</div></div>
+    </div>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What — Miss #1: The revenue miss (the yardstick was off)</span>
+      <p data-eid="fs-sowhat-1">Here's the thing we found when we dug in — the "miss" mostly wasn't a miss. We served <strong>more hours of moving than we had budgeted</strong>, which means most branches did MORE moves than we expected.</p>
+      <p data-eid="fs-sowhat-1e">Full honesty: part of that "beat" is that the budget asked for too few hours in the first place — it counted trip-fee money in the price of an hour without counting the trip time, so the budget price was set too high and the budget hours too low.</p>
+      <p data-eid="fs-sowhat-1f"><strong>The real gap:</strong> we didn't end up billing the budget price — mostly because a lot of Q2 work was booked back in the spring at its old quoted price, before our new pricing went live in May. That backlog effect faded to almost nothing by July. That's mostly a planning miss, and Paul and I own it.</p>
+      <p data-eid="fs-sowhat-1c"><strong>The short version, lawn-mowing edition:</strong> we planned the summer with a broken measuring tape, a chunk of the summer's lawns were already promised at the old price, and we sent free helpers we never budgeted. The full story — the one worth two minutes — is right here:</p>
+    </div>
+
+    <details class="eli6" data-eli6-for="fs-sowhat-1" style="border-left:4px solid var(--ein-orange-500); background:var(--ein-orange-50);">
+      <summary style="font-size:16px; color:var(--ein-orange-900);">🧒 Explain this like I'm in sixth grade</summary>
+      <div class="eli6-body">
+        <p><strong>You mow lawns. You charge $20 an hour.</strong></p>
+        <p><strong>The plan.</strong> "I want to make $800 this summer. At $20/hour, I need 40 hours." That's how the Q2 plan was built: hours &times; rate = revenue.</p>
+        <p><strong>Mistake #1 — the broken ruler 📏</strong> You also charge $5 "gas money" to bike to each lawn. You counted the $5 as money you made, but you didn't count the 15 minutes of biking as time you worked. So you figured "$25 for an hour's work!" — except it took an hour and fifteen. You really make $20. Two things break: you plan to work too few hours, and your scoreboard is bent on both ends.</p>
+        <p><strong>Mistake #2 — you already shook on it 🤝</strong> In May you raise to $25/hour. Smart. But back in March you promised twenty lawns at $20. Those neighbors keep the old price. The raise barely shows in May, half in June, and by July everyone's paying the new price.</p>
+        <p><strong>Mistake #3 — you forgot to raise on some streets 🏘️</strong> Oak Street never got raised. Rich Hill got charged more than planned. On average it's a wash — but nothing happens "on average." Two real things happened on two real streets, and only one is a problem.</p>
+        <p><strong>Mistake #4 — the free helper 🧑&#8205;🌾</strong> Sometimes you bring a kid who's trying out for the job. With him helping, a lawn that should take 8 hours gets done in 5&frac12;. But he's free — it's his tryout — so you don't charge the neighbor for him. The bill comes in smaller than the number you quoted, and you never wrote that down when you planned your summer. May: $50. June: $26. July: $5. <em>(Real: $49.5K / $25.9K / $4.8K.)</em> And a chunk of the money you knocked off, you never wrote down a reason for at all.</p>
+        <p><strong>What did NOT go wrong — the neighbors ✅</strong> Nobody haggled you down. You never cut your posted price. You mowed more lawns than last year at higher prices and your schedule stayed full. One exception: on Tampa Street you bought four mowers and only found work for two. That's not a price problem — that's a too-many-mowers problem.</p>
+        <p><strong>The whole story in four sentences:</strong> We built the plan with a measuring tape that was wrong, so we aimed at too few hours and too high a rate. We raised prices in the spring — but two million dollars of work was already promised at the old price, so the raise took two months to show up. We sent free helpers on jobs and never budgeted the discount. All of that faded to almost nothing by July; customers never pushed back on price. Where we're actually hurting is Tampa, and it's empty trucks, not cheap prices.</p>
+      </div>
+    </details>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What — Miss #2: The profit miss (spending on purpose, a lot of it on you)</span>
+      <p data-eid="fs-sowhat-2"><strong>The profit gap:</strong> mostly us choosing to invest more money into the company than expected, plus more overtime than we budgeted and a few pop-up costs we didn't see coming (like a $30K plumbing repair at our North Dallas location).</p>
+      <p data-eid="fs-sowhat-2b">The biggest choice was you: in mid-May we gave <strong>every mover a raise</strong>, about <strong>$1.85/hour on average</strong>. That wasn't budgeted in the quarter. We moved it up because it was the right call, not because the spreadsheet had room — and we'd make the same call again.</p>
+      <p data-eid="fs-sowhat-2d">The rest of the gap was more bets on growth and some missed forecasting:</p>
+      <ul data-eid="fs-sowhat-2-list">
+        <li><strong>Investments in leadership coaching</strong> and a stronger finance team</li>
+        <li><strong>Trial Day Discounts</strong> — an expense we didn't account for, reducing billable hours on a move</li>
+        <li><strong>A bigger marketing push</strong> — more marketing dollars spent than budgeted</li>
+        <li><strong>17 trucks</strong> — 4 net-new, 13 replacements</li>
+      </ul>
+      <p data-eid="fs-sowhat-2c">Meanwhile the company stayed strong where it counts: revenue covered our bills roughly 1.5 times over. Nobody should read this quarter as "the company is in trouble." It isn't.</p>
+    </div>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What — More crews on trucks, faster follow-up on leads</span>
+      <p data-eid="fs-nowwhat-1">We proved we can win demand — leads nearly doubled and we out-grew the market. Q3 points at two things: First, <strong>getting more crews on trucks</strong>: we finished the quarter with more work available than crews to run it (more on that two cards down). Second, <strong>turning leads into booked jobs faster</strong> — for CERs and sales, speed-to-lead is the play. For movers: keep availability up, keep NPS up, and send us people you'd want on your own crew. Your branch's specific picture is on your scorecard, linked at the bottom.</p>
+    </div>
+
+    <div class="review-note" data-section="financial-story">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Q2 in Plain English…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ REVENUE YoY BY BRANCH (spec §2.1 row 1.5) ══════════════════ -->
+  <div class="chapter-band" data-ch="2">
+    <p class="chapter-kicker">Chapter 2</p>
+    <h2 class="chapter-title">The Numbers</h2>
+    <p class="chapter-sub">Branch by branch: growth, trucks and crews, and a flood of new leads.</p>
+  </div>
+  <section class="card green slide-el" id="revenue-yoy">
+    <p class="card-num">The Numbers</p>
+    <h3 class="card-title" data-eid="rev-title">Revenue Growth by Branch</h3>
+
+    <div class="wsw">
+      <span class="wsw-label">What</span>
+      <p data-eid="rev-what-1">Company revenue grew <strong>+9.9% vs last year</strong> — 8 of 10 branches grew, Garland fastest at <strong>+38%</strong>.</p>
+    </div>
+
+    <div class="yoy-bars" role="img" aria-label="Revenue growth percentage by branch, Garland fastest at plus 38%, North Austin down 11%">
+      <div class="yoy-row"><div class="yoy-branch">Garland</div><div class="yoy-track"><div class="yoy-fill" style="width:100%;"></div></div><div class="yoy-pct pos">+38.3%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">Fort Worth</div><div class="yoy-track"><div class="yoy-fill" style="width:74.6%;"></div></div><div class="yoy-pct pos">+28.6%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">Tampa</div><div class="yoy-track"><div class="yoy-fill" style="width:64.5%;"></div></div><div class="yoy-pct pos">+24.7%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">South Austin</div><div class="yoy-track"><div class="yoy-fill" style="width:64.0%;"></div></div><div class="yoy-pct pos">+24.5%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">Dallas</div><div class="yoy-track"><div class="yoy-fill" style="width:53.3%;"></div></div><div class="yoy-pct pos">+20.4%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">McKinney</div><div class="yoy-track"><div class="yoy-fill" style="width:49.9%;"></div></div><div class="yoy-pct pos">+19.1%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">San Antonio</div><div class="yoy-track"><div class="yoy-fill" style="width:11.0%;"></div></div><div class="yoy-pct pos">+4.2%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">Houston</div><div class="yoy-track"><div class="yoy-fill" style="width:9.1%;"></div></div><div class="yoy-pct pos">+3.5%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">Leander</div><div class="yoy-track"><div class="yoy-fill neg" style="width:2.8%;"></div></div><div class="yoy-pct neg">−1.1%</div></div>
+      <div class="yoy-row"><div class="yoy-branch">North Austin</div><div class="yoy-track"><div class="yoy-fill neg" style="width:28.5%;"></div></div><div class="yoy-pct neg">−10.9%</div></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--gray-600);">Growth shown as a percent only — no dollar figures. Every Q2'26 branch reading carries the standard July-estimate caveat (final numbers land ~Aug 1).</p>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What</span>
+      <p data-eid="rev-sowhat-1">Growth is why trucks keep getting added and promotion rungs keep opening — a growing branch is a branch with more lead-mover and driver slots.</p>
+    </div>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What</span>
+      <p data-eid="rev-nowwhat-1">We continue to hire up, improve forecasting/budgeting, and ensure we continue to outpace the residential market so that we continue to gobble up market share.</p>
+    </div>
+
+    <div class="review-note" data-section="revenue-yoy">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Revenue Growth by Branch…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ TRUCKS & STAFFING (spec §1.6) ══════════════════ -->
+  <section class="card slide-el" id="trucks-staffing">
+    <p class="card-num">The Numbers</p>
+    <h3 class="card-title" data-eid="trk-title">Trucks &amp; Staffing</h3>
+
+    <div class="mini-stat-row three">
+      <div class="mini-stat amber"><div class="ms-label" data-eid="trk-stat-1-label">Truck Utilization</div><div class="ms-value">~75%</div><div class="ms-sub" data-eid="trk-stat-1-sub">Every truck on the lot, crewed or not — vs our 81% goal, ~92% of the way there</div></div>
+      <div class="mini-stat"><div class="ms-label" data-eid="trk-stat-2-label">Crewed-Truck Utilization</div><div class="ms-value">~82%</div><div class="ms-sub" data-eid="trk-stat-2-sub">The trucks we had crews for — a reference read, not the graded number</div></div>
+      <div class="mini-stat"><div class="ms-label" data-eid="trk-stat-3-label">New Trucks</div><div class="ms-value">17</div><div class="ms-sub" data-eid="trk-stat-3-sub">4 net-new, 13 replacements</div></div>
+    </div>
+
+    <div class="wsw">
+      <span class="wsw-label">What — Two honest ways to count a truck</span>
+      <p data-eid="trk-what-1">Count <strong>every truck on the lot</strong> and we ran ~75% utilization — that's the number we grade ourselves on, and against our 81% goal we got ~92% of the way there. A miss, and an honest one.</p>
+      <p data-eid="trk-what-1b">Count only the trucks we actually had crews for, and we ran <strong>~82%</strong> — that's a reference number, not what we're graded on, but it tells you something important: the trucks that HAD crews stayed busy.</p>
+      <p data-eid="trk-what-1c">The difference between those two numbers is <strong>852 truck-days</strong> — 852 separate days where a truck sat parked from open to close because there was no crew to run it. Real work left on the table (approximately 25% of our fleet was sitting vacant every day due to lack of crews).</p>
+    </div>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What — The crews performed; we needed more crews</span>
+      <p data-eid="trk-sowhat-1">This means the movers we did hire were utilized well and got the hours we intended — plus some, since we ran way more overtime than we budgeted this quarter. We just needed to hire even more crews to open up even more trucks.</p>
+      <p data-eid="trk-sowhat-1b">We hired to ~101% of the staffing plan and it still wasn't enough — the plan was set below what summer demand actually needed, by roughly <strong>40 movers</strong> company-wide. That's a target-setting miss on the planning side, not a hustle problem on yours.</p>
+    </div>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What — Full crews turn parked trucks into paychecks</span>
+      <p data-eid="trk-nowwhat-1">Q3 staffing targets are re-set to real demand — which means the hours are there, and promotion slots open as crews grow. Two asks: keep your availability up, and if you know somebody who works the way you do, refer them.</p>
+    </div>
+
+    <div class="review-note" data-section="trucks-staffing">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Trucks &amp; Staffing…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ MARKETING / LEADS (spec §2) ══════════════════ -->
+  <section class="card slide-el" id="marketing-leads">
+    <p class="card-num">The Numbers</p>
+    <h3 class="card-title" data-eid="mkt-title">Leads &amp; the New Quote Form</h3>
+
+    <div class="mini-stat-row three">
+      <div class="mini-stat green"><div class="ms-label" data-eid="mkt-stat-1-label">Leads</div><div class="ms-value">+97%</div><div class="ms-sub" data-eid="mkt-stat-1-sub">vs last year</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="mkt-stat-2-label">Quote-Start Rate</div><div class="ms-value">13% → 29%</div><div class="ms-sub" data-eid="mkt-stat-2-sub">Visitors who start a quote</div></div>
+      <div class="mini-stat amber"><div class="ms-label" data-eid="mkt-stat-3-label">Unworked Leads</div><div class="ms-value">4,300+</div><div class="ms-sub" data-eid="mkt-stat-3-sub">Arrived with nobody following up</div></div>
+    </div>
+
+    <div class="wsw">
+      <span class="wsw-label">What</span>
+      <p data-eid="mkt-what-1">The new quote form nearly doubled our leads (+97%) and the share of visitors starting a quote more than doubled (13% → 29%). Booyah.</p>
+    </div>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What</span>
+      <p data-eid="mkt-sowhat-1">We used to lose ~6 of 10 people who got an estimate — now we keep every one as a contactable lead. More leads = more booked jobs = more hours and bigger branches.</p>
+      <p data-eid="mkt-sowhat-2">The honest flip side: this worked almost <em>too</em> well. The flood of new leads made it harder to get back to customers as fast as we expect. And a lot of these are "lower intent" leads — people who would have abandoned the cart before ever giving us their contact info on the old form. Those two things combined to lower our overall conversion rate.</p>
+    </div>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What</span>
+      <p data-eid="mkt-nowwhat-1">Q3 is about two things with those leads: working them fast and working the <em>right</em> ones first (lead triage).</p>
+      <p data-eid="mkt-nowwhat-1b">Honest answer on how 4,300+ leads went unworked: the old form only produced leads who asked to be contacted. The new one captures everyone — and nobody yet owned that new queue or had a speed target for it. Now we need to take control of that pipeline and juice it for all it's worth. We are on our way:</p>
+      <ul data-eid="mkt-nowwhat-1-list">
+        <li><strong>The quote form's been updated</strong> — better screening for intent, better lead triage</li>
+        <li><strong>The mobile app is next</strong> — to improve estimate accuracy</li>
+        <li><strong>Automated follow-ups</strong> — we're automating customer contact where it makes sense</li>
+        <li><strong>Speed-to-lead</strong> — becoming the sales team's headline number</li>
+      </ul>
+    </div>
+
+    <!-- ── FLM-ONLY DEEP DIVE — drop this <details> block from the mover/CX cut ── -->
+    <details style="border:1px solid var(--gray-200); border-radius:8px; margin:14px 0 4px; padding:0 16px; background:var(--gray-50, #fafafa);">
+      <summary style="cursor:pointer; padding:12px 0; font-size:15px; font-weight:800; color:var(--navy);">📣 Manager Deep Dive — marketing &amp; the demand picture <span style="font-weight:500; color:var(--gray-600);">(manager session only)</span></summary>
+      <div style="padding:4px 0 14px;">
+
+        <p style="font-size:13px; font-weight:800; letter-spacing:0.1em; color:var(--gray-600); text-transform:uppercase; margin:8px 0 6px;">Marketing recap — the machine behind your leads</p>
+        <ul style="font-size:14px; padding-left:18px; margin:0 0 8px;">
+          <li style="padding:3px 0;"><strong>Form engagement more than doubled.</strong> The share of website visitors who engage the quote form went from <strong>12.9% to 28.5%</strong> year over year — and that happened while overall site traffic was <em>down</em> about 8%. Fewer visitors, way more of them raising a hand. That's an efficiency win, not a traffic wave.</li>
+          <li style="padding:3px 0;"><strong>Direct visits are up 18% year over year.</strong> "Direct" means someone typed einsteinmoving.com straight into their browser — no ad, no Google search. That's brand reputation compounding: reviews, word of mouth, trucks on the road, and Einstein showing up in AI answers when people ask "who's a good mover in my city."</li>
+          <li style="padding:3px 0;"><strong>What we spent to feed the funnel:</strong> about <strong>$175K in digital ads</strong> (Google, Microsoft, Meta) from May 1 through mid-July. Blended out, that's roughly <strong>$8.42 of ad spend per lead</strong> company-wide — with a real spread by branch. The full branch table is just below. (That's total spend over <em>all</em> leads including free organic/direct ones — a blended number, not what one paid click costs.)</li>
+          <li style="padding:3px 0;"><strong>Texas lead volume grew faster than the Texas housing market did</strong> — the campaigns are adding to the tailwind, not just riding it. Tampa's market genuinely cooled, which is part of why its cost per lead runs higher.</li>
+        </ul>
+
+        <p style="font-size:13px; font-weight:800; letter-spacing:0.1em; color:var(--gray-600); text-transform:uppercase; margin:14px 0 6px;">Ad spend per lead, branch by branch</p>
+        <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--gray-200); text-align:left;"><th style="padding:5px 8px;">Branch</th><th style="padding:5px 8px;">Ad spend</th><th style="padding:5px 8px;">Leads</th><th style="padding:5px 8px;">Spend per lead</th></tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Austin (North + South)</td><td style="padding:5px 8px;">$29,086</td><td style="padding:5px 8px;">5,628</td><td style="padding:5px 8px;">$5.17</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Houston</td><td style="padding:5px 8px;">$20,075</td><td style="padding:5px 8px;">2,789</td><td style="padding:5px 8px;">$7.20</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Dallas</td><td style="padding:5px 8px;">$20,276</td><td style="padding:5px 8px;">2,812</td><td style="padding:5px 8px;">$7.21</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">McKinney</td><td style="padding:5px 8px;">$15,489</td><td style="padding:5px 8px;">1,775</td><td style="padding:5px 8px;">$8.73</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">San Antonio</td><td style="padding:5px 8px;">$20,119</td><td style="padding:5px 8px;">2,089</td><td style="padding:5px 8px;">$9.63</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Leander</td><td style="padding:5px 8px;">$14,279</td><td style="padding:5px 8px;">1,138</td><td style="padding:5px 8px;">$12.55</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Fort Worth</td><td style="padding:5px 8px;">$13,558</td><td style="padding:5px 8px;">1,071</td><td style="padding:5px 8px;">$12.66</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Garland</td><td style="padding:5px 8px;">$12,838</td><td style="padding:5px 8px;">917</td><td style="padding:5px 8px;">$14.00</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Tampa</td><td style="padding:5px 8px;">$13,028</td><td style="padding:5px 8px;">627</td><td style="padding:5px 8px;">$20.78</td></tr>
+            <tr style="font-weight:700;"><td style="padding:5px 8px;">All branches</td><td style="padding:5px 8px;">$158,748</td><td style="padding:5px 8px;">18,846</td><td style="padding:5px 8px;">$8.42</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p style="font-size:13px; color:var(--gray-600); margin:6px 0 0;">Table covers the ~$159K of Google + Microsoft spend that can be tied to a branch; regional campaigns and Meta aren't branch-split (that's the gap to the ~$175K total). Same blended basis as above: spend ÷ all leads, including free organic/direct ones.</p>
+
+        <p style="font-size:13px; font-weight:800; letter-spacing:0.1em; color:var(--gray-600); text-transform:uppercase; margin:14px 0 6px;">The number worth reading twice: $34.65 million</p>
+        <p style="font-size:14px; margin:0 0 8px;">That's the total value of the jobs we <strong>quoted</strong> in Q2. Thirty-four and a half million dollars of people who came to us, told us about their move, and got a real price. We booked about $7.2M of it. Read that as the demand engine working: the customers are there, at real prices, in numbers we've never seen. The gap between quoted and booked isn't a demand problem — it's a follow-up opportunity, which brings us to the next item.</p>
+
+        <p style="font-size:13px; font-weight:800; letter-spacing:0.1em; color:var(--gray-600); text-transform:uppercase; margin:14px 0 6px;">Q3's biggest low-hanging fruit — the EMMA Leads queue</p>
+        <p style="font-size:14px; margin:0 0 6px;">Since the April 5 form launched, leads split into two lanes. Leads the form <em>can't</em> price automatically route to humans — and humans work them <strong>99% of the time</strong>. Leads the form <em>can</em> price get an instant quote and land in the "EMMA Leads" queue — where <strong>64.6% of the time, nobody ever follows up</strong>. No call, no text, no email.</p>
+        <p style="font-size:14px; margin:0 0 6px;">That untouched pool is about <strong>4,382 leads a quarter holding roughly $9.04M in quoted work we never touched again</strong>. Real people, real moves, real prices. They did everything right; we just never called.</p>
+        <p style="font-size:14px; margin:0;"><strong>Why this is the headline:</strong> most improvements cost something — more trucks, more hires, more spend. This one is already paid for. The leads exist, the quotes exist, and the fix is follow-up: speed-to-lead targets and clear ownership of that queue. When your branch's phones get busier in Q3, this is a big part of why.</p>
+      </div>
+    </details>
+
+    <div class="review-note" data-section="marketing-leads">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Leads &amp; the New Quote Form…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ EINSTEIN GAMES (spec §2.2, nearly whole) ══════════════════ -->
+  <div class="chapter-band" data-ch="3">
+    <p class="chapter-kicker">Chapter 3</p>
+    <h2 class="chapter-title">The People</h2>
+    <p class="chapter-sub">Games, safety, your voice, and the moments customers will never forget.</p>
+  </div>
+  <section class="card amber slide-el" id="games">
+    <p class="card-num">Recognition</p>
+    <h3 class="card-title" data-eid="gam-title">Einstein Games Season 3</h3>
+
+    <div class="mini-stat-row three">
+      <div class="mini-stat green"><div class="ms-label" data-eid="gam-stat-1-label">Company Score</div><div class="ms-value">7.59 <span class="badge green">Green</span></div><div class="ms-sub" data-eid="gam-stat-1-sub">Average of the 8 weekly averages</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="gam-stat-2-label">Bracket Champion</div><div class="ms-value">San Antonio</div><div class="ms-sub" data-eid="gam-stat-2-sub">Won the head-to-head finals</div></div>
+      <div class="mini-stat"><div class="ms-label" data-eid="gam-stat-3-label">Overall #1</div><div class="ms-value">Tampa · 10.05</div><div class="ms-sub" data-eid="gam-stat-3-sub">Best season-long score</div></div>
+    </div>
+
+    <div class="wsw">
+      <span class="wsw-label">What</span>
+      <p data-eid="gam-what-1">Company scored <strong>7.59 — Green</strong> (average of the 8 weekly averages). San Antonio won the bracket; Tampa posted the best overall score (10.05).</p>
+    </div>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What</span>
+      <p data-eid="gam-sowhat-1">This is a pretty incredible result! This quarter is when we hired the most new movers, new managers, and new customer experience reps — which means we had the most new movers doing jobs estimated by the most new managers and CERs. That's a recipe for friction and ultimately lower scores. Even accounting for that, we were able to keep standards up across all five metrics — and that's incredible work.</p>
+      <p data-eid="gam-sowhat-2"><strong>Quick reminder:</strong> games are a coaching tool, directionally accurate by design — in-week estimates, not resolved actuals. Real coaching and accountability run off hard numbers and final data results; game scores are not a perfect match for quarterly bonus numbers.</p>
+    </div>
+
+    <h4 style="margin:16px 0 6px;font-size:15px;color:var(--navy);">Dream Team — 20 Trophy Holders</h4>
+    <p style="font-size:14px;color:var(--gray-600);margin:0 0 8px;">The top 10% of Q2 average Games scores among active movers who cleared the busy-season hours floor (250+ hours; ties at the cutoff all make it). Congrats to all 20 — spread across 8 branches. <strong>Tap a branch to see its Dream Team names.</strong></p>
+    <div>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>Tampa · 5 members</span></summary><div class="dt-names" data-eid="gam-dt-tampa">Eric Corbitt Jr · Stephen Crilly · Connor Legro · Sloan Kraus · Ronald Peterson</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>S. Austin · 4 members</span></summary><div class="dt-names" data-eid="gam-dt-saustin">Jakob Steen · Gabrial Bickford · Shawn Smith · Allister Suber</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>San Antonio · 3 members</span></summary><div class="dt-names" data-eid="gam-dt-sanantonio">Richard Martinez · Leeroy Delgado · Matthew Murphy</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>Houston · 3 members</span></summary><div class="dt-names" data-eid="gam-dt-houston">Israel Serrano · Manuel Chupungco · Jalen Gregor</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>Ft. Worth · 2 members</span></summary><div class="dt-names" data-eid="gam-dt-ftworth">Elijah Rasberry · Ernesto Padilla</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>Dallas · 1 member</span></summary><div class="dt-names" data-eid="gam-dt-dallas">Noah Halpin</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>Leander · 1 member</span></summary><div class="dt-names" data-eid="gam-dt-leander">Nathan Swain</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>Garland · 1 member</span></summary><div class="dt-names" data-eid="gam-dt-garland">Brandon Vanlehn</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>N. Austin · 0 members</span></summary><div class="dt-names" data-eid="gam-dt-naustin">No Dream Team members this season — the door&#39;s open for Season 4.</div></details>
+      <details class="dt-pill"><summary><span class="dt-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.6L18.4 21 12 16.4 5.6 21 8 13.8l-6-4.6h7.6z"/></svg>McKinney · 0 members</span></summary><div class="dt-names" data-eid="gam-dt-mckinney">No Dream Team members this season — the door&#39;s open for Season 4.</div></details>
+    </div>
+
+    <div class="wsw nowwhat" style="margin-top:14px;">
+      <span class="wsw-label">Now What</span>
+      <p data-eid="gam-nowwhat-1">Season 4 pauses official tracking next quarter while scoring gets automated — no live leaderboard, no bracket. The underlying metrics keep running and still feed bonuses.</p>
+    </div>
+
+    <div class="review-note" data-section="games">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Einstein Games Season 3…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ FLEET SAFETY (spec §2.2, wins-first) ══════════════════ -->
+  <section class="card green slide-el" id="fleet-safety">
+    <p class="card-num">Safety</p>
+    <h3 class="card-title" data-eid="flt-title">Fleet Safety</h3>
+
+    <div class="mini-stat-row three">
+      <div class="mini-stat green"><div class="ms-label" data-eid="flt-stat-1-label">Fleet Safety Score</div><div class="ms-value">89</div><div class="ms-sub" data-eid="flt-stat-1-sub">Up from 80 last quarter</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="flt-stat-2-label">Following Distance</div><div class="ms-value">−54%</div><div class="ms-sub" data-eid="flt-stat-2-sub">Quarter's biggest safety win</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="flt-stat-3-label">Insurance Claims</div><div class="ms-value">3</div><div class="ms-sub" data-eid="flt-stat-3-sub">2026 so far · ~$15K out of pocket</div></div>
+    </div>
+
+    <div class="wsw">
+      <span class="wsw-label">What</span>
+      <p data-eid="flt-what-1">Our fleet safety score climbed to <strong>89, up from 80 last quarter</strong>, and the share of drivers flagged high-risk nearly halved. Following Distance events fell <strong>54%</strong> — the quarter's biggest safety win.</p>
+      <p data-eid="flt-what-2">And here's the number that matters: just <strong>3 insurance claims in all of 2026 so far</strong>, roughly $15K out of pocket — versus <strong>54 claims in all of 2025</strong>.</p>
+    </div>
+
+    <!-- ── Events per 10K miles trend beat (Cameron 7/28: headline number for this section) ── -->
+    <h4 style="margin:16px 0 6px;font-size:15px;color:var(--navy);">The Headline Number: Safety Events per 10,000 Miles — Dropping</h4>
+    <div class="yoy-bars" role="img" aria-label="Safety events per ten thousand miles, Q1 28.5 down to Q2 24.8 on the same standards">
+      <div class="yoy-row"><div class="yoy-branch">Q1&#39;26</div><div class="yoy-track"><div class="yoy-fill" style="width:100%;background:var(--gray-300);"></div></div><div class="yoy-pct" style="color:var(--gray-600);width:auto;">28.5</div></div>
+      <div class="yoy-row"><div class="yoy-branch">Q2&#39;26</div><div class="yoy-track"><div class="yoy-fill" style="width:87%;"></div></div><div class="yoy-pct pos" style="width:auto;">24.8 · down 13%</div></div>
+    </div>
+    <p data-eid="flt-per10k-1" style="font-size:14px;">This is the fairest way to measure safe driving — events for every 10,000 miles driven, so a busier quarter can't hide anything. Measured on the same standards, we went from <strong>28.5 in Q1 to 24.8 in Q2 — down 13%</strong>, while the fleet ran 23.5% MORE miles. (Count Q2 on the raw numbers and it reads 31.1 — but that's because mid-quarter we deliberately tightened two standards, Rolling Stop and Inattentive, to referee ourselves harder. That's stricter refereeing, not worse driving.)</p>
+
+    <!-- ── Branch-by-branch safety events table (Cameron 7/28 eve) ── -->
+    <p style="margin:14px 0 6px; font-size:12.5px; font-weight:800; letter-spacing:0.15em; color:var(--ein-blue-700); text-transform:uppercase;">Safety Events per 10,000 Miles, Branch by Branch</p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:14px;">
+      <thead><tr style="border-bottom:2px solid var(--gray-200); text-align:left;"><th style="padding:5px 8px;">Branch</th><th style="padding:5px 8px;">Events</th><th style="padding:5px 8px;">Miles driven</th><th style="padding:5px 8px;">Events per 10K miles</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Fort Worth</td><td style="padding:5px 8px;">24</td><td style="padding:5px 8px;">18,030</td><td style="padding:5px 8px;font-weight:700;color:var(--green);">13.3</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Tampa</td><td style="padding:5px 8px;">13</td><td style="padding:5px 8px;">7,529</td><td style="padding:5px 8px;font-weight:700;color:var(--green);">17.3</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Leander</td><td style="padding:5px 8px;">55</td><td style="padding:5px 8px;">25,197</td><td style="padding:5px 8px;font-weight:700;color:var(--green);">21.8</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Houston</td><td style="padding:5px 8px;">95</td><td style="padding:5px 8px;">40,403</td><td style="padding:5px 8px;font-weight:700;">23.5</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">South Austin</td><td style="padding:5px 8px;">94</td><td style="padding:5px 8px;">37,927</td><td style="padding:5px 8px;font-weight:700;">24.8</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">San Antonio</td><td style="padding:5px 8px;">102</td><td style="padding:5px 8px;">37,309</td><td style="padding:5px 8px;font-weight:700;">27.3</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Garland</td><td style="padding:5px 8px;">55</td><td style="padding:5px 8px;">15,852</td><td style="padding:5px 8px;font-weight:700;color:var(--ein-orange-700);">34.7</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">North Austin</td><td style="padding:5px 8px;">169</td><td style="padding:5px 8px;">48,292</td><td style="padding:5px 8px;font-weight:700;color:var(--ein-orange-700);">35.0</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Dallas</td><td style="padding:5px 8px;">286</td><td style="padding:5px 8px;">66,277</td><td style="padding:5px 8px;font-weight:700;color:var(--red);">43.2</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">McKinney</td><td style="padding:5px 8px;">138</td><td style="padding:5px 8px;">22,388</td><td style="padding:5px 8px;font-weight:700;color:var(--red);">61.6</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:12px;color:var(--gray-600);margin:6px 0 0;">Raw Q2 numbers — every branch was refereed on the same standards all quarter, so branch-to-branch is a fair comparison. The company trend above adjusts Q2 back to Q1's standards, so these rows won't average to 24.8. Events are Samsara-flagged driving events, not accidents or claims.</p>
+    <!-- NO_SOURCE (Cameron 7/29 redline ask): Q4'25 events-per-10K for reference — manifest has Q4'25 EVENTS (1,056)
+         but NO Q4'25 miles, so the rate cannot be computed from a legal source. Chase: Matisen at July close
+         (rides the same monthly review-basis per-10K ask below). Add the Q4'25 bar to the trend chart when it lands. -->
+    <!-- NO_SOURCE (July close ask for Matisen): a MONTHLY events-per-10K series on the REVIEW basis does not exist —
+         only the API/telemetry basis has monthly grain (35.1/34.0/36.5), and that basis is ruled out as a headline
+         (manifest _monthly / safety notes). The Q1→Q2 pair above is the review-basis series (events_per_1k_mi ×10).
+         If Matisen can produce monthly review-basis per-10K at July close, upgrade the two-bar chart to a monthly line. -->
+    <!-- NO_SOURCE (July close, Jaci's 2025 report): Cameron's edit asserts "about 27 claims at this point last year" —
+         no structured mid-2025 cumulative claims field exists; ~27 ≈ straight-line half of the 54-claim 2025 total.
+         Confirm the actual mid-2025 cumulative count when Jaci's 2025 claims report surfaces. -->
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What</span>
+      <p data-eid="flt-sowhat-1">Fewer real events = fewer claims = money that stays in the company and the bonus pool instead of going to the insurance company.</p>
+      <p data-eid="flt-sowhat-1b">And this one's bigger than a bonus line: over the last couple of years our insurance rates rose so fast it was becoming one of the biggest existential threats to the business. At this point in time last year, we had about 27 claims. This year, we only have three! This kind of safe driving is one of the most direct ways a crew protects its own branch, and the whole company.</p>
+    </div>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What</span>
+      <p data-eid="flt-nowwhat-1">The packet review turned up one more honest read: the vast majority of our damages were us hitting things — not collisions with other cars. So the next step is aimed exactly there: <strong>improved driver training and recertifications</strong> built to avoid those types of accidents.</p>
+    </div>
+
+    <div class="review-note" data-section="fleet-safety">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Fleet Safety…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ NPS + eNPS (spec §5 / §5b) ══════════════════ -->
+  <section class="card slide-el" id="nps-enps">
+    <p class="card-num">Customer Voice</p>
+    <h3 class="card-title" data-eid="nps-title">Customer NPS</h3>
+
+    <div class="wsw">
+      <span class="wsw-label">What</span>
+      <p data-eid="nps-what-1">Customer NPS came in at <strong>87</strong> vs our <strong>90</strong> bar (just under 92 in Q1).</p>
+    </div>
+
+    <div class="yoy-bars" role="img" aria-label="Customer NPS bar chart, 88 versus 90 target">
+      <div class="yoy-row"><div class="yoy-branch">Q2'26</div><div class="yoy-track"><div class="yoy-fill" style="width:87%;"></div></div><div class="yoy-pct" style="color:var(--navy);">87</div></div>
+      <div class="yoy-row"><div class="yoy-branch">Target</div><div class="yoy-track"><div class="yoy-fill" style="width:90%;background:repeating-linear-gradient(45deg, var(--gray-300) 0 6px, var(--gray-100) 6px 12px);"></div></div><div class="yoy-pct" style="color:var(--gray-600);">90</div></div>
+    </div>
+
+    <!-- ── Branch-by-branch NPS table (Cameron 7/28) ── -->
+    <p style="margin:14px 0 6px; font-size:12.5px; font-weight:800; letter-spacing:0.15em; color:var(--ein-blue-700); text-transform:uppercase;">NPS, Branch by Branch</p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:14px;">
+      <thead><tr style="border-bottom:2px solid var(--gray-200); text-align:left;"><th style="padding:5px 8px;">Branch</th><th style="padding:5px 8px;">Q2 NPS</th><th style="padding:5px 8px;">Q1 NPS</th><th style="padding:5px 8px;">Surveys back</th><th style="padding:5px 8px;">Response rate</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Leander</td><td style="padding:5px 8px;font-weight:700;color:var(--green);">97</td><td style="padding:5px 8px;">87.7</td><td style="padding:5px 8px;">134</td><td style="padding:5px 8px;">34.2%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Houston</td><td style="padding:5px 8px;font-weight:700;color:var(--green);">94</td><td style="padding:5px 8px;">93.6</td><td style="padding:5px 8px;">273</td><td style="padding:5px 8px;">53.1%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Tampa</td><td style="padding:5px 8px;font-weight:700;color:var(--green);">96</td><td style="padding:5px 8px;">100.0</td><td style="padding:5px 8px;">44</td><td style="padding:5px 8px;">20.5%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">North Austin</td><td style="padding:5px 8px;font-weight:700;">88</td><td style="padding:5px 8px;">91.4</td><td style="padding:5px 8px;">119</td><td style="padding:5px 8px;">8.7%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Fort Worth</td><td style="padding:5px 8px;font-weight:700;">89</td><td style="padding:5px 8px;">96.2</td><td style="padding:5px 8px;">81</td><td style="padding:5px 8px;">29.8%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Garland</td><td style="padding:5px 8px;font-weight:700;">85</td><td style="padding:5px 8px;">100.0</td><td style="padding:5px 8px;">58</td><td style="padding:5px 8px;">21.4%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">McKinney</td><td style="padding:5px 8px;font-weight:700;">80</td><td style="padding:5px 8px;">94.8</td><td style="padding:5px 8px;">102</td><td style="padding:5px 8px;">21.3%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">South Austin</td><td style="padding:5px 8px;font-weight:700;">80</td><td style="padding:5px 8px;">89.6</td><td style="padding:5px 8px;">133</td><td style="padding:5px 8px;">14.5%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">San Antonio</td><td style="padding:5px 8px;font-weight:700;">82</td><td style="padding:5px 8px;">85.2</td><td style="padding:5px 8px;">135</td><td style="padding:5px 8px;">22.4%</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Dallas</td><td style="padding:5px 8px;font-weight:700;">79</td><td style="padding:5px 8px;">91.4</td><td style="padding:5px 8px;">200</td><td style="padding:5px 8px;">18.3%</td></tr>
+        <tr style="font-weight:700;"><td style="padding:5px 8px;">Company</td><td style="padding:5px 8px;">87</td><td style="padding:5px 8px;">91.9</td><td style="padding:5px 8px;">1,279</td><td style="padding:5px 8px;">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13px; color:var(--gray-600); margin:6px 0 0;">Green = at or above the 90 bar. Response rate = surveys back ÷ completed moves (May + June, the full-month pair). Small survey counts at Tampa and Garland make their quarter-to-quarter swings noisier. July responses still coming in — final numbers land ~Aug 1.</p>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What</span>
+      <p data-eid="nps-sowhat-1">Reviews and referrals are the cheapest jobs we ever book — every point of NPS is future work your branch doesn't have to buy.</p>
+      <p data-eid="nps-sowhat-1b">Some honest context on the dip: like we mentioned above, this quarter we had more new movers, new managers, and new CX reps in the system at once than we've ever had. More new people means more chances for a rough edge — and it means the fix is reps and coaching, not panic.</p>
+      <p data-eid="nps-reviews-1">And here's the proof customers still love the work: they posted <strong>824 five-star reviews</strong> about your moves this quarter — up from <strong>688</strong> last quarter. When a customer takes five minutes after a long move day to write about you by name, that's the whole job done right.</p>
+    </div>
+
+    <!-- ── Branch-by-branch reviews table (Cameron 7/28) ── -->
+    <p style="margin:14px 0 6px; font-size:12.5px; font-weight:800; letter-spacing:0.15em; color:var(--ein-blue-700); text-transform:uppercase;">5-Star Reviews, Branch by Branch</p>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:14px;">
+      <thead><tr style="border-bottom:2px solid var(--gray-200); text-align:left;"><th style="padding:5px 8px;">Branch</th><th style="padding:5px 8px;">5-star reviews</th><th style="padding:5px 8px;">Per 100 moves</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Tampa</td><td style="padding:5px 8px;">104</td><td style="padding:5px 8px;font-weight:700;">53.1</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Houston</td><td style="padding:5px 8px;">123</td><td style="padding:5px 8px;font-weight:700;">23.1</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Fort Worth</td><td style="padding:5px 8px;">52</td><td style="padding:5px 8px;font-weight:700;">19.4</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">South Austin</td><td style="padding:5px 8px;">161</td><td style="padding:5px 8px;font-weight:700;">18.3</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Leander</td><td style="padding:5px 8px;">66</td><td style="padding:5px 8px;font-weight:700;">16.8</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">San Antonio</td><td style="padding:5px 8px;">79</td><td style="padding:5px 8px;font-weight:700;">14.8</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">McKinney</td><td style="padding:5px 8px;">57</td><td style="padding:5px 8px;font-weight:700;">13.0</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Garland</td><td style="padding:5px 8px;">32</td><td style="padding:5px 8px;font-weight:700;">14.2</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">Dallas</td><td style="padding:5px 8px;">89</td><td style="padding:5px 8px;font-weight:700;">8.9</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">North Austin</td><td style="padding:5px 8px;">61</td><td style="padding:5px 8px;font-weight:700;">5.7</td></tr>
+        <tr style="font-weight:700;"><td style="padding:5px 8px;">Company</td><td style="padding:5px 8px;">824</td><td style="padding:5px 8px;">14.9</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13px; color:var(--gray-600); margin:6px 0 0;">Reviews logged through 7/21 — the quarter's last ~10 days aren't entered yet, so every branch's real number is a touch higher.</p>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What</span>
+      <p data-eid="nps-nowwhat-1">90 isn't a stretch goal for us — it's the floor. And the fix is already named above: this dip came from ramping the most new people we've ever had at once, so the way back is reps and coaching — new movers and managers getting up the curve, and crews nailing the basics customers actually write about: on time, careful, communicating the whole way. The 824 five-star reviews prove the standard is alive and well. Goal: back above 90 this quarter, and hold it the rest of the year.</p>
+    </div>
+
+    <div class="review-note" data-section="nps-enps">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Customer NPS…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ EMPLOYEE VOICE / eNPS (split from Customer NPS per Cameron 7/27) ══════════════════ -->
+  <section class="card slide-el" id="employee-voice">
+    <p class="card-num">Employee Voice</p>
+    <h3 class="card-title" data-eid="ev-title">Employee Voice (eNPS)</h3>
+
+    <div class="mini-stat-row">
+      <div class="mini-stat green"><div class="ms-label" data-eid="nps-stat-1-label">Manager / CET eNPS</div><div class="ms-value">+81</div><div class="ms-sub" data-eid="nps-stat-1-sub">52 salaried respondents · 100% participation</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="nps-stat-2-label">Participation</div><div class="ms-value">100%</div><div class="ms-sub" data-eid="nps-stat-2-sub">All 52 salaried folks answered — every voice counted</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="nps-stat-3-label">Praised (14 days)</div><div class="ms-value">87%</div><div class="ms-sub" data-eid="nps-stat-3-sub">Recognition culture showing up in the data</div></div>
+    </div>
+    <p style="font-size:14px;" data-eid="nps-ev-intro">+81 is the salaried manager/CET survey (July cycle — the highest response count this survey has ever had, and near the all-time high of +84). The mover survey runs separately — the last mover read was Q1's +46, and <strong>the next mover survey runs this quarter. That's the fresh read.</strong></p>
+
+    <!-- ── Q1 promises-kept scoreboard ── -->
+    <div style="border:1px solid var(--gray-200); border-left:4px solid var(--green); border-radius:0 8px 8px 0; padding:14px 16px; margin:14px 0; background:#fbfdfb;">
+      <p style="margin:0 0 4px; font-size:12.5px; font-weight:800; letter-spacing:0.15em; color:var(--green); text-transform:uppercase;" data-eid="nps-sb-title">The Q1 Scoreboard — You Talked. Here's What Happened.</p>
+      <p style="margin:0 0 10px; font-size:14px;" data-eid="nps-sb-intro">After April's mover survey, leadership made six commitments in direct response to what movers asked for. Here's where each one stands, three months later:</p>
+      <ul style="list-style:none; padding:0; margin:0; font-size:14px;">
+        <li style="padding:6px 0; border-bottom:1px solid var(--gray-100);" data-eid="nps-sb-1"><strong style="color:var(--green);">✔ DONE</strong> — <strong>Mover comp review.</strong> Base pay went up across every branch in May. The #1 ask on the survey, answered with real money.</li>
+        <li style="padding:6px 0; border-bottom:1px solid var(--gray-100);" data-eid="nps-sb-2"><strong style="color:var(--green);">✔ BUILT</strong> — <strong>Performance-based lead promotions.</strong> The framework is designed and with Employee Experience (HR) now: earn the next rung on performance, reviewed regularly — not tenure, not who-you-know.</li>
+        <li style="padding:6px 0; border-bottom:1px solid var(--gray-100);" data-eid="nps-sb-3"><strong style="color:var(--green);">✔ LIVE</strong> — <strong>Call grading on sales calls.</strong> Automated grading now runs on real sales calls, feeding coaching on estimate accuracy — the #1 frustration movers named. The training side keeps deepening this quarter.</li>
+        <li style="padding:6px 0; border-bottom:1px solid var(--gray-100);" data-eid="nps-sb-4"><strong style="color:var(--green);">✔ LIVE</strong> — <strong>Digital training handbook.</strong> The Mover Training App is live across all of DFWT — three weeks in with zero bugs — with SOPs and training content building into it. Company-wide rollout is the plan.</li>
+        <li style="padding:6px 0; border-bottom:1px solid var(--gray-100);" data-eid="nps-sb-5"><strong style="color:var(--green);">✔ LANDS AUG 1</strong> — <strong>Hiring for culture interviews.</strong> Culture-first interviews replace the old trial-day format starting August 1 — protecting the hiring bar movers told us they value.</li>
+        <li style="padding:6px 0;" data-eid="nps-sb-6"><strong style="color:var(--green);">✔ DONE</strong> — <strong>Better mobile tools.</strong> EMMA got new mobile views on almost every page — dramatically easier to use from the truck than it was in April.</li>
+      </ul>
+    </div>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What — This survey moves real decisions</span>
+      <p data-eid="nps-sowhat-2">Every item on that scoreboard started as a survey answer. This isn't a suggestion box that goes into a drawer — it's how the company decides where to put its money and its energy. Same deal this cycle.</p>
+    </div>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What — What you told us in July, and what we're doing about it</span>
+      <p data-eid="nps-nowwhat-2">The loudest theme in the July survey, by a wide margin: <strong>develop people faster.</strong> More structured training for managers, clearer career paths, clearer roles. That's exactly where the company is pointed:</p>
+      <ul style="font-size:14px; padding-left:18px; margin:8px 0;" data-eid="nps-nowwhat-list">
+        <li><strong>Branch scorecards &amp; dashboards</strong> — every manager sees the same numbers as leadership, so coaching conversations run on facts, not opinions.</li>
+        <li><strong>Consistent check-ins &amp; performance management</strong> — a regular check-in rhythm tied to clear expectations, so nobody wonders where they stand or what earns the next step.</li>
+        <li><strong>The Mover Training App</strong> — develops movers faster today, and the same platform carries driver and lead training next. One place to learn the job and see your progress.</li>
+        <li><strong>This quarter's training theme</strong> — squarely aimed at developing movers <em>and</em> managers quicker (named in the Q3 Theme card below).</li>
+        <li><strong>Real career ladders</strong> — HR is defining what Branch Manager, Ops Manager, and Field Manager each own, so the rungs are distinct and the path up is visible — paired with the performance-based promotion framework.</li>
+      </ul>
+      <p data-eid="nps-nowwhat-3">And the survey itself is changing: <strong>this is the last cycle where participation is mandatory.</strong> From here, the plan is to collect this feedback more regularly — movers and managers alike — instead of one big survey every six months. Smaller asks, more often, so problems surface in weeks instead of quarters. When one lands, answer it: the scoreboard above is what your answers turn into.</p>
+    </div>
+
+    <!-- ── FLM-ONLY DEEP DIVE — drop this <details> block from the mover/CX cut ── -->
+    <details style="border:1px solid var(--gray-200); border-radius:8px; margin:14px 0 4px; padding:0 16px; background:var(--gray-50, #fafafa);">
+      <summary style="cursor:pointer; padding:12px 0; font-size:15px; font-weight:800; color:var(--navy);" data-eid="nps-dd-summary">📊 Manager Deep Dive — the July survey in detail <span style="font-weight:500; color:var(--gray-600);">(manager session only)</span></summary>
+      <div style="padding:4px 0 14px;">
+
+        <p style="font-size:13px; font-weight:800; letter-spacing:0.1em; color:var(--gray-600); text-transform:uppercase; margin:8px 0 6px;">Trend — two years at a high plateau</p>
+        <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--gray-200); text-align:left;"><th style="padding:5px 8px;">Cycle</th><th style="padding:5px 8px;">n</th><th style="padding:5px 8px;">Avg</th><th style="padding:5px 8px;">eNPS</th></tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">July 2024</td><td style="padding:5px 8px;">38</td><td style="padding:5px 8px;">9.0</td><td style="padding:5px 8px;">+63</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">January 2025</td><td style="padding:5px 8px;">39</td><td style="padding:5px 8px;">9.4</td><td style="padding:5px 8px;">+77</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">July 2025</td><td style="padding:5px 8px;">45</td><td style="padding:5px 8px;">9.3</td><td style="padding:5px 8px;">+84</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">January 2026</td><td style="padding:5px 8px;">46</td><td style="padding:5px 8px;">9.3</td><td style="padding:5px 8px;">+80</td></tr>
+            <tr style="font-weight:700;"><td style="padding:5px 8px;">July 2026</td><td style="padding:5px 8px;">52</td><td style="padding:5px 8px;">9.3</td><td style="padding:5px 8px;">+81</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p style="font-size:13px; color:var(--gray-600); margin:6px 0 0;">Distribution this cycle: 43 promoters · 8 passives · 1 detractor. The story is no longer the number — it's the themes.</p>
+
+        <p style="font-size:13px; font-weight:800; letter-spacing:0.1em; color:var(--gray-600); text-transform:uppercase; margin:14px 0 6px;">By group</p>
+        <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--gray-200); text-align:left;"><th style="padding:5px 8px;">Group</th><th style="padding:5px 8px;">n</th><th style="padding:5px 8px;">eNPS</th><th style="padding:5px 8px;">Praised (14d)</th></tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">G&amp;A</td><td style="padding:5px 8px;">4</td><td style="padding:5px 8px;">+100</td><td style="padding:5px 8px;">100%</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">CET (Sales + Claims)</td><td style="padding:5px 8px;">21</td><td style="padding:5px 8px;">+90</td><td style="padding:5px 8px;">90%</td></tr>
+            <tr style="border-bottom:1px solid var(--gray-100);"><td style="padding:5px 8px;">CTXH</td><td style="padding:5px 8px;">15</td><td style="padding:5px 8px;">+73</td><td style="padding:5px 8px;">87%</td></tr>
+            <tr><td style="padding:5px 8px;">DFWT</td><td style="padding:5px 8px;">10</td><td style="padding:5px 8px;">+60</td><td style="padding:5px 8px;">70%</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p style="font-size:13px; color:var(--gray-600); margin:6px 0 0;">Recognition is the closest lever in this table — it's free, it's fast, and the praised-recently rate tracks the score.</p>
+
+        <p style="font-size:13px; font-weight:800; letter-spacing:0.1em; color:var(--gray-600); text-transform:uppercase; margin:14px 0 6px;">Start / Stop / Keep — top themes from 52 responses</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+          <div style="border-left:4px solid var(--orange); background:var(--orange-bg); border-radius:0 6px 6px 0; padding:10px 12px;">
+            <p style="margin:0 0 6px; font-size:12.5px; font-weight:800; letter-spacing:0.12em; color:var(--orange-dark); text-transform:uppercase;">Start</p>
+            <ul style="font-size:13px; padding-left:16px; margin:0;">
+              <li><strong>Manager training &amp; a leadership pipeline</strong> — the dominant ask, by far</li>
+              <li>Career-path transparency &amp; regular reviews</li>
+              <li>Work-life flexibility</li>
+              <li>Cross-team connection &amp; events</li>
+              <li>One central knowledge base</li>
+            </ul>
+          </div>
+          <div style="border-left:4px solid var(--red); background:#fdecea; border-radius:0 6px 6px 0; padding:10px 12px;">
+            <p style="margin:0 0 6px; font-size:12.5px; font-weight:800; letter-spacing:0.12em; color:var(--red); text-transform:uppercase;">Stop</p>
+            <ul style="font-size:13px; padding-left:16px; margin:0;">
+              <li><strong>Mid-quarter rule changes / pace of change</strong> — the loudest stop</li>
+              <li>Sales-block load on BMs</li>
+              <li>AI output without human verification</li>
+              <li>Metric overload</li>
+              <li>One-size-fits-all goals</li>
+            </ul>
+          </div>
+          <div style="border-left:4px solid var(--green); background:#e8f5e9; border-radius:0 6px 6px 0; padding:10px 12px;">
+            <p style="margin:0 0 6px; font-size:12.5px; font-weight:800; letter-spacing:0.12em; color:var(--green); text-transform:uppercase;">Keep</p>
+            <ul style="font-size:13px; padding-left:16px; margin:0;">
+              <li><strong>Recognition &amp; celebration culture</strong> — the overwhelming favorite</li>
+              <li>Bonuses &amp; incentives</li>
+              <li>Open-door leadership</li>
+              <li>AI leverage done right</li>
+              <li>Promote-from-within</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="font-size:14px; margin:12px 0 0;" data-eid="nps-dd-straight"><strong>Straight talk on the Stop column:</strong> pace of change is a fair hit — this company ships a lot, and mid-quarter rule changes landed on you more than once last quarter. Leadership heard it. And the Start column is exactly what this quarter's theme is built to answer: the survey asked for faster manager development before leadership ever put it on a whiteboard.</p>
+      </div>
+    </details>
+
+    <div class="review-note" data-section="employee-voice">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Employee Voice / eNPS…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ CLAIMS & MAGIC MOMENTS (fully woven in as of v1.4 — photos, mover-submitted callout, Carly's return; Cameron confirmed final 7/29) ══════════════════ -->
+  <section class="card green slide-el" id="claims-mm">
+    <p class="card-num">Claims &amp; Magic Moments</p>
+    <h3 class="card-title" data-eid="cmm-title">Claims &amp; Magic Moments</h3>
+
+    <div class="mini-stat-row three">
+      <div class="mini-stat green"><div class="ms-label" data-eid="cmm-stat-1-label">Claims Accuracy</div><div class="ms-value">99–100%</div><div class="ms-sub" data-eid="cmm-stat-1-sub">Every rep above the 95 bar — Super Green</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="cmm-stat-2-label">Time to Close</div><div class="ms-value">~1 week</div><div class="ms-sub" data-eid="cmm-stat-2-sub">6.1–6.9 days per rep — Green all quarter</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="cmm-stat-3-label">Magic Moments</div><div class="ms-value">41</div><div class="ms-sub" data-eid="cmm-stat-3-sub">Goal was 35 — 117%</div></div>
+    </div>
+
+    <div class="wsw">
+      <span class="wsw-label">What</span>
+      <p data-eid="cmm-what-1">The claims team closed the average claim in <strong>under a week</strong> and ran <strong>99–100% claims accuracy</strong> (we audit claims to ensure they are factual and not missing details) against a 95 bar — Super Green. And we delivered <strong>41 Magic Moments</strong> against a goal of 35 — the final count.</p>
+    </div>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What</span>
+      <p data-eid="cmm-sowhat-1">Here's what makes that impressive: it was the busiest quarter in company history, the team ran the <em>entire</em> quarter short one of its leaders, and a brand-new claims rep was ramping — and they held both claims metrics Green the whole way. A claim handled fast and fairly is how a bad move day still ends in a 5-star review.</p>
+      <p data-eid="cmm-sowhat-2">A few Magic Moments from the quarter: a self-care box for a single mother of two facing a biopsy · support for a customer moving home to care for his mother after a broken tibia · a housewarming for a family who lost both parents within three months · diapers on move day for a family with a newborn. That's the job behind the job.</p>
+    </div>
+
+    <!-- ── Magic Moments photo wall — sourced from #magicmoments Slack, Q2 posts ── -->
+    <p style="margin:14px 0 8px; font-size:12.5px; font-weight:800; letter-spacing:0.15em; color:var(--orange-dark); text-transform:uppercase;" data-eid="cmm-photos-title">A Few of Them, In Pictures</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin:0 0 6px;">
+      <figure style="margin:0;">
+        <img src="assets/mm/mm-highscore-card.jpg" alt="Custom Einstein thank-you card: cartoon Einstein at an arcade cabinet reading High Score" loading="lazy" style="width:100%; border-radius:8px; border:1px solid var(--gray-200); display:block;">
+        <figcaption style="font-size:13px; color:var(--gray-600); margin-top:4px;" data-eid="cmm-ph-1">The custom card our crew hand-delivered — with an arcade gift card — to a family grieving their husband and dad, who shared their love of games.</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="assets/mm/mm-goat-tote.jpg" alt="Canvas tote bag covered in illustrated goats" loading="lazy" style="width:100%; border-radius:8px; border:1px solid var(--gray-200); display:block;">
+        <figcaption style="font-size:13px; color:var(--gray-600); margin-top:4px;" data-eid="cmm-ph-3">The crew bonded with a first-time homebuyer over a shared love of goats. So: goat tote.</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="assets/mm/mm-texas-board.jpg" alt="Texas-shaped wooden cutting board" loading="lazy" style="width:100%; border-radius:8px; border:1px solid var(--gray-200); display:block;">
+        <figcaption style="font-size:13px; color:var(--gray-600); margin-top:4px;" data-eid="cmm-ph-4">Half of a Texas welcome kit for a customer arriving alone from Minnesota after losing both parents…</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="assets/mm/mm-austin-candle.jpg" alt="Candle jar with the Austin skyline printed on it" loading="lazy" style="width:100%; border-radius:8px; border:1px solid var(--gray-200); display:block;">
+        <figcaption style="font-size:13px; color:var(--gray-600); margin-top:4px;" data-eid="cmm-ph-5">…and the other half: an Austin skyline candle to make the new house feel like home.</figcaption>
+      </figure>
+    </div>
+    <figure style="margin:8px 0 0;">
+      <img src="assets/mm/mm-review-diapers.jpg" alt="Five-star Google review describing movers who brought a box of diapers and wipes" loading="lazy" style="width:100%; max-width:720px; border-radius:8px; border:1px solid var(--gray-200); display:block;">
+      <figcaption style="font-size:13px; color:var(--gray-600); margin-top:4px;" data-eid="cmm-ph-6">And this is what comes back: the 5-star review after our crew showed up with diapers and wipes for a 9-months-pregnant customer. Her words: "I've never heard of such a thing from a moving company."</figcaption>
+    </figure>
+
+    <!-- ── First-ever mover-submitted Magic Moments callout ── -->
+    <div style="border:1px solid var(--gray-200); border-left:4px solid var(--orange); border-radius:0 8px 8px 0; padding:14px 16px; margin:14px 0 4px; background:var(--orange-bg);">
+      <p style="margin:0 0 6px; font-size:12.5px; font-weight:800; letter-spacing:0.15em; color:var(--orange-dark); text-transform:uppercase;" data-eid="cmm-mover-title">A Q2 First: Movers Submitted Magic Moments</p>
+      <p style="margin:0 0 8px; font-size:14px;" data-eid="cmm-mover-1">Until this quarter, every Magic Moment came from the office. Q2 changed that — <strong>the first mover-submitted Magic Moments in company history</strong>:</p>
+      <ul style="font-size:14px; padding-left:18px; margin:0 0 8px;">
+        <li data-eid="cmm-mover-2"><strong>Luis Sanchez</strong> spotted a mom with two daughters (plus a cat and two dogs) navigating a divorce mid-move — his nomination became a family spa package, with treats for the pets.</li>
+        <li data-eid="cmm-mover-3"><strong>Noah Schroder</strong>, on a SAFE move, noticed a dad and his 6-year-old bonding over toy cars — his nomination became a LEGO car set for them to build together in the new house.</li>
+      </ul>
+      <p style="margin:0; font-size:14px;" data-eid="cmm-mover-4"><strong>Why this matters: you're in the living room — we're not.</strong> Nobody spots these moments before the crew does. See one, submit it, and the claims team handles everything from there. Let's make mover-submitted the biggest category in Q3.</p>
+    </div>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What</span>
+      <p data-eid="cmm-nowwhat-1">Carly's back as of late July (she leads the Claims Team) and we plan on continuing to expand our Magic Moments program to deliver more magic moments across all cycles of the moving experience (not just post-move). Keep the Magic Moment nominations coming!</p>
+    </div>
+    <div class="review-note" data-section="claims-mm">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Claims &amp; Magic Moments…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ CX SALES LOOKBACK (folded 7/24 — Amanda's look-back, pulse 12603023313 + Nhel's FCP finals, manifest _cx_sales_q2_26 / _fcp_q2_26) ══════════════════ -->
+  <section class="card green slide-el" id="cx-lookback">
+    <p class="card-num">The CET</p>
+    <h3 class="card-title" data-eid="cxl-title">First-Class Precision — the CET's Q2 Game</h3>
+
+    <div class="mini-stat-row three">
+      <div class="mini-stat green"><div class="ms-label" data-eid="cxl-fcp-stat-1-label">Participation</div><div class="ms-value">100%</div><div class="ms-sub" data-eid="cxl-fcp-stat-1-sub">All 14 teammates, every single week</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="cxl-fcp-stat-2-label">Weeks Played</div><div class="ms-value">9</div><div class="ms-sub" data-eid="cxl-fcp-stat-2-sub">Three teams competing all quarter</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="cxl-fcp-stat-3-label">First Class</div><div class="ms-value">4</div><div class="ms-sub" data-eid="cxl-fcp-stat-3-sub">Team winners — named below</div></div>
+    </div>
+
+    <div class="wsw">
+      <span class="wsw-label">What</span>
+      <p data-eid="cxl-fcp-1">This was the CET's own Einstein Games — nine weeks, three teams, and <strong>all 14 teammates participated every single week</strong>. First Class (team winners): <strong>Jules Nicolas</strong> (Sales) · <strong>Nessa Besas</strong> (Remote Operations) · <strong>Jaci Basco &amp; Stephanie Robledo</strong> (Claims).</p>
+    </div>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What</span>
+      <p data-eid="cxl-fcp-2">Business Class: Maria Yangson, Amy Arbasa, Zhang Pammit, Nicole Tolete, Arden Asilo, June Pardines, Donna Carrillo. Same idea as the Einstein Games on the branch side — a game that makes the standard visible and celebrates the people who set it. A game with 100% participation for nine straight weeks isn't a side program — it's the CET's culture, on a scoreboard.</p>
+    </div>
+
+    <hr class="divider" style="margin:18px 0;">
+
+    <h4 style="margin:0 0 8px;font-size:15px;color:var(--navy);">And the Numbers Behind It — CX Sales Look-back</h4>
+
+    <div class="mini-stat-row three">
+      <div class="mini-stat green"><div class="ms-label" data-eid="cxl-stat-1-label">Sales Plan</div><div class="ms-value">88%</div><div class="ms-sub" data-eid="cxl-stat-1-sub">Booked at day 83 of 92 — final lands at quarter close</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="cxl-stat-2-label">Meet-or-Beat</div><div class="ms-value">82%</div><div class="ms-sub" data-eid="cxl-stat-2-sub">Moves at or under the estimate · bar is 80</div></div>
+      <div class="mini-stat green"><div class="ms-label" data-eid="cxl-stat-3-label">Live Coaching</div><div class="ms-value">27</div><div class="ms-sub" data-eid="cxl-stat-3-sub">In-quarter coaching moments on real calls</div></div>
+    </div>
+
+    <div class="wsw">
+      <span class="wsw-label">What</span>
+      <p data-eid="cxl-what-1">The CET (sales, remote operations, and claims) finished at <strong>97.9% of the quarter's sales plan</strong> — a July surge (104.5% of the month's target) closed most of the gap after a slower May and June. And <strong>82%</strong> of moves came in at or under the estimate the customer was given, above our 80 bar.</p>
+    </div>
+
+    <div class="wsw sowhat">
+      <span class="wsw-label">So What</span>
+      <p data-eid="cxl-sowhat-1">Every booked move is your crew's next day of work — the sales team fills the trucks you run. And when the final bill lands at or under the quote, the customer trusts the price, tips better, and reviews better. That trust is built on both ends: their quote and your crew's execution.</p>
+    </div>
+
+    <div class="wsw nowwhat">
+      <span class="wsw-label">Now What</span>
+      <p data-eid="cxl-nowwhat-1">The sharpening focus next quarter is estimate precision — getting more quotes to land close to actual, not just under. Your walkthroughs and job notes are half of that equation: the better the information going in, the better the quote coming out.</p>
+    </div>
+    <div class="review-note" data-section="cx-lookback">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on CX Sales Look-back…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ Q3 THEME PLACEHOLDER (spec D5) ══════════════════ -->
+  <div class="chapter-band" data-ch="4">
+    <p class="chapter-kicker">Chapter 4</p>
+    <h2 class="chapter-title">What's Next</h2>
+    <p class="chapter-sub">Q3, your questions answered, and your branch's own page.</p>
+  </div>
+  <section class="card slide-el" id="q3-theme">
+    <p class="card-num">Coming Next Quarter</p>
+    <h3 class="card-title" data-eid="q3t-title">Q3 Theme: Training Camp</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start;margin:14px 0 6px;">
+      <img src="assets/training-day-poster-q3-2026-web.jpg" alt="Training Camp — Q3 2026 theme poster. Pad on. Pad off." style="width:250px;max-width:100%;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.25);flex-shrink:0;">
+      <div style="flex:1;min-width:260px;">
+        <p data-eid="q3t-what-1" style="margin-top:0;"><strong>Pad on. Pad off.</strong> We built a new training app, and this quarter everybody goes through it — new movers, veterans, and yes, leads too. Nobody's in trouble. This is back to basics: prove the fundamentals, fill any gaps, and get everyone doing it the Einstein way.</p>
+        <p data-eid="q3t-what-2"><strong>The videos are finally here.</strong> We filmed a few dozen training videos showing the exact Einstein standard — how we wrap, how we pad, how we load, how we take care of customers — starring our own people. For the first time, they're all in one place: in the app, on your phone, whenever you need them.</p>
+        <p data-eid="q3t-what-3"><strong>What it means for you:</strong> your manager enrolls you by <strong>Aug 20</strong> (takes minutes). Then you work through it at your own pace — short lessons, on the clock, never on your own time — and finish by <strong>Oct 19</strong>. If you're new, the app also brings real check-ins with your manager through your first six months, so you always know where you stand. No more guessing.</p>
+        <p data-eid="q3t-what-4"><strong>Why we're doing it:</strong> the faster you get good at this job, the easier your days get — fewer damages, faster loads, better tips — and the faster you move up. Training is the path to Lead here. This quarter the whole company runs it together, and there's a graduation at the end.</p>
+      </div>
+    </div>
+    <div class="info-strip" style="background:var(--orange-bg,#fff4e8);border-radius:10px;padding:14px 18px;margin:12px 0;">
+      <p data-eid="q3t-prizes-1" style="margin:0 0 6px;"><strong>🎓 And yes — there are prizes.</strong> End of quarter we're throwing a graduation party: finish your track and you walk with an <strong>EMC University hat</strong>. Finish the full pipeline and it's the hat <em>plus</em> the socks. Hired mid-quarter? You still get it if you hit the mark.</p>
+      <p data-eid="q3t-prizes-2" style="margin:0;">Along the way: <strong>September</strong> — perfect attendance (top 10%) earns field-approved long sleeves. <strong>October</strong> — your crews vote the top trainers among our leads, and they earn field-approved beanies. Every one of these is gear you'll actually want to wear.</p>
+    </div>
+    <p data-eid="q3t-sign" style="color:var(--gray-600,#666);font-size:14px;">One more thing: don't be surprised if a yellow sign shows up over a door at your branch. It says <strong>TRAIN</strong>. If you know, you know. 🟨</p>
+    <div class="review-note" data-section="q3-theme">
+      <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+      <div class="review-note-body" hidden>
+        <div class="review-note-microlabel">Review note — not part of the page copy</div>
+        <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on Q3 Theme…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FAQ SECTION REMOVED per Cameron's 7/28 redline ("Let's remove the FAQ entirely. Not adding value.")
+       PRESERVED for the manager-cut discussion — Cameron's edited manager-bonus answer (was faq-2-a,
+       "Does the profit miss hit my bonus?"):
+       "For movers, bonus bases are the branch metrics on your scorecard, not company profit; games scores
+        were never a direct read on bonus. For managers, yes, a margin hit impacts bonuses." -->
+
+<!-- ══════════════════ SCORECARD LINK GRID ══════════════════ -->
+  <div class="slide-el slide-section" id="scorecard-section">
+  <h2 class="section-title"><span class="sec-eyebrow">Now — Your Branch</span>Branch Scorecards</h2>
+  <p class="sc-intro" style="font-size:15px;color:var(--gray-600);" data-eid="sc-intro-1">That was the company story — <strong>your branch&#39;s own quarter</strong> (NPS, safety, availability, recognition) lives on your scorecard. In the huddle this is the handoff: company page first, then your branch&#39;s page.</p>
+  <div class="scorecard-grid">
+    <a class="scorecard-tile" href="branch-scorecard-naustin-q2.html"><p class="scorecard-tile-eyebrow">CTXH</p><p class="scorecard-tile-name">North Austin</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-saustin-q2.html"><p class="scorecard-tile-eyebrow">CTXH</p><p class="scorecard-tile-name">South Austin</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-leander-q2.html"><p class="scorecard-tile-eyebrow">CTXH</p><p class="scorecard-tile-name">Leander</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-sanantonio-q2.html"><p class="scorecard-tile-eyebrow">CTXH</p><p class="scorecard-tile-name">San Antonio</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-houston-q2.html"><p class="scorecard-tile-eyebrow">CTXH</p><p class="scorecard-tile-name">Houston</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-dallas-q2.html"><p class="scorecard-tile-eyebrow">DFWT</p><p class="scorecard-tile-name">Dallas</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-fortworth-q2.html"><p class="scorecard-tile-eyebrow">DFWT</p><p class="scorecard-tile-name">Fort Worth</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-garland-q2.html"><p class="scorecard-tile-eyebrow">DFWT</p><p class="scorecard-tile-name">Garland</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-mckinney-q2.html"><p class="scorecard-tile-eyebrow">DFWT</p><p class="scorecard-tile-name">McKinney</p><span class="scorecard-tile-go">Open →</span></a>
+    <a class="scorecard-tile" href="branch-scorecard-tampa-q2.html"><p class="scorecard-tile-eyebrow">Tampa</p><p class="scorecard-tile-name">Tampa</p><span class="scorecard-tile-go">Open →</span></a>
+  </div>
+
+  <div class="review-note" data-section="scorecard-section">
+    <button type="button" class="review-note-toggle" aria-expanded="false">&#9998; add review note</button>
+    <div class="review-note-body" hidden>
+      <div class="review-note-microlabel">Review note — not part of the page copy</div>
+      <textarea class="review-note-textarea" rows="3" placeholder="Questions/notes on the Branch Scorecards grid…"></textarea>
+    </div>
+  </div>
+  </div>
+
+  <footer class="page-footer">
+    Einstein Moving Company · The Q2 Debrief · Q2 2026 · July numbers are estimates until books close ~Aug 1.
+  </footer>
+
+</div>
+<script>
+  // Smooth-scroll to section anchors when linked (defensive — no external deps, no analytics).
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) {
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+</script>
+
+<!-- ══════════════════ MODE BAR / PRESENT / EDIT / NOTES layer (additive, v1) ══════════════════
+     Read is always the load-in mode (never persisted). Notes + edits persist to localStorage
+     under the flp-q2- prefix. Everything here is chrome on top of the existing markup — no
+     page copy was rewritten to build this. ══ -->
+<script>
+(function () {
+  'use strict';
+
+  var NOTES_KEY = 'flp-q2-notes';
+  var EDITS_KEY = 'flp-q2-edits';
+  var PAGE_TITLE = "Einstein Q2 Debrief (Q2 2026)";
+
+  var SLIDES = [
+    'who-we-are', 'financial-story', 'revenue-yoy', 'trucks-staffing', 'marketing-leads',
+    'games', 'fleet-safety', 'nps-enps', 'employee-voice', 'claims-mm', 'cx-lookback', 'q3-theme',
+    'scorecard-section'
+  ];
+  var SECTION_TITLES = {
+    'who-we-are': 'Who We Are & Why We Do This',
+    'financial-story': 'Q2 in Plain English',
+    'revenue-yoy': 'Revenue Growth by Branch',
+    'trucks-staffing': 'Trucks & Staffing',
+    'marketing-leads': 'Leads & the New Quote Form',
+    'games': 'Einstein Games Season 3',
+    'fleet-safety': 'Fleet Safety',
+    'nps-enps': 'Customer NPS',
+    'employee-voice': 'Employee Voice (eNPS)',
+    'claims-mm': 'Claims & Magic Moments',
+    'cx-lookback': 'First-Class Precision & CX Sales Look-back',
+    'q3-theme': 'Q3 Theme',
+    'scorecard-section': 'Now — Your Branch'
+  };
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function localDateStamp() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function localTimestamp() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' +
+      pad(d.getHours()) + ':' + pad(d.getMinutes()) + ' (local time)';
+  }
+  function stripTags(html) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html || '';
+    return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+  }
+
+  var toastTimer = null;
+  function showToast(msg, ms) {
+    var t = document.getElementById('flpToast');
+    if (!t) return;
+    t.textContent = msg;
+    t.hidden = false;
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.hidden = true; }, ms || 4000);
+  }
+
+  /* ── Talking-points toggle (Present mode) — one per card, CSS-driven, never
+     reorders the underlying So What / Now What blocks. ── */
+  document.querySelectorAll('.card.slide-el').forEach(function (card) {
+    var hasPoints = card.querySelector('.wsw.sowhat, .wsw.nowwhat');
+    if (!hasPoints) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'present-talk-toggle';
+    btn.textContent = '▼ talking points';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function () {
+      var open = card.classList.toggle('talkpoints-open');
+      btn.textContent = (open ? '▲' : '▼') + ' talking points';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    var anchor = card.querySelector('.mini-stat-row') || card.querySelector('.wsw:not(.sowhat):not(.nowwhat)');
+    if (anchor && anchor.parentNode === card) {
+      anchor.insertAdjacentElement('afterend', btn);
+    } else {
+      card.appendChild(btn);
+    }
+  });
+
+  /* ── Edit mode: capture originals BEFORE applying saved edits, then re-apply
+     saved edits on load so a refresh keeps Cameron's rewrite. ── */
+  var ORIGINALS = {};
+  document.querySelectorAll('[data-eid]').forEach(function (el) {
+    ORIGINALS[el.getAttribute('data-eid')] = el.innerHTML;
+  });
+
+  var edits = {};
+  try {
+    var rawEdits = localStorage.getItem(EDITS_KEY);
+    if (rawEdits) edits = JSON.parse(rawEdits) || {};
+  } catch (e) { edits = {}; }
+
+  Object.keys(edits).forEach(function (eid) {
+    var el = document.querySelector('[data-eid="' + eid + '"]');
+    if (el) el.innerHTML = edits[eid];
+  });
+
+  var editsWarnedOnce = false;
+  function saveEdits() {
+    try {
+      localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
+    } catch (e) {
+      if (!editsWarnedOnce) {
+        editsWarnedOnce = true;
+        showToast('Edits could not autosave (browser storage unavailable) — export before closing this tab.', 7000);
+      }
+    }
+  }
+
+  document.querySelectorAll('[data-eid]').forEach(function (el) {
+    el.addEventListener('input', function () {
+      var eid = el.getAttribute('data-eid');
+      edits[eid] = el.innerHTML;
+      saveEdits();
+    });
+  });
+
+  function resetEdits() {
+    if (!confirm('This will erase every edit made in Edit mode and restore the original page text. Continue?')) return;
+    edits = {};
+    saveEdits();
+    Object.keys(ORIGINALS).forEach(function (eid) {
+      var el = document.querySelector('[data-eid="' + eid + '"]');
+      if (el) el.innerHTML = ORIGINALS[eid];
+    });
+    showToast('Edits reset to the original page text.');
+  }
+
+  /* ── Review notes (mirrors the financial-deck review-note pattern) ── */
+  var notes = {};
+  try {
+    var rawNotes = localStorage.getItem(NOTES_KEY);
+    if (rawNotes) notes = JSON.parse(rawNotes) || {};
+  } catch (e) { notes = {}; }
+
+  var notesWarnedOnce = false;
+  function saveNotes() {
+    try {
+      localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+    } catch (e) {
+      if (!notesWarnedOnce) {
+        notesWarnedOnce = true;
+        showToast('Notes could not autosave (browser storage unavailable) — export before closing this tab.', 7000);
+      }
+    }
+  }
+
+  document.querySelectorAll('.review-note').forEach(function (block) {
+    var id = block.getAttribute('data-section');
+    var toggle = block.querySelector('.review-note-toggle');
+    var body = block.querySelector('.review-note-body');
+    var textarea = block.querySelector('.review-note-textarea');
+    if (!id || !toggle || !body || !textarea) return;
+
+    if (notes[id]) {
+      textarea.value = notes[id];
+      toggle.classList.toggle('has-note', !!notes[id].trim());
+    }
+
+    toggle.addEventListener('click', function () {
+      var willOpen = body.hidden;
+      body.hidden = !willOpen;
+      toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      if (willOpen) textarea.focus();
+    });
+
+    textarea.addEventListener('input', function () {
+      notes[id] = textarea.value;
+      saveNotes();
+      toggle.classList.toggle('has-note', !!textarea.value.trim());
+    });
+  });
+
+  /* ── Export: notes + edited blocks → markdown, plus a clipboard-copy fallback. ── */
+  function buildMarkdown() {
+    var lines = [];
+    lines.push('# ' + PAGE_TITLE + ' — Review Notes & Edits');
+    lines.push('');
+    lines.push('Exported: ' + localTimestamp());
+    lines.push('');
+    var any = false;
+
+    var noteLines = [];
+    SLIDES.forEach(function (id) {
+      var text = (notes[id] || '').replace(/\r\n/g, '\n').trim();
+      if (!text) return;
+      noteLines.push('## ' + (SECTION_TITLES[id] || id));
+      noteLines.push('');
+      text.split('\n').forEach(function (l) { noteLines.push('  ' + l); });
+      noteLines.push('');
+    });
+    if (noteLines.length) {
+      any = true;
+      lines.push('## Notes by section');
+      lines.push('');
+      lines = lines.concat(noteLines);
+    }
+
+    var changed = [];
+    document.querySelectorAll('[data-eid]').forEach(function (el) {
+      var eid = el.getAttribute('data-eid');
+      var original = stripTags(ORIGINALS[eid] || '');
+      var current = stripTags(el.innerHTML);
+      if (original === current) return;
+      var sectionEl = el.closest('.slide-el');
+      var sectionTitle = sectionEl ? (SECTION_TITLES[sectionEl.id] || sectionEl.id) : 'Unknown section';
+      changed.push({ eid: eid, section: sectionTitle, original: original, edited: current });
+    });
+    if (changed.length) {
+      any = true;
+      lines.push('## Edited blocks (' + changed.length + ')');
+      lines.push('');
+      changed.forEach(function (c) {
+        lines.push('- **' + c.section + ' / ' + c.eid + '** — ORIGINAL: ' + c.original + ' → EDITED: ' + c.edited);
+      });
+      lines.push('');
+    }
+
+    return { markdown: lines.join('\n').replace(/\n+$/, '\n'), any: any };
+  }
+
+  function downloadMarkdown(md, filename) {
+    try {
+      var blob = new Blob([md], { type: 'text/markdown' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function exportNotesAndEdits() {
+    var built = buildMarkdown();
+    if (!built.any) {
+      showToast('No notes or edits yet — nothing to export.');
+      return;
+    }
+    var filename = 'q2-frontline-feedback-' + localDateStamp() + '.md';
+    var downloaded = downloadMarkdown(built.markdown, filename);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(built.markdown).then(function () {
+        showToast((downloaded ? 'Downloaded ' + filename + ' + ' : '') + 'copied to clipboard.');
+      }, function () {
+        showToast((downloaded ? 'Downloaded ' + filename + '. ' : '') + 'Clipboard copy failed (browser blocked it).');
+      });
+    } else {
+      showToast((downloaded ? 'Downloaded ' + filename + '. ' : '') + 'Clipboard copy not supported in this browser.');
+    }
+  }
+
+  function copyToClipboardOnly() {
+    var built = buildMarkdown();
+    if (!built.any) {
+      showToast('No notes or edits yet — nothing to copy.');
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(built.markdown).then(function () {
+        showToast('Copied to clipboard.');
+      }, function () {
+        showToast('Clipboard copy failed (browser blocked it) — use Export instead.');
+      });
+    } else {
+      showToast('Clipboard copy not supported in this browser — use Export instead.');
+    }
+  }
+
+  document.getElementById('flpExportBtn').addEventListener('click', exportNotesAndEdits);
+  document.getElementById('flpCopyBtn').addEventListener('click', copyToClipboardOnly);
+  document.getElementById('flpResetEditsBtn').addEventListener('click', resetEdits);
+
+  /* ── Present-mode slide navigation ── */
+  var presentIndex = 0;
+  var presentNav = document.getElementById('presentNav');
+  var presentCounter = document.getElementById('presentCounter');
+
+  function clearSlideState() {
+    document.querySelectorAll('.slide-el').forEach(function (el) {
+      el.classList.remove('present-current');
+      el.classList.remove('talkpoints-open');
+    });
+  }
+
+  function showSlide(i) {
+    presentIndex = Math.max(0, Math.min(SLIDES.length - 1, i));
+    clearSlideState();
+    var el = document.getElementById(SLIDES[presentIndex]);
+    if (el) el.classList.add('present-current');
+    presentCounter.textContent = (presentIndex + 1) + ' / ' + SLIDES.length;
+  }
+
+  function presentKeyHandler(e) {
+    if (e.key === 'ArrowRight') { showSlide(presentIndex + 1); }
+    else if (e.key === 'ArrowLeft') { showSlide(presentIndex - 1); }
+    else if (e.key === 'Escape') { setMode('read'); }
+  }
+
+  document.getElementById('presentPrev').addEventListener('click', function () { showSlide(presentIndex - 1); });
+  document.getElementById('presentNext').addEventListener('click', function () { showSlide(presentIndex + 1); });
+
+  /* ── Mode switching ── */
+  var currentMode = 'read';
+
+  function setMode(mode) {
+    var prevMode = currentMode;
+    currentMode = mode;
+
+    document.body.classList.remove('mode-read', 'mode-present', 'mode-edit');
+    document.body.classList.add('mode-' + mode);
+
+    var editing = mode === 'edit';
+    document.querySelectorAll('[data-eid]').forEach(function (el) {
+      el.contentEditable = editing ? 'true' : 'false';
+    });
+    document.getElementById('flpResetEditsBtn').hidden = !editing;
+
+    if (mode === 'present') {
+      presentNav.hidden = false;
+      showSlide(presentIndex);
+      document.addEventListener('keydown', presentKeyHandler);
+    } else {
+      presentNav.hidden = true;
+      document.removeEventListener('keydown', presentKeyHandler);
+      if (prevMode === 'present') {
+        var el = document.getElementById(SLIDES[presentIndex]);
+        clearSlideState();
+        if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
+      } else {
+        clearSlideState();
+      }
+    }
+
+    document.querySelectorAll('.mode-btn').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-mode') === mode);
+    });
+  }
+
+  document.querySelectorAll('.mode-btn').forEach(function (b) {
+    b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); });
+  });
+
+  // Always load in Read mode — mode is never read from localStorage, per spec.
+  setMode('read');
+})();
+</script>
+
+</body>
+</html>
