@@ -1,4 +1,4 @@
-<!-- prep-packet v1.1 2026-08-03 -->
+<!-- prep-packet v1.2 2026-08-03 -->
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,6 +37,18 @@ th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #
 .callout { background: #fff7ee; border: 1px solid #f0d9bd; border-radius: 8px;
            padding: 12px 14px; font-size: 13.5px; margin-bottom: 12px; }
 footer { margin-top: 30px; font-size: 12px; color: #8a97a0; }
+.qgrday { display: grid; gap: 10px; }
+.qtile { display: block; background: #fff; border: 1px solid #dde2e6; border-radius: 8px;
+         padding: 12px 16px; text-decoration: none; color: inherit; }
+.qtile .qt-name { font-weight: 700; font-size: 14.5px; color: #27343D; }
+.qtile .qt-sub { font-size: 12.5px; color: #5a6a75; margin-top: 2px; }
+.qtile.locked { background: #eef0f2; border-style: dashed; opacity: .75; pointer-events: none; }
+.qtile.locked .qt-name::after { content: " 🔒"; }
+.qtile.unlocked { border-left: 4px solid #EF8B22; }
+.qtile.unlocked .qt-sub { color: #0979C3; font-weight: 600; }
+.qt-grade { display: inline-block; font-weight: 900; font-size: 13px; color: #27343D;
+            background: #fff; border: 2px solid #EF8B22; border-radius: 5px;
+            padding: 0 7px; margin-left: 6px; vertical-align: middle; }
 @media print {
   body { background: #fff; font-size: 11.5px; }
   .wrap { max-width: none; padding: 0; }
@@ -48,6 +60,7 @@ footer { margin-top: 30px; font-size: 12px; color: #8a97a0; }
   .chip, .crit { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .callout { background: #fff; }
   a { text-decoration: none; color: inherit; }
+  #qgrday-section.locked-print { display: none; }
 }
 </style>
 <div class="wrap">
@@ -126,5 +139,34 @@ footer { margin-top: 30px; font-size: 12px; color: #8a97a0; }
 <tr><td style="font-weight:500">Critical Number 1</td><td>EMC Games</td><td>8</td></tr>
 <tr><td style="font-weight:500">Critical Number 2</td><td>Evals</td><td>50</td></tr>
 </table></div>
+<div id="qgrday-section" class="locked-print">
+<h2>QGR Day Materials</h2>
+<div class="qgrday">
+<a class="qtile locked" id="qt-sc"><span class="qt-name">Your Branch Scorecard &mdash; North Austin</span><span class="qt-sub">Unlocks at the QGR</span></a>
+<a class="qtile locked" id="qt-debrief"><span class="qt-name">Q2 Company Debrief</span><span class="qt-sub">Unlocks at the QGR</span></a>
+<a class="qtile locked" id="qt-qir"><span class="qt-name">Q2 Quarter in Review</span><span class="qt-sub">Unlocks at the QGR</span></a>
+</div></div>
+<script>
+(function(){
+  var BRANCH = "North Austin";
+  function unlock(id, href, sub){
+    var t = document.getElementById(id);
+    if (!t || !href) return;
+    t.classList.remove('locked'); t.classList.add('unlocked');
+    t.href = href; t.target = '_blank'; t.rel = 'noopener';
+    t.querySelector('.qt-sub').innerHTML = sub;
+  }
+  fetch('qgr-day-flags.json', {cache: 'no-store'}).then(function(r){ return r.json(); }).then(function(f){
+    if (!f || !f.enabled) return;
+    document.getElementById('qgrday-section').classList.remove('locked-print');
+    var base = '../' + f.roomDir;
+    var sc = (f.branches || {})[BRANCH];
+    if (sc) unlock('qt-sc', base + sc.file,
+      'Open scorecard &rarr; <span class="qt-grade">' + sc.grade + '</span> ' + (sc.score || ''));
+    if (f.debrief) unlock('qt-debrief', base + f.debrief, 'Open the company story &rarr;');
+    if (f.qir) unlock('qt-qir', base + f.qir, 'Open the quarter in review &rarr;');
+  }).catch(function(){});
+})();
+</script>
 <footer>Einstein Moving Company &middot; Q2 2026 After-Action Review &middot; FLM QGR prep packet</footer>
 </div>
