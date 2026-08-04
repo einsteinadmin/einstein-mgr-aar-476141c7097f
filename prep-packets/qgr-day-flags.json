@@ -1,6 +1,58 @@
 {
   "enabled": true,
   "roomDir": "q2-room-c40470bcc392/",
-  "branches": {},
-  "debrief": "q2-frontline-packet.html"
+  "branches": {
+    "North Austin": {
+      "grade": "C",
+      "score": "Final 66.4",
+      "file": "branch-scorecard-naustin-q2.html"
+    },
+    "South Austin": {
+      "grade": "B",
+      "score": "Final 76.1",
+      "file": "branch-scorecard-saustin-q2.html"
+    },
+    "Leander": {
+      "grade": "B",
+      "score": "Final 76.8",
+      "file": "branch-scorecard-leander-q2.html"
+    },
+    "San Antonio": {
+      "grade": "B\u2212",
+      "score": "Final 72.8",
+      "file": "branch-scorecard-sanantonio-q2.html"
+    },
+    "Houston": {
+      "grade": "A",
+      "score": "Final 93.4",
+      "file": "branch-scorecard-houston-q2.html"
+    },
+    "Dallas": {
+      "grade": "C",
+      "score": "Final 70.8",
+      "file": "branch-scorecard-dallas-q2.html"
+    },
+    "Fort Worth": {
+      "grade": "A",
+      "score": "Final 92.3",
+      "file": "branch-scorecard-fortworth-q2.html"
+    },
+    "Garland": {
+      "grade": "B",
+      "score": "Final 75.8",
+      "file": "branch-scorecard-garland-q2.html"
+    },
+    "McKinney": {
+      "grade": "C",
+      "score": "Final 71.3",
+      "file": "branch-scorecard-mckinney-q2.html"
+    },
+    "Tampa": {
+      "grade": "A+",
+      "score": "Final 96.3",
+      "file": "branch-scorecard-tampa-q2.html"
+    }
+  },
+  "debrief": "q2-frontline-packet.html",
+  "qir": "q2-quarter-in-review.html"
 }
