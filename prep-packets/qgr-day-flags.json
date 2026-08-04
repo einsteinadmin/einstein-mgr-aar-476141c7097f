@@ -1,1 +1,6 @@
-{"enabled": false}
+{
+  "enabled": true,
+  "roomDir": "q2-room-c40470bcc392/",
+  "branches": {},
+  "debrief": "q2-frontline-packet.html"
+}
