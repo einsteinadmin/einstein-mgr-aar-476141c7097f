@@ -731,7 +731,7 @@
     <div class="wsw">
       <span class="wsw-label">What — Record revenue, profit behind plan</span>
       <p data-eid="fs-what-1">We did <strong>$8.5M in revenue — up almost 10% over last year, the biggest quarter in company history!</strong> And we didn't just ride a good market: the moving markets around us grew about 2–5% — <strong>we grew at roughly 3× the market's pace</strong>.</p>
-      <p data-eid="fs-what-1b">We hit ~95% of our revenue plan. Profit came in at about <strong>two-thirds of what we planned</strong> — record revenue did not mean record profit this quarter. (July numbers are estimates until books close ~Aug 1.)</p>
+      <p data-eid="fs-what-1b">We finished at <strong>99.3% of our revenue budget</strong> ($8.53M — about $56K short of the target, and 96.9% of the more aggressive internal plan). Profit came in at about <strong>two-thirds of what we planned</strong> — record revenue did not mean record profit this quarter.</p>
     </div>
 
     <!-- Company report card — three-lens composite (_company_composite_q2_26, manifest v0.10.9; Cameron ruling 7/28 eve) -->
@@ -1609,6 +1609,13 @@
     var rawEdits = localStorage.getItem(EDITS_KEY);
     if (rawEdits) edits = JSON.parse(rawEdits) || {};
   } catch (e) { edits = {}; }
+
+  /* one-shot scrub: stored edits predating the 8/4-8/5 close-out restamps (MM 36 -> final 41;
+     revenue ~95% -> final 99.3% budget) must not outrank the corrected page text; drop only those */
+  Object.keys(edits).forEach(function (eid) {
+    if (/36 Magic Moments|95% of our revenue plan/.test(edits[eid])) { delete edits[eid]; }
+  });
+  try { localStorage.setItem(EDITS_KEY, JSON.stringify(edits)); } catch (e) {}
 
   Object.keys(edits).forEach(function (eid) {
     var el = document.querySelector('[data-eid="' + eid + '"]');
