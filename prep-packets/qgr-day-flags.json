@@ -29,5 +29,6 @@
     }
   },
   "debrief": "q2-frontline-packet.html",
-  "qir": "q2-quarter-in-review.html"
+  "qir": "q2-quarter-in-review.html",
+  "flywheel": "https://einsteinadmin.github.io/einstein-flywheel/"
 }

@@ -145,6 +145,7 @@ footer { margin-top: 30px; font-size: 12px; color: #8a97a0; }
 <a class="qtile locked" id="qt-sc"><span class="qt-name">Your Branch Scorecard &mdash; McKinney</span><span class="qt-sub">Unlocks at the QGR</span></a>
 <a class="qtile locked" id="qt-debrief"><span class="qt-name">Q2 Company Debrief</span><span class="qt-sub">Unlocks at the QGR</span></a>
 <a class="qtile locked" id="qt-qir"><span class="qt-name">Q2 Quarter in Review</span><span class="qt-sub">Unlocks at the QGR</span></a>
+<a class="qtile locked" id="qt-flywheel"><span class="qt-name">The Einstein Flywheel</span><span class="qt-sub">Unlocks at the QGR</span></a>
 </div></div>
 <script>
 (function(){
@@ -165,6 +166,7 @@ footer { margin-top: 30px; font-size: 12px; color: #8a97a0; }
       'Open scorecard &rarr; <span class="qt-grade">' + sc.grade + '</span> ' + (sc.score || ''));
     if (sc && f.debrief) unlock('qt-debrief', base + f.debrief, 'Open the company story &rarr;');
     if (sc && f.qir) unlock('qt-qir', base + f.qir, 'Open the quarter in review &rarr;');
+    if (f.flywheel) unlock('qt-flywheel', f.flywheel, 'Open the flywheel &rarr;');
   }).catch(function(){});
 })();
 </script>
