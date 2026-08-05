@@ -26,31 +26,6 @@
       "grade": "A",
       "score": "Final 93.4",
       "file": "branch-scorecard-houston-q2.html"
-    },
-    "Dallas": {
-      "grade": "C",
-      "score": "Final 70.8",
-      "file": "branch-scorecard-dallas-q2.html"
-    },
-    "Fort Worth": {
-      "grade": "A",
-      "score": "Final 92.3",
-      "file": "branch-scorecard-fortworth-q2.html"
-    },
-    "Garland": {
-      "grade": "B",
-      "score": "Final 75.8",
-      "file": "branch-scorecard-garland-q2.html"
-    },
-    "McKinney": {
-      "grade": "C",
-      "score": "Final 71.3",
-      "file": "branch-scorecard-mckinney-q2.html"
-    },
-    "Tampa": {
-      "grade": "A+",
-      "score": "Final 96.3",
-      "file": "branch-scorecard-tampa-q2.html"
     }
   },
   "debrief": "q2-frontline-packet.html",
